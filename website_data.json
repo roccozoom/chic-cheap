@@ -1,0 +1,35 @@
+[
+    {
+        "asin": "B08XXXXXXX",
+        "title": "Women's Summer Boho Floral Midi Dress V-Neck",
+        "price": "$45.99",
+        "image_url": "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?q=80&w=600",
+        "category": "Dresses",
+        "review_text": "The viral steal of the season. Effortless boho-chic vibes meet a perfect V-neck fit for under fifty dollars? Yes, please.",
+        "styling_tip": "Cinch the waist with a wide leather belt and stack layered gold chain necklaces.",
+        "ai_score": 92,
+        "processed_at": "2025-11-19 21:40:37"
+    },
+    {
+        "asin": "B09YYYYYYY",
+        "title": "Classic Aviator Sunglasses Gold Frame",
+        "price": "$15.50",
+        "image_url": "https://images.unsplash.com/photo-1572635196237-14b3f281503f?q=80&w=600",
+        "category": "Accessories",
+        "review_text": "Gold-framed aviators are the ultimate high-low hack. Get that iconic, jet-set swagger without the splurge. Essential hardware.",
+        "styling_tip": "Wear with structured denim and a fresh, crisp white tee for instant cool.",
+        "ai_score": 94,
+        "processed_at": "2025-11-19 21:40:42"
+    },
+    {
+        "asin": "B07ZZZZZZZ",
+        "title": "Chunky Gold Hoops Earrings Lightweight",
+        "price": "$12.99",
+        "image_url": "https://images.unsplash.com/photo-1635767798638-3e25234d6c98?q=80&w=600",
+        "category": "Jewelry",
+        "review_text": "Pure gold glamour without the commitment. The essential statement hoop is here, elevating every look from 9 to 5 to late night.",
+        "styling_tip": "Throw them on with a crisp white T-shirt and tailored wide-leg trousers.",
+        "ai_score": 92,
+        "processed_at": "2025-11-19 21:40:46"
+    }
+]
