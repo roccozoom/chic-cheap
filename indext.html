@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chic-Cheap | AI Curated Fashion Deals</title>
+    <meta name="description" content="Discover the best women's fashion deals on Amazon, curated and analyzed by AI for style and value.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <style>
+        h1, h2, h3, .serif-font { font-family: 'Playfair Display', serif; }
+        body { font-family: 'Lato', sans-serif; }
+        .masonry-grid { column-count: 1; column-gap: 1.5rem; }
+        @media (min-width: 640px) { .masonry-grid { column-count: 2; } }
+        @media (min-width: 1024px) { .masonry-grid { column-count: 3; } }
+        .break-inside-avoid { break-inside: avoid-column; margin-bottom: 1.5rem; }
+        .hover-zoom img { transition: transform 0.5s ease; }
+        .hover-zoom:hover img { transform: scale(1.05); }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 antialiased">
+
+    <!-- NAVBAR -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-2 cursor-pointer" onclick="window.location.reload()">
+                <div class="bg-black text-white p-2 rounded-full"><i class="fa-solid fa-bolt"></i></div>
+                <div>
+                    <span class="text-2xl font-bold serif-font tracking-tight">chic-cheap</span>
+                    <span class="text-xs block text-gray-500 tracking-widest uppercase">AI CURATED FASHION</span>
+                </div>
+            </div>
+            <div class="hidden md:flex space-x-8 text-sm font-medium text-gray-600">
+                <a href="#" class="hover:text-black transition">NEW ARRIVALS</a>
+                <a href="#" class="hover:text-black transition">TRENDING</a>
+                <a href="#" class="hover:text-black transition">DRESSES</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <header class="bg-white border-b border-gray-100 py-12 md:py-16">
+        <div class="container mx-auto px-4 text-center max-w-3xl">
+            <span class="inline-block bg-purple-100 text-purple-800 text-xs font-bold px-3 py-1 rounded-full mb-4">
+                <i class="fa-solid fa-robot mr-1"></i> AI POWERED CURATION
+            </span>
+            <h1 class="text-4xl md:text-6xl font-bold mb-4 leading-tight text-gray-900">
+                Millions of Products.<br><span class="italic text-purple-600">Only the Best.</span>
+            </h1>
+            <p class="text-lg text-gray-500 mb-6">
+                Our AI scans Amazon for hidden gems, price drops, and trending styles so you don't have to.
+            </p>
+        </div>
+    </header>
+
+    <!-- GRID -->
+    <main class="container mx-auto px-4 py-12">
+        <div id="product-grid" class="masonry-grid">
+            <!-- Content loads here -->
+        </div>
+        <div id="loading-state" class="text-center py-20">
+            <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
+            <p class="mt-4 text-gray-500">AI is fetching the latest trends...</p>
+        </div>
+        <div id="error-state" class="hidden text-center py-20 text-red-500">
+            <p>Could not load products. Please try again later.</p>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-gray-900 text-white py-8 mt-12">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-xs text-gray-500">&copy; 2025 Chic-Cheap.com. All rights reserved.</p>
+            <p class="text-[10px] text-gray-600 mt-2">Participant in the Amazon Services LLC Associates Program.</p>
+        </div>
+    </footer>
+
+    <script>
+        const gridContainer = document.getElementById('product-grid');
+        const loadingState = document.getElementById('loading-state');
+        const errorState = document.getElementById('error-state');
+
+        // DATA FETCHING
+        async function loadProducts() {
+            try {
+                // 'website_data.json' dosyasını okumaya çalışır (Python tarafından üretilecek)
+                const response = await fetch('website_data.json');
+                
+                if (!response.ok) throw new Error("Data file not found");
+                
+                const products = await response.json();
+                
+                loadingState.classList.add('hidden');
+                renderProducts(products);
+            } catch (error) {
+                console.error("Error loading data:", error);
+                loadingState.classList.add('hidden');
+                // Eğer dosya yoksa (ilk kurulumda), boş ekran yerine demo veriyi göster
+                // Bu, site boş görünmesin diye bir güvenlik önlemidir.
+                renderFallback(); 
+            }
+        }
+
+        function renderProducts(data) {
+            gridContainer.innerHTML = data.map(product => `
+                <div class="break-inside-avoid bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl transition duration-300 group">
+                    <div class="relative hover-zoom overflow-hidden">
+                        <img src="${product.image_url}" alt="${product.title}" class="w-full h-auto object-cover" onerror="this.src='https://placehold.co/600x800?text=No+Image'">
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur-sm px-2 py-1 rounded flex items-center gap-1 shadow-sm">
+                            <i class="fa-solid fa-wand-magic-sparkles text-purple-600 text-xs"></i>
+                            <span class="text-xs font-bold text-gray-800">AI Score: ${product.ai_score || '85'}</span>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="mb-2"><span class="text-xs text-gray-400 uppercase tracking-wider">${product.category || 'Fashion'}</span></div>
+                        <h3 class="font-bold text-gray-900 text-lg leading-snug mb-2 group-hover:text-purple-700 transition">${product.title}</h3>
+                        
+                        <div class="bg-purple-50 rounded p-2 mb-3 border-l-2 border-purple-400">
+                            <p class="text-xs text-gray-600 italic">"${product.review_text || 'Highly recommended for this season.'}"</p>
+                            <p class="text-[10px] text-purple-700 mt-1 font-bold">💡 Tip: ${product.styling_tip || 'Wear with confidence.'}</p>
+                        </div>
+
+                        <div class="flex items-center justify-between mt-4">
+                            <span class="text-xl font-bold text-gray-900">${product.price}</span>
+                            <a href="${product.link || '#'}" target="_blank" class="bg-black text-white px-4 py-2 rounded-full text-sm hover:bg-purple-600 transition">
+                                View on Amazon <i class="fa-solid fa-arrow-right ml-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderFallback() {
+            // Eğer veri dosyası henüz oluşmamışsa kullanıcıya "Sistem hazırlanıyor" mesajı ver
+            gridContainer.innerHTML = `
+                <div class="col-span-full text-center p-10 bg-gray-50 rounded-lg">
+                    <h3 class="text-xl font-bold text-gray-700">System Initializing...</h3>
+                    <p class="text-gray-500">The AI is curating the first batch of products. Please check back in a few minutes.</p>
+                </div>
+            `;
+        }
+
+        // Başlat
+        loadProducts();
+    </script>
+</body>
+</html>
