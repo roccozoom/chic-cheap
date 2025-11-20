@@ -4,29 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
-    <!-- ========================================== -->
-    <!-- 1. ADIM: ADSENSE GLOBAL KODUNU BURAYA YAPIŞTIR -->
-    <!-- AdSense panelinden aldığın <script> kodunu buraya yapıştır. -->
-    <!-- ÖRNEK (Kendi kodunla değiştir): -->
+    <!-- 1. ADIM: ADSENSE GLOBAL KODUNU BURAYA YAPIŞTIRMAYI UNUTMA -->
     <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> -->
-    <!-- ========================================== -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4267818870826080"
      crossorigin="anonymous"></script>
-
     <!-- SEO & Meta Tags -->
     <title>Chic-Cheap | AI Curated Fashion Deals & Trends</title>
     <meta name="description" content="Discover the best women's fashion deals on Amazon using AI. Curated dresses, jewelry, and trends at the best prices. Shop smarter with Chic-Cheap.">
     <meta name="keywords" content="fashion deals, AI fashion, amazon finds, boho dresses, affordable style, women clothing">
     <meta name="author" content="Chic-Cheap AI">
     
-    <!-- Social Media (Open Graph) -->
+    <!-- Open Graph -->
     <meta property="og:title" content="Chic-Cheap | AI Powered Fashion Curation">
-    <meta property="og:description" content="Don't search for hours. Our AI finds the best fashion deals for you.">
     <meta property="og:image" content="https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=1000">
     <meta property="og:url" content="https://chic-cheap.com">
     <meta property="og:type" content="website">
 
-    <!-- PWA Ayarları -->
+    <!-- PWA -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#ffffff">
     <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3050/3050239.png">
@@ -39,7 +33,6 @@
     <style>
         h1, h2, h3, .serif-font { font-family: 'Playfair Display', serif; }
         body { font-family: 'Lato', sans-serif; scroll-behavior: smooth; }
-        
         .masonry-grid { column-count: 1; column-gap: 1.5rem; }
         @media (min-width: 640px) { .masonry-grid { column-count: 2; } }
         @media (min-width: 1024px) { .masonry-grid { column-count: 3; } }
@@ -47,16 +40,25 @@
         .hover-zoom img { transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
         .hover-zoom:hover img { transform: scale(1.05); }
         
-        /* Reklam Alanı Stili (Reklam Yüklenmezse Şık Dursun) */
-        .ad-container {
+        /* Reklam ve Kart Alanı Stili */
+        .mixed-card {
             min-height: 250px;
-            background: #f9fafb;
             border-radius: 0.75rem;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             overflow: hidden;
+            text-align: center;
+            padding: 20px;
+            transition: transform 0.3s ease;
         }
+        .mixed-card:hover { transform: translateY(-5px); }
+        
+        .pinterest-card { background: linear-gradient(135deg, #E60023 0%, #b3001b 100%); color: white; }
+        .best-seller-card { background: linear-gradient(135deg, #111827 0%, #374151 100%); color: white; }
+        .ad-container { background: #f9fafb; border: 1px dashed #d1d5db; }
+
     </style>
 </head>
 <body class="bg-white text-gray-800 antialiased">
@@ -80,15 +82,20 @@
         </div>
     </nav>
 
-    <!-- HEADER ALTINDAKİ İLK REKLAM -->
+    <!-- HEADER ALTINDAKİ REKLAM (Bunu Tutuyoruz) -->
     <div class="container mx-auto px-4 mt-6 mb-2">
-        <div class="ad-container w-full">
-            <!-- Buraya AdSense kodunu dinamik olarak basacağız -->
-            <p class="text-xs text-gray-300">Sponsored</p>
+        <div class="mixed-card ad-container w-full !h-24 !min-h-0">
+            <ins class="adsbygoogle"
+                 style="display:block; width:100%; height:100%"
+                 data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" 
+                 data-ad-slot="XXXXXXXXXX"
+                 data-ad-format="horizontal"
+                 data-full-width-responsive="true"></ins>
+            <span class="text-[10px] text-gray-400 mt-1">Sponsored</span>
         </div>
     </div>
 
-    <!-- HERO SECTION -->
+    <!-- HERO -->
     <header class="py-16 md:py-20 text-center px-4">
         <div class="max-w-4xl mx-auto">
             <span class="inline-flex items-center bg-purple-50 text-purple-700 text-xs font-bold px-4 py-1.5 rounded-full mb-6 shadow-sm border border-purple-100">
@@ -100,7 +107,7 @@
         </div>
     </header>
 
-    <!-- MAIN CONTENT -->
+    <!-- MAIN GRID -->
     <main class="container mx-auto px-4 pb-20" id="product-grid">
         <div class="flex items-center justify-between mb-8 border-b border-gray-100 pb-4" id="trending">
             <h2 class="text-2xl font-bold serif-font">Trending Now</h2>
@@ -120,10 +127,11 @@
 
     <script>
         // ==========================================
-        // 2. ADIM: REKLAM AYARLARINI BURAYA GİR
+        // AYARLAR: BURALARI KENDİNE GÖRE DOLDUR
         // ==========================================
-        const ADSENSE_CLIENT_ID = "ca-pub-4267818870826080"; // Kendi 'ca-pub-...' kodunu buraya yaz (Tırnak içinde)
-        const ADSENSE_SLOT_ID = "7287051976"; // Oluşturduğun 'Display Ad' biriminin slot ID'sini buraya yaz
+        const ADSENSE_CLIENT_ID = "ca-pub-4267818870826080"; // Senin ID'n
+        const ADSENSE_SLOT_ID = "7287051976"; // Reklam Birimi ID'si
+        const PINTEREST_URL = "https://www.pinterest.com/chiccheaphelp/"; // Senin Pinterest Profil Linkin
         // ==========================================
 
         const grid = document.getElementById('grid-container');
@@ -144,6 +152,8 @@
 
         function render(products) {
             let html = '';
+            let adCounter = 0; // Hangi kartı göstereceğimizi saymak için
+
             products.forEach((p, index) => {
                 // ÜRÜN KARTI
                 html += `
@@ -168,36 +178,54 @@
                     </div>
                 </div>`;
 
-                // REKLAM ALANI (Her 4 üründe bir)
+                // HER 4 ÜRÜNDE BİR ARAYA GİR (KARIŞIK KARTLAR)
                 if ((index + 1) % 4 === 0) {
-                    html += `
-                    <div class="break-inside-avoid mb-6 ad-wrapper">
-                        <div class="ad-container w-full">
-                            <!-- AdSense Kodunu JS ile buraya basacağız -->
+                    adCounter++;
+                    html += `<div class="break-inside-avoid mb-6">`;
+                    
+                    // SIRA 1: GOOGLE REKLAMI (Para)
+                    if (adCounter % 3 === 1) {
+                        html += `
+                        <div class="mixed-card ad-container">
                             <ins class="adsbygoogle"
-                                 style="display:block"
+                                 style="display:block; width:100%;"
                                  data-ad-client="${ADSENSE_CLIENT_ID}"
                                  data-ad-slot="${ADSENSE_SLOT_ID}"
                                  data-ad-format="auto"
                                  data-full-width-responsive="true"></ins>
-                        </div>
-                    </div>`;
+                        </div>`;
+                    } 
+                    // SIRA 2: PINTEREST KARTI (Trafik)
+                    else if (adCounter % 3 === 2) {
+                        html += `
+                        <a href="${PINTEREST_URL}" target="_blank" class="mixed-card pinterest-card shadow-lg cursor-pointer group">
+                            <i class="fa-brands fa-pinterest text-5xl mb-4 group-hover:scale-110 transition"></i>
+                            <h3 class="text-xl font-bold mb-2">Follow Trends</h3>
+                            <p class="text-white/90 text-sm mb-4">Get daily fashion inspiration on our Pinterest!</p>
+                            <span class="bg-white text-[#E60023] px-6 py-2 rounded-full font-bold text-sm">Follow Us</span>
+                        </a>`;
+                    }
+                    // SIRA 3: EN ÇOK SATANLAR (Satış)
+                    else {
+                        html += `
+                        <div class="mixed-card best-seller-card shadow-lg">
+                            <i class="fa-solid fa-fire text-4xl text-yellow-400 mb-4"></i>
+                            <h3 class="text-xl font-bold mb-2">Hot Deals</h3>
+                            <p class="text-gray-300 text-sm mb-4">Don't miss out on today's best prices.</p>
+                            <span class="border border-white/30 text-white px-6 py-2 rounded-full font-bold text-sm">View All</span>
+                        </div>`;
+                    }
+                    html += `</div>`;
                 }
             });
             grid.innerHTML = html;
         }
 
-        // Reklamları Tetikleyen Fonksiyon
         function initAds() {
             try {
-                // Sayfadaki tüm .adsbygoogle etiketlerini bul ve doldur
                 const ads = document.querySelectorAll('.adsbygoogle');
-                ads.forEach(ad => {
-                    (window.adsbygoogle = window.adsbygoogle || []).push({});
-                });
-            } catch (e) {
-                console.log("AdSense henüz yüklenmedi veya bir hata oluştu.");
-            }
+                ads.forEach(ad => { (window.adsbygoogle = window.adsbygoogle || []).push({}); });
+            } catch (e) { console.log("Ads error"); }
         }
 
         init();
