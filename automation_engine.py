@@ -15,7 +15,10 @@ AMAZON_SECRET = os.environ.get("AMAZON_SECRET_KEY")
 AMAZON_TAG = os.environ.get("AMAZON_TAG")
 REAL_AMAZON_TAG = "chiche0420-20"
 COUNTRY = "US"
-BOARD_NAME = "Summer Trends 2025" # Pinterest'teki pano adıyla AYNI olmalı
+
+# --- PANO ADINI BURAYA SABİTLEDİK ---
+# Lütfen Pinterest'teki panonun adını harfi harfine buraya yaz.
+BOARD_NAME = "Summer Trends 2025" 
 
 # Dinamik Konfigürasyon
 SITE_CONFIG = {
@@ -99,7 +102,7 @@ class AIContentGenerator:
                 "pin_title": "Trendy Fashion Find", "pin_desc": "Check out this style #fashion"
             }
 
-# --- PINTEREST XML ---
+# --- XML OLUŞTURUCU (Gelecek için) ---
 def create_pinterest_feed(products):
     rss = ET.Element("rss", version="2.0")
     channel = ET.SubElement(rss, "channel")
@@ -120,28 +123,30 @@ def create_pinterest_feed(products):
     tree = ET.ElementTree(rss)
     tree.write("pinterest.xml", encoding='utf-8', xml_declaration=True)
 
-# --- PINTEREST CSV (DÜZELTİLMİŞ V7) ---
+# --- CSV OLUŞTURUCU (V8.0 - En Basit Format) ---
 def create_pinterest_csv(products):
-    print("📊 Pinterest CSV Dosyası Hazırlanıyor...")
-    # DÜZELTME: Pinterest'in Resmi Standart Başlıkları
-    # Title | Description | Destination Link | Image URL | Board
+    print("📊 Pinterest CSV Dosyası Hazırlanıyor (Standart)...")
+    
+    # Pinterest'in EN BASİT formatı: Title, Description, Link, Image, Board
+    # BOM (utf-8-sig) kullanmıyoruz, standart utf-8 ve QUOTE_ALL kullanıyoruz.
     with open('pinterest_upload.csv', 'w', newline='', encoding='utf-8') as csvfile:
-        fieldnames = ['Title', 'Description', 'Destination Link', 'Image URL', 'Board']
-        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        fieldnames = ['Title', 'Description', 'Link', 'Image', 'Board']
+        # quoting=csv.QUOTE_ALL: Her şeyi tırnak içine al (Hata riskini azaltır)
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames, quoting=csv.QUOTE_ALL)
         writer.writeheader()
         
         for p in products:
             writer.writerow({
                 'Title': p.get('pin_title', p['title']),
                 'Description': p.get('pin_desc', p['title']),
-                'Destination Link': "https://chic-cheap.com", # Pinterest Linki
-                'Image URL': p['image_url'], 
-                'Board': BOARD_NAME
+                'Link': "https://chic-cheap.com",
+                'Image': p['image_url'], # Sadece 'Image' olarak değiştirdik
+                'Board': BOARD_NAME      # Sabit değişkeni kullandık
             })
     print("✅ pinterest_upload.csv oluşturuldu!")
 
 def main():
-    print("--- 🚀 Chic-Cheap V7.0 (Final CSV) ---")
+    print("--- 🚀 Chic-Cheap V8.0 (Final Header Fix) ---")
     processed_products = []
     ai_engine = AIContentGenerator()
     
