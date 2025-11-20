@@ -15,9 +15,10 @@ AMAZON_SECRET = os.environ.get("AMAZON_SECRET_KEY")
 AMAZON_TAG = os.environ.get("AMAZON_TAG")
 REAL_AMAZON_TAG = "chiche0420-20"
 COUNTRY = "US"
-BOARD_NAME = "Summer Trends 2025" # Pinterest'teki pano adıyla aynı olmalı
 
-# Dinamik Konfigürasyon
+# Pano adını buraya yazdım, Pinterest'tekiyle birebir aynı olmalı.
+BOARD_NAME = "Summer Trends 2025" 
+
 SITE_CONFIG = {
     "adsense_id": os.environ.get("ADSENSE_ID", ""),
     "adsense_slot": os.environ.get("ADSENSE_SLOT", ""),
@@ -99,7 +100,6 @@ class AIContentGenerator:
                 "pin_title": "Trendy Fashion Find", "pin_desc": "Check out this style #fashion"
             }
 
-# --- PINTEREST XML ---
 def create_pinterest_feed(products):
     rss = ET.Element("rss", version="2.0")
     channel = ET.SubElement(rss, "channel")
@@ -120,19 +120,15 @@ def create_pinterest_feed(products):
     tree = ET.ElementTree(rss)
     tree.write("pinterest.xml", encoding='utf-8', xml_declaration=True)
 
-# --- PINTEREST CSV (KESİN FORMAT) ---
+# --- CSV OLUŞTURUCU (V10 - ZIRHLI FORMAT) ---
 def create_pinterest_csv(products):
-    print("📊 Pinterest CSV Dosyası Hazırlanıyor (Standart)...")
+    print("📊 Pinterest CSV Dosyası Hazırlanıyor (UTF-8-SIG + QuoteAll)...")
     
-    # Pinterest'in istediği EN NET format (Baş harfler büyük)
-    # Title, Description, Link, Image, Board
-    
-    # DÜZELTME: newline='' ile satır atlamalarını önlüyoruz
-    with open('pinterest_upload.csv', 'w', newline='', encoding='utf-8') as csvfile:
+    # 1. utf-8-sig: Excel ve Pinterest'in karakterleri tanımasını sağlar (BOM)
+    # 2. QUOTE_ALL: Her hücreyi "..." içine alır, böylece virgüller karışmaz.
+    with open('pinterest_upload.csv', 'w', newline='', encoding='utf-8-sig') as csvfile:
         fieldnames = ['Title', 'Description', 'Link', 'Image', 'Board']
-        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-        
-        # Başlıkları yaz
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames, quoting=csv.QUOTE_ALL)
         writer.writeheader()
         
         for p in products:
@@ -146,7 +142,7 @@ def create_pinterest_csv(products):
     print("✅ pinterest_upload.csv oluşturuldu!")
 
 def main():
-    print("--- 🚀 Chic-Cheap V9.0 (Final CSV Fix) ---")
+    print("--- 🚀 Chic-Cheap V10.0 (Final CSV) ---")
     processed_products = []
     ai_engine = AIContentGenerator()
     
@@ -170,7 +166,6 @@ def main():
         except:
             continue
 
-    # Config ve Ürünleri Paketle
     final_output = {
         "config": SITE_CONFIG,
         "products": final_data
