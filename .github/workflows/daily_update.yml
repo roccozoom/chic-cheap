@@ -2,8 +2,8 @@ name: Daily Fashion Update
 
 on:
   schedule:
-    - cron: '0 6 * * *' # Her sabah otomatik çalış
-  workflow_dispatch: # Manuel buton
+    - cron: '0 6 * * *'
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -19,17 +19,15 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.9'
+          python-version: '3.11' # GÜNCELLEME: 3.9 yerine 3.11 yaptık!
 
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          # İŞTE BURASI: Amazon kütüphanesini ekledik
           pip install google-generativeai requests python-amazon-paapi
 
       - name: Run Automation Engine
         env:
-          # İŞTE BURASI: Amazon şifrelerini robota tanıtıyoruz
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           AMAZON_ACCESS_KEY: ${{ secrets.AMAZON_ACCESS_KEY }}
           AMAZON_SECRET_KEY: ${{ secrets.AMAZON_SECRET_KEY }}
