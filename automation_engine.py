@@ -115,8 +115,9 @@ def create_pinterest_feed(products):
 # --- PINTEREST CSV (EXCEL) OLUŞTURUCU ---
 def create_pinterest_csv(products):
     print("📊 Pinterest CSV Dosyası Hazırlanıyor...")
+    # Pinterest Standart Başlıkları: Title, Description, Link, Image, Board
     with open('pinterest_upload.csv', 'w', newline='', encoding='utf-8') as csvfile:
-        fieldnames = ['Title', 'Description', 'Link', 'Image URL', 'Board Name']
+        fieldnames = ['Title', 'Description', 'Link', 'Image', 'Board'] # DÜZELTME BURADA
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()
         
@@ -125,13 +126,13 @@ def create_pinterest_csv(products):
                 'Title': p.get('pin_title', p['title']),
                 'Description': p.get('pin_desc', p['title']),
                 'Link': "https://chic-cheap.com",
-                'Image URL': p['image_url'],
-                'Board Name': "Summer Trends 2025"
+                'Image': p['image_url'], # DÜZELTME BURADA
+                'Board': "Summer Trends 2025" # DÜZELTME BURADA
             })
     print("✅ pinterest_upload.csv oluşturuldu!")
 
 def main():
-    print("--- 🚀 Chic-Cheap V5.0 (CSV + XML) ---")
+    print("--- 🚀 Chic-Cheap V5.1 (CSV Fix) ---")
     processed_products = []
     ai_engine = AIContentGenerator()
     
@@ -139,6 +140,7 @@ def main():
     try:
         if all([GEMINI_KEY, AMAZON_KEY, AMAZON_SECRET]):
             items = amazon.search_items(keywords="Womens Fashion", item_count=1)
+            # api_success = True (Satış sonrası açılacak)
     except:
         pass
 
