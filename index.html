@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="p:domain_verify" content="373005ef4dda5d85694d9b8d12f2197f"/>
-    <!-- 1. ADIM: ADSENSE GLOBAL KODUNU BURAYA YAPIŞTIRMAYI UNUTMA -->
+    
+    <!-- 1. ADIM: ADSENSE GLOBAL KODUNU BURAYA YAPIŞTIR -->
     <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4267818870826080"
      crossorigin="anonymous"></script>
@@ -14,13 +14,13 @@
     <meta name="keywords" content="fashion deals, AI fashion, amazon finds, boho dresses, affordable style, women clothing">
     <meta name="author" content="Chic-Cheap AI">
     
-    <!-- Open Graph -->
+    <!-- Social Media (Open Graph) -->
     <meta property="og:title" content="Chic-Cheap | AI Powered Fashion Curation">
     <meta property="og:image" content="https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=1000">
     <meta property="og:url" content="https://chic-cheap.com">
     <meta property="og:type" content="website">
 
-    <!-- PWA -->
+    <!-- PWA Ayarları -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#ffffff">
     <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3050/3050239.png">
@@ -40,7 +40,7 @@
         .hover-zoom img { transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
         .hover-zoom:hover img { transform: scale(1.05); }
         
-        /* Reklam ve Kart Alanı Stili */
+        /* Kart Stilleri */
         .mixed-card {
             min-height: 250px;
             border-radius: 0.75rem;
@@ -58,7 +58,6 @@
         .pinterest-card { background: linear-gradient(135deg, #E60023 0%, #b3001b 100%); color: white; }
         .best-seller-card { background: linear-gradient(135deg, #111827 0%, #374151 100%); color: white; }
         .ad-container { background: #f9fafb; border: 1px dashed #d1d5db; }
-
     </style>
 </head>
 <body class="bg-white text-gray-800 antialiased">
@@ -82,16 +81,16 @@
         </div>
     </nav>
 
-    <!-- HEADER ALTINDAKİ REKLAM (Bunu Tutuyoruz) -->
+    <!-- HEADER REKLAMI -->
     <div class="container mx-auto px-4 mt-6 mb-2">
         <div class="mixed-card ad-container w-full !h-24 !min-h-0">
+            <span class="text-[10px] text-gray-400 mt-1">Advertisement</span>
             <ins class="adsbygoogle"
                  style="display:block; width:100%; height:100%"
-                 data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" 
-                 data-ad-slot="XXXXXXXXXX"
+                 data-ad-client="ca-pub-4267818870826080" 
+                 data-ad-slot="7287051976"
                  data-ad-format="horizontal"
                  data-full-width-responsive="true"></ins>
-            <span class="text-[10px] text-gray-400 mt-1">Sponsored</span>
         </div>
     </div>
 
@@ -127,35 +126,59 @@
 
     <script>
         // ==========================================
-        // AYARLAR: BURALARI KENDİNE GÖRE DOLDUR
-        // ==========================================
-        const ADSENSE_CLIENT_ID = "ca-pub-4267818870826080"; // Senin ID'n
-        const ADSENSE_SLOT_ID = "7287051976"; // Reklam Birimi ID'si
-        const PINTEREST_URL = "https://www.pinterest.com/chiccheaphelp/"; // Senin Pinterest Profil Linkin
+        // AYARLAR:
+        const ADSENSE_CLIENT_ID = "ca-pub-4267818870826080"; 
+        const ADSENSE_SLOT_ID = "7287051976"; 
+        const PINTEREST_URL = "https://www.pinterest.com/chiccheaphelp"; 
         // ==========================================
 
         const grid = document.getElementById('grid-container');
         const loader = document.getElementById('loading-state');
         const FALLBACK_IMAGE = "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=600";
-        const MOCK_DATA = [{"title": "Boho Dress", "price": "$39.99", "image_url": FALLBACK_IMAGE, "link": "#", "ai_score": 94}];
+        
+        const MOCK_DATA = [
+            {"title": "Boho Summer Dress", "price": "$39.99", "image_url": "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?q=80&w=600", "link": "#", "ai_score": 94},
+            {"title": "Denim Jacket", "price": "$45.50", "image_url": "https://images.unsplash.com/photo-1544441893-675973e31985?q=80&w=600", "link": "#", "ai_score": 88},
+            {"title": "Gold Necklace", "price": "$14.99", "image_url": "https://images.unsplash.com/photo-1599643478518-17488fbbcd75?q=80&w=600", "link": "#", "ai_score": 91},
+            {"title": "Cat Eye Sunglasses", "price": "$18.99", "image_url": "https://images.unsplash.com/photo-1511499767150-a48a237f0083?q=80&w=600", "link": "#", "ai_score": 85},
+            {"title": "Canvas Sneakers", "price": "$29.99", "image_url": "https://images.unsplash.com/photo-1560769629-975ec94e6a86?q=80&w=600", "link": "#", "ai_score": 89}
+        ];
 
         async function init() {
-            if (window.location.protocol === 'blob:') { render(MOCK_DATA); loader.classList.add('hidden'); return; }
+            // GÜÇLENDİRİLMİŞ ÖNİZLEME KONTROLÜ
+            // Eğer ortam bir 'blob' (önizleme) ise, fetch'i hiç denemeden yedekleri yükle.
+            const isPreview = window.location.protocol === 'blob:' || 
+                              window.location.href.includes('blob:') || 
+                              window.location.protocol === 'file:';
+
+            if (isPreview) {
+                console.log("Önizleme Modu: Hata oluşmaması için yedek veriler yükleniyor.");
+                render(MOCK_DATA);
+                loader.classList.add('hidden');
+                return; // Fetch işlemini atla
+            }
+
             try {
                 const res = await fetch(`website_data.json?t=${new Date().getTime()}`);
-                if (!res.ok) throw new Error("Veri yok");
+                if (!res.ok) throw new Error("Veri dosyası bulunamadı.");
+                
                 const products = await res.json();
                 render(products);
-            } catch (err) { render(MOCK_DATA); } 
-            finally { loader.classList.add('hidden'); initAds(); }
+            } catch (err) {
+                // Canlı sitede bile dosya yoksa boş sayfa gösterme
+                console.log("Veri çekilemedi, yedek veri devreye girdi.");
+                render(MOCK_DATA); 
+            } finally {
+                loader.classList.add('hidden');
+                initAds();
+            }
         }
 
         function render(products) {
             let html = '';
-            let adCounter = 0; // Hangi kartı göstereceğimizi saymak için
+            let adCounter = 0;
 
             products.forEach((p, index) => {
-                // ÜRÜN KARTI
                 html += `
                 <div class="break-inside-avoid group mb-6">
                     <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl transition duration-500">
@@ -178,12 +201,10 @@
                     </div>
                 </div>`;
 
-                // HER 4 ÜRÜNDE BİR ARAYA GİR (KARIŞIK KARTLAR)
                 if ((index + 1) % 4 === 0) {
                     adCounter++;
                     html += `<div class="break-inside-avoid mb-6">`;
                     
-                    // SIRA 1: GOOGLE REKLAMI (Para)
                     if (adCounter % 3 === 1) {
                         html += `
                         <div class="mixed-card ad-container">
@@ -193,25 +214,20 @@
                                  data-ad-slot="${ADSENSE_SLOT_ID}"
                                  data-ad-format="auto"
                                  data-full-width-responsive="true"></ins>
+                            <span class="text-[10px] text-gray-400">Sponsored</span>
                         </div>`;
-                    } 
-                    // SIRA 2: PINTEREST KARTI (Trafik)
-                    else if (adCounter % 3 === 2) {
+                    } else if (adCounter % 3 === 2) {
                         html += `
                         <a href="${PINTEREST_URL}" target="_blank" class="mixed-card pinterest-card shadow-lg cursor-pointer group">
                             <i class="fa-brands fa-pinterest text-5xl mb-4 group-hover:scale-110 transition"></i>
                             <h3 class="text-xl font-bold mb-2">Follow Trends</h3>
-                            <p class="text-white/90 text-sm mb-4">Get daily fashion inspiration on our Pinterest!</p>
                             <span class="bg-white text-[#E60023] px-6 py-2 rounded-full font-bold text-sm">Follow Us</span>
                         </a>`;
-                    }
-                    // SIRA 3: EN ÇOK SATANLAR (Satış)
-                    else {
+                    } else {
                         html += `
                         <div class="mixed-card best-seller-card shadow-lg">
                             <i class="fa-solid fa-fire text-4xl text-yellow-400 mb-4"></i>
                             <h3 class="text-xl font-bold mb-2">Hot Deals</h3>
-                            <p class="text-gray-300 text-sm mb-4">Don't miss out on today's best prices.</p>
                             <span class="border border-white/30 text-white px-6 py-2 rounded-full font-bold text-sm">View All</span>
                         </div>`;
                     }
@@ -225,11 +241,10 @@
             try {
                 const ads = document.querySelectorAll('.adsbygoogle');
                 ads.forEach(ad => { (window.adsbygoogle = window.adsbygoogle || []).push({}); });
-            } catch (e) { console.log("Ads error"); }
+            } catch (e) { console.log("Ads waiting..."); }
         }
 
         init();
     </script>
 </body>
 </html>
-
