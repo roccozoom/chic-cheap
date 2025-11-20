@@ -15,6 +15,7 @@ AMAZON_SECRET = os.environ.get("AMAZON_SECRET_KEY")
 AMAZON_TAG = os.environ.get("AMAZON_TAG")
 REAL_AMAZON_TAG = "chiche0420-20"
 COUNTRY = "US"
+BOARD_NAME = "Summer Trends 2025" # Pinterest'teki pano adıyla AYNI olmalı
 
 # Dinamik Konfigürasyon
 SITE_CONFIG = {
@@ -119,13 +120,13 @@ def create_pinterest_feed(products):
     tree = ET.ElementTree(rss)
     tree.write("pinterest.xml", encoding='utf-8', xml_declaration=True)
 
-# --- PINTEREST CSV (KESİN ÇÖZÜM) ---
+# --- PINTEREST CSV (DÜZELTİLMİŞ V7) ---
 def create_pinterest_csv(products):
-    print("📊 Pinterest CSV Dosyası Hazırlanıyor (UTF-8-SIG)...")
-    # DÜZELTME: Başlıklar Pinterest'in istediği standarta çekildi
-    # 'Image URL' -> 'Image', 'Board Name' -> 'Board'
-    with open('pinterest_upload.csv', 'w', newline='', encoding='utf-8-sig') as csvfile:
-        fieldnames = ['Title', 'Description', 'Link', 'Image', 'Board']
+    print("📊 Pinterest CSV Dosyası Hazırlanıyor...")
+    # DÜZELTME: Pinterest'in Resmi Standart Başlıkları
+    # Title | Description | Destination Link | Image URL | Board
+    with open('pinterest_upload.csv', 'w', newline='', encoding='utf-8') as csvfile:
+        fieldnames = ['Title', 'Description', 'Destination Link', 'Image URL', 'Board']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()
         
@@ -133,14 +134,14 @@ def create_pinterest_csv(products):
             writer.writerow({
                 'Title': p.get('pin_title', p['title']),
                 'Description': p.get('pin_desc', p['title']),
-                'Link': "https://chic-cheap.com",
-                'Image': p['image_url'], 
-                'Board': "Summer Trends 2025" # Bu pano Pinterest'te MUTLAKA olmalı
+                'Destination Link': "https://chic-cheap.com", # Pinterest Linki
+                'Image URL': p['image_url'], 
+                'Board': BOARD_NAME
             })
     print("✅ pinterest_upload.csv oluşturuldu!")
 
 def main():
-    print("--- 🚀 Chic-Cheap V6.2 (Header Fix) ---")
+    print("--- 🚀 Chic-Cheap V7.0 (Final CSV) ---")
     processed_products = []
     ai_engine = AIContentGenerator()
     
