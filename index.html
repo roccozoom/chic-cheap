@@ -4,14 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
+    <!-- BURAYA DİKKAT: Google Search Console kodunu buraya tekrar yapıştırmayı unutma -->
+    <meta name="google-site-verification" content="H-PqzN3KrM0O4ro2d-UafKktwugGyhub4uC4DltyxPU" />
+    <!-- <meta name="google-site-verification" content="..." /> -->
+    
     <!-- SEO & Meta Tags -->
     <title>Chic-Cheap | AI Curated Fashion Deals & Trends</title>
     <meta name="description" content="Discover the best women's fashion deals on Amazon using AI. Curated dresses, jewelry, and trends at the best prices. Shop smarter with Chic-Cheap.">
     <meta name="keywords" content="fashion deals, AI fashion, amazon finds, boho dresses, affordable style, women clothing">
     <meta name="author" content="Chic-Cheap AI">
-    <meta name="google-site-verification" content="H-PqzN3KrM0O4ro2d-UafKktwugGyhub4uC4DltyxPU" />
-    <!-- Search Console Doğrulama Kodunu Buraya Ekleyebilirsin -->
-
+    
     <!-- Social Media (Open Graph) -->
     <meta property="og:title" content="Chic-Cheap | AI Powered Fashion Curation">
     <meta property="og:description" content="Don't search for hours. Our AI finds the best fashion deals for you.">
@@ -74,7 +76,7 @@
                 </div>
             </div>
             
-            <!-- Desktop Menu (Aktif Linkler) -->
+            <!-- Desktop Menu -->
             <div class="hidden md:flex space-x-8 text-sm font-medium text-gray-500">
                 <a href="#product-grid" class="hover:text-black transition border-b-2 border-transparent hover:border-black py-1">NEW ARRIVALS</a>
                 <a href="#trending" class="hover:text-black transition border-b-2 border-transparent hover:border-black py-1">TRENDING</a>
@@ -178,13 +180,14 @@
         const loader = document.getElementById('loading-state');
         const FALLBACK_IMAGE = "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=600&auto=format&fit=crop";
 
-        // --- MOCK DATA (Yedek Paraşütü) ---
+        // --- MOCK DATA (Yedek Veriler) ---
+        // Önizleme modunda veya dosya bulunamadığında bu veriler gösterilir.
         const MOCK_DATA = [
             {
                 "title": "Bohemian Summer Floral Maxi Dress",
                 "price": "$39.99",
                 "image_url": "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?q=80&w=600&auto=format&fit=crop",
-                "link": "https://www.amazon.com/s?k=boho+dress",
+                "link": "#",
                 "category": "Dress",
                 "review_text": "A must-have for summer, featuring breathable fabric and vibrant prints.",
                 "styling_tip": "Pair with sandals.",
@@ -194,7 +197,7 @@
                 "title": "Classic Oversized Denim Jacket",
                 "price": "$45.50",
                 "image_url": "https://images.unsplash.com/photo-1544441893-675973e31985?q=80&w=600&auto=format&fit=crop",
-                "link": "https://www.amazon.com/s?k=denim+jacket",
+                "link": "#",
                 "category": "Jacket",
                 "review_text": "Timeless style that goes with everything.",
                 "styling_tip": "Layer over a hoodie.",
@@ -204,7 +207,7 @@
                 "title": "Minimalist Gold Layered Necklace",
                 "price": "$14.99",
                 "image_url": "https://images.unsplash.com/photo-1599643478518-17488fbbcd75?q=80&w=600&auto=format&fit=crop",
-                "link": "https://www.amazon.com/s?k=gold+necklace",
+                "link": "#",
                 "category": "Jewelry",
                 "review_text": "Adds a touch of elegance to any outfit.",
                 "styling_tip": "Wear with V-neck.",
@@ -214,7 +217,7 @@
                 "title": "Vintage Cat Eye Sunglasses",
                 "price": "$18.99",
                 "image_url": "https://images.unsplash.com/photo-1511499767150-a48a237f0083?q=80&w=600&auto=format&fit=crop",
-                "link": "https://www.amazon.com/s?k=cat+eye+sunglasses",
+                "link": "#",
                 "category": "Accessories",
                 "review_text": "Retro chic vibes for sunny days.",
                 "styling_tip": "Perfect for beach days.",
@@ -224,7 +227,7 @@
                 "title": "White Summer Canvas Sneakers",
                 "price": "$29.99",
                 "image_url": "https://images.unsplash.com/photo-1560769629-975ec94e6a86?q=80&w=600&auto=format&fit=crop",
-                "link": "https://www.amazon.com/s?k=white+sneakers",
+                "link": "#",
                 "category": "Shoes",
                 "review_text": "Comfort meets style in these everyday sneakers.",
                 "styling_tip": "Match with jeans.",
@@ -233,30 +236,28 @@
         ];
 
         async function init() {
-            // Önizleme (Blob) ortamında çalışıyorsak fetch yapmaya çalışıp hata almak yerine
-            // doğrudan Mock Data gösterelim.
+            // 1. Önizleme (Blob URL) Kontrolü - Burası hatayı çözer
             if (window.location.protocol === 'blob:') {
-                console.log("Önizleme Modu: Otomatik olarak yedek veriler yükleniyor.");
+                console.log("Önizleme Modu Tespit Edildi: Yedek veriler yükleniyor.");
                 render(MOCK_DATA);
                 loader.classList.add('hidden');
-                return;
+                return; // Fonksiyondan çık, fetch yapma
             }
 
             try {
-                // Canlı sitede gerçek veriyi çek
+                // 2. Canlı Sitede Veriyi Çek
                 const res = await fetch(`website_data.json?t=${new Date().getTime()}`);
                 
                 if (!res.ok) {
-                    throw new Error("Veri dosyası henüz oluşmadı.");
+                    throw new Error("Veri dosyası bulunamadı.");
                 }
                 
                 const products = await res.json();
                 render(products);
                 
             } catch (err) {
-                // Eğer dosya yoksa veya bir hata olursa (örn: ilk kurulum anı)
-                // Ziyaretçiye boş sayfa gösterme, hemen yedekleri devreye sok.
-                console.warn("Canlı veri bulunamadı, vitrin modu açılıyor...", err);
+                // 3. Hata Olursa (Dosya yoksa) Yedekleri Göster
+                console.warn("Canlı veri henüz oluşmadı, vitrin modu açılıyor...", err);
                 render(MOCK_DATA); 
             } finally {
                 loader.classList.add('hidden');
