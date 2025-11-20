@@ -115,7 +115,6 @@ def create_pinterest_feed(products):
 # --- PINTEREST CSV (EXCEL) OLUŞTURUCU ---
 def create_pinterest_csv(products):
     print("📊 Pinterest CSV Dosyası Hazırlanıyor...")
-    # Pinterest CSV Formatı: Title, Description, Link, Image Link, Board Name
     with open('pinterest_upload.csv', 'w', newline='', encoding='utf-8') as csvfile:
         fieldnames = ['Title', 'Description', 'Link', 'Image URL', 'Board Name']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
@@ -127,7 +126,7 @@ def create_pinterest_csv(products):
                 'Description': p.get('pin_desc', p['title']),
                 'Link': "https://chic-cheap.com",
                 'Image URL': p['image_url'],
-                'Board Name': "Summer Trends 2025" # Buraya kendi pano adını yazabilirsin
+                'Board Name': "Summer Trends 2025"
             })
     print("✅ pinterest_upload.csv oluşturuldu!")
 
@@ -140,7 +139,6 @@ def main():
     try:
         if all([GEMINI_KEY, AMAZON_KEY, AMAZON_SECRET]):
             items = amazon.search_items(keywords="Womens Fashion", item_count=1)
-            # api_success = True (Satış sonrası açılacak)
     except:
         pass
 
@@ -157,24 +155,13 @@ def main():
         except:
             continue
 
-    # Dosyaları Kaydet
     with open('website_data.json', 'w', encoding='utf-8') as f:
         json.dump(final_data, f, indent=4, ensure_ascii=False)
     
-    create_pinterest_feed(final_data) # XML (Gelecek için)
-    create_pinterest_csv(final_data)  # CSV (Şu an için)
+    create_pinterest_feed(final_data)
+    create_pinterest_csv(final_data)
     
     print(f"💾 İŞLEM TAMAM: {len(final_data)} ürün işlendi.")
 
 if __name__ == "__main__":
     main()
-```
-
-### 2. ADIM: `daily_update.yml` Güncellemesi (Çantaya Ekleme) 🎒
-
-Robot yeni bir dosya (`pinterest_upload.csv`) daha ürettiği için, GitHub'a "Bunu da siteye yükle" demeliyiz.
-
-GitHub'da `.github/workflows/daily_update.yml` dosyasını aç, en alttaki `git add` satırını şöyle değiştir:
-
-```yaml
-          git add website_data.json pinterest.xml pinterest_upload.csv
