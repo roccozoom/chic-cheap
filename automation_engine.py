@@ -7,10 +7,10 @@ from amazon_paapi import AmazonApi
 
 # --- GÜVENLİK VE AYARLAR ---
 # GitHub Secrets'tan şifreleri alıyoruz
-GEMINI_KEY = os.environ.get("GEMINI_API_KEY")
-AMAZON_KEY = os.environ.get("AMAZON_ACCESS_KEY")
-AMAZON_SECRET = os.environ.get("AMAZON_SECRET_KEY")
-AMAZON_TAG = os.environ.get("AMAZON_TAG")
+GEMINI_KEY = os.environ.get("AIzaSyDnXGaLVibXhlsI_vOD0sHggn3m45dp0hI")
+AMAZON_KEY = os.environ.get("AKPACQSUCV1763589568")
+AMAZON_SECRET = os.environ.get("U5zU7qlP5OI/evwBEBE43ocDucC0EsaXWHVxq1lO")
+AMAZON_TAG = os.environ.get("chiche0420-20")
 COUNTRY = "US" # Hedef Pazar: Amerika
 
 # Hata Ayıklama: Anahtarlar eksikse durdur
@@ -135,3 +135,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
