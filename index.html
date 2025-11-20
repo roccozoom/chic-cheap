@@ -4,16 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
-    <!-- BURAYA DİKKAT: Google Search Console kodunu buraya yapıştırdığından emin ol -->
-    <!-- Örnek: <meta name="google-site-verification" content="KODUNUZ_BURAYA" /> -->
-    <meta name="google-site-verification" content="H-PqzN3KrM0O4ro2d-UafKktwugGyhub4uC4DltyxPU" />
-    
     <!-- SEO & Meta Tags -->
     <title>Chic-Cheap | AI Curated Fashion Deals & Trends</title>
     <meta name="description" content="Discover the best women's fashion deals on Amazon using AI. Curated dresses, jewelry, and trends at the best prices. Shop smarter with Chic-Cheap.">
     <meta name="keywords" content="fashion deals, AI fashion, amazon finds, boho dresses, affordable style, women clothing">
     <meta name="author" content="Chic-Cheap AI">
-    
+    <meta name="google-site-verification" content="H-PqzN3KrM0O4ro2d-UafKktwugGyhub4uC4DltyxPU" />
+    <!-- Search Console Doğrulama Kodunu Buraya Ekleyebilirsin -->
+
     <!-- Social Media (Open Graph) -->
     <meta property="og:title" content="Chic-Cheap | AI Powered Fashion Curation">
     <meta property="og:description" content="Don't search for hours. Our AI finds the best fashion deals for you.">
@@ -235,22 +233,31 @@
         ];
 
         async function init() {
+            // Önizleme (Blob) ortamında çalışıyorsak fetch yapmaya çalışıp hata almak yerine
+            // doğrudan Mock Data gösterelim.
+            if (window.location.protocol === 'blob:') {
+                console.log("Önizleme Modu: Otomatik olarak yedek veriler yükleniyor.");
+                render(MOCK_DATA);
+                loader.classList.add('hidden');
+                return;
+            }
+
             try {
-                // 1. Adım: Gerçek veriyi çekmeyi dene
+                // Canlı sitede gerçek veriyi çek
                 const res = await fetch(`website_data.json?t=${new Date().getTime()}`);
                 
                 if (!res.ok) {
-                    // Dosya yoksa veya hata varsa, yakalama bloğuna git
-                    throw new Error("Canlı veri bulunamadı.");
+                    throw new Error("Veri dosyası henüz oluşmadı.");
                 }
                 
                 const products = await res.json();
                 render(products);
                 
             } catch (err) {
-                // 2. Adım: Hata olursa MOCK DATA (Yedek) devreye girsin
-                console.warn("Otomatik veri henüz oluşmadı, vitrin modu açılıyor...", err);
-                render(MOCK_DATA); // Asla boş sayfa gösterme
+                // Eğer dosya yoksa veya bir hata olursa (örn: ilk kurulum anı)
+                // Ziyaretçiye boş sayfa gösterme, hemen yedekleri devreye sok.
+                console.warn("Canlı veri bulunamadı, vitrin modu açılıyor...", err);
+                render(MOCK_DATA); 
             } finally {
                 loader.classList.add('hidden');
             }
@@ -315,4 +322,3 @@
     </script>
 </body>
 </html>
-
