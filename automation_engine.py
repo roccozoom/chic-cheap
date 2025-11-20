@@ -119,13 +119,13 @@ def create_pinterest_feed(products):
     tree = ET.ElementTree(rss)
     tree.write("pinterest.xml", encoding='utf-8', xml_declaration=True)
 
-# --- PINTEREST CSV (DÜZELTİLMİŞ) ---
+# --- PINTEREST CSV (KESİN ÇÖZÜM) ---
 def create_pinterest_csv(products):
     print("📊 Pinterest CSV Dosyası Hazırlanıyor (UTF-8-SIG)...")
-    # DÜZELTME: encoding='utf-8-sig' yapıldı (BOM ekler, Excel ve Pinterest sever)
+    # DÜZELTME: Başlıklar Pinterest'in istediği standarta çekildi
+    # 'Image URL' -> 'Image', 'Board Name' -> 'Board'
     with open('pinterest_upload.csv', 'w', newline='', encoding='utf-8-sig') as csvfile:
-        # Pinterest'in Kabul Ettiği Standart Başlıklar
-        fieldnames = ['Title', 'Description', 'Link', 'Image URL', 'Board Name']
+        fieldnames = ['Title', 'Description', 'Link', 'Image', 'Board']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()
         
@@ -134,13 +134,13 @@ def create_pinterest_csv(products):
                 'Title': p.get('pin_title', p['title']),
                 'Description': p.get('pin_desc', p['title']),
                 'Link': "https://chic-cheap.com",
-                'Image URL': p['image_url'],
-                'Board Name': "Summer Trends 2025" # Pano adının Pinterest'tekiyle AYNI olduğundan emin ol
+                'Image': p['image_url'], 
+                'Board': "Summer Trends 2025" # Bu pano Pinterest'te MUTLAKA olmalı
             })
     print("✅ pinterest_upload.csv oluşturuldu!")
 
 def main():
-    print("--- 🚀 Chic-Cheap V6.1 (CSV Fix) ---")
+    print("--- 🚀 Chic-Cheap V6.2 (Header Fix) ---")
     processed_products = []
     ai_engine = AIContentGenerator()
     
