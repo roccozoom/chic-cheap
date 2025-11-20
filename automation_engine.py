@@ -16,6 +16,13 @@ AMAZON_TAG = os.environ.get("AMAZON_TAG")
 REAL_AMAZON_TAG = "chiche0420-20"
 COUNTRY = "US"
 
+# Dinamik Konfigürasyon
+SITE_CONFIG = {
+    "adsense_id": os.environ.get("ADSENSE_ID", ""),
+    "adsense_slot": os.environ.get("ADSENSE_SLOT", ""),
+    "pinterest_url": os.environ.get("PINTEREST_URL", "https://pinterest.com")
+}
+
 # --- YEDEK ÜRÜNLER ---
 BACKUP_PRODUCTS = [
     {
@@ -91,7 +98,7 @@ class AIContentGenerator:
                 "pin_title": "Trendy Fashion Find", "pin_desc": "Check out this style #fashion"
             }
 
-# --- PINTEREST XML (RSS) OLUŞTURUCU ---
+# --- PINTEREST XML ---
 def create_pinterest_feed(products):
     rss = ET.Element("rss", version="2.0")
     channel = ET.SubElement(rss, "channel")
@@ -112,12 +119,13 @@ def create_pinterest_feed(products):
     tree = ET.ElementTree(rss)
     tree.write("pinterest.xml", encoding='utf-8', xml_declaration=True)
 
-# --- PINTEREST CSV (EXCEL) OLUŞTURUCU ---
+# --- PINTEREST CSV (DÜZELTİLMİŞ) ---
 def create_pinterest_csv(products):
-    print("📊 Pinterest CSV Dosyası Hazırlanıyor...")
-    # Pinterest Standart Başlıkları: Title, Description, Link, Image, Board
-    with open('pinterest_upload.csv', 'w', newline='', encoding='utf-8') as csvfile:
-        fieldnames = ['Title', 'Description', 'Link', 'Image', 'Board'] # DÜZELTME BURADA
+    print("📊 Pinterest CSV Dosyası Hazırlanıyor (UTF-8-SIG)...")
+    # DÜZELTME: encoding='utf-8-sig' yapıldı (BOM ekler, Excel ve Pinterest sever)
+    with open('pinterest_upload.csv', 'w', newline='', encoding='utf-8-sig') as csvfile:
+        # Pinterest'in Kabul Ettiği Standart Başlıklar
+        fieldnames = ['Title', 'Description', 'Link', 'Image URL', 'Board Name']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()
         
@@ -126,13 +134,13 @@ def create_pinterest_csv(products):
                 'Title': p.get('pin_title', p['title']),
                 'Description': p.get('pin_desc', p['title']),
                 'Link': "https://chic-cheap.com",
-                'Image': p['image_url'], # DÜZELTME BURADA
-                'Board': "Summer Trends 2025" # DÜZELTME BURADA
+                'Image URL': p['image_url'],
+                'Board Name': "Summer Trends 2025" # Pano adının Pinterest'tekiyle AYNI olduğundan emin ol
             })
     print("✅ pinterest_upload.csv oluşturuldu!")
 
 def main():
-    print("--- 🚀 Chic-Cheap V5.1 (CSV Fix) ---")
+    print("--- 🚀 Chic-Cheap V6.1 (CSV Fix) ---")
     processed_products = []
     ai_engine = AIContentGenerator()
     
@@ -140,7 +148,6 @@ def main():
     try:
         if all([GEMINI_KEY, AMAZON_KEY, AMAZON_SECRET]):
             items = amazon.search_items(keywords="Womens Fashion", item_count=1)
-            # api_success = True (Satış sonrası açılacak)
     except:
         pass
 
@@ -157,8 +164,14 @@ def main():
         except:
             continue
 
+    # Config ve Ürünleri Paketle
+    final_output = {
+        "config": SITE_CONFIG,
+        "products": final_data
+    }
+
     with open('website_data.json', 'w', encoding='utf-8') as f:
-        json.dump(final_data, f, indent=4, ensure_ascii=False)
+        json.dump(final_output, f, indent=4, ensure_ascii=False)
     
     create_pinterest_feed(final_data)
     create_pinterest_csv(final_data)
