@@ -2,8 +2,8 @@ name: Daily Fashion Update
 
 on:
   schedule:
-    - cron: '0 6 * * *' # Her sabah 09:00
-  workflow_dispatch: # Manuel tetikleme
+    - cron: '0 6 * * *'
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -19,7 +19,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.11' # Güncel sürüm
+          python-version: '3.11'
 
       - name: Install dependencies
         run: |
@@ -38,7 +38,7 @@ jobs:
         run: |
           git config --global user.name 'Chic-Cheap AI Bot'
           git config --global user.email 'bot@chic-cheap.com'
-          # İŞTE DÜZELTME BURADA:
+          # İŞTE EKSİK OLAN PARÇA BURADAYDI:
           git add website_data.json pinterest.xml pinterest_upload.csv
-          git commit -m "Daily AI Update: Site Data & Pinterest Feed" || echo "No changes to commit"
+          git commit -m "Daily Update: Data, XML & CSV" || echo "No changes to commit"
           git push
