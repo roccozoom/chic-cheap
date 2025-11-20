@@ -4,10 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
-    <!-- BURAYA DİKKAT: Google Search Console kodunu buraya tekrar yapıştırmayı unutma -->
+    <!-- GOOGLE SEARCH CONSOLE DOĞRULAMA (Lütfen kendi kodunu buraya ekle) -->
     <meta name="google-site-verification" content="H-PqzN3KrM0O4ro2d-UafKktwugGyhub4uC4DltyxPU" />
-    <!-- <meta name="google-site-verification" content="..." /> -->
-    
+    <!-- <meta name="google-site-verification" content="KODUNUZ" /> -->
+
+    <!-- GOOGLE ADSENSE OTO REKLAM KODU -->
+    <!-- Aşağıdaki 'YOUR_ADSENSE_CLIENT_ID' yerine kendi ca-pub kodunu yazmalısın -->
+    <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=YOUR_ADSENSE_CLIENT_ID"
+     crossorigin="anonymous"></script> -->
+     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4267818870826080"
+     crossorigin="anonymous"></script>
+
     <!-- SEO & Meta Tags -->
     <title>Chic-Cheap | AI Curated Fashion Deals & Trends</title>
     <meta name="description" content="Discover the best women's fashion deals on Amazon using AI. Curated dresses, jewelry, and trends at the best prices. Shop smarter with Chic-Cheap.">
@@ -48,7 +55,7 @@
         .hover-zoom img { transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
         .hover-zoom:hover img { transform: scale(1.05); }
         
-        /* AdSense Placeholder Style */
+        /* AdSense Placeholder Style (Onaylanana kadar bu görünür) */
         .ad-placeholder {
             background: repeating-linear-gradient(45deg, #f3f4f6, #f3f4f6 10px, #e5e7eb 10px, #e5e7eb 20px);
             display: flex;
@@ -58,6 +65,7 @@
             font-size: 0.75rem;
             letter-spacing: 0.1em;
             border: 1px dashed #d1d5db;
+            overflow: hidden;
         }
     </style>
 </head>
@@ -88,9 +96,12 @@
         </div>
     </nav>
 
-    <!-- ADSENSE ALANI (Header Altı) -->
+    <!-- ADSENSE ALANI 1 (Header Altı - 728x90 veya Duyarlı) -->
     <div class="container mx-auto px-4 mt-6 mb-2">
         <div class="ad-placeholder w-full h-24 rounded-lg">
+            <!-- AdSense Reklam Birimi Kodu Buraya Gelecek -->
+            <!-- <ins class="adsbygoogle" ...></ins> -->
+            <!-- <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> -->
             <span class="uppercase font-bold">Advertisement Space</span>
         </div>
     </div>
@@ -135,10 +146,11 @@
             <p class="mt-4 text-gray-400 text-sm tracking-widest uppercase">AI is curating...</p>
         </div>
 
-        <!-- ADSENSE ALANI (Footer Üstü) -->
+        <!-- ADSENSE ALANI 2 (Footer Üstü) -->
         <div class="mt-16">
             <div class="ad-placeholder w-full h-32 rounded-lg">
-                <span class="uppercase font-bold">Advertisement Space</span>
+                <!-- AdSense Reklam Birimi Kodu Buraya Gelecek -->
+                 <span class="uppercase font-bold">Advertisement Space</span>
             </div>
         </div>
     </main>
@@ -181,7 +193,6 @@
         const FALLBACK_IMAGE = "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=600&auto=format&fit=crop";
 
         // --- MOCK DATA (Yedek Veriler) ---
-        // Önizleme modunda veya dosya bulunamadığında bu veriler gösterilir.
         const MOCK_DATA = [
             {
                 "title": "Bohemian Summer Floral Maxi Dress",
@@ -236,16 +247,16 @@
         ];
 
         async function init() {
-            // 1. Önizleme (Blob URL) Kontrolü - Burası hatayı çözer
+            // Önizleme (Blob URL) Kontrolü
             if (window.location.protocol === 'blob:') {
                 console.log("Önizleme Modu Tespit Edildi: Yedek veriler yükleniyor.");
                 render(MOCK_DATA);
                 loader.classList.add('hidden');
-                return; // Fonksiyondan çık, fetch yapma
+                return;
             }
 
             try {
-                // 2. Canlı Sitede Veriyi Çek
+                // Canlı Sitede Gerçek Veriyi Çek
                 const res = await fetch(`website_data.json?t=${new Date().getTime()}`);
                 
                 if (!res.ok) {
@@ -256,7 +267,6 @@
                 render(products);
                 
             } catch (err) {
-                // 3. Hata Olursa (Dosya yoksa) Yedekleri Göster
                 console.warn("Canlı veri henüz oluşmadı, vitrin modu açılıyor...", err);
                 render(MOCK_DATA); 
             } finally {
@@ -305,11 +315,12 @@
                 </div>
                 `;
 
-                // Reklam Alanı
+                // ADSENSE MANTIĞI (Her 4 üründe bir reklam)
                 if ((index + 1) % 4 === 0) {
                     html += `
                     <div class="break-inside-avoid mb-6">
                         <div class="ad-placeholder w-full h-64 rounded-xl">
+                            <!-- AdSense kodunu buraya ekleyebilirsiniz -->
                             <span class="text-center"><i class="fa-solid fa-ad block text-2xl mb-2"></i>Advertisement</span>
                         </div>
                     </div>
