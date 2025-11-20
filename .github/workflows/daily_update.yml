@@ -39,6 +39,6 @@ jobs:
           git config --global user.name 'Chic-Cheap AI Bot'
           git config --global user.email 'bot@chic-cheap.com'
           # İŞTE DÜZELTME BURADA:
-          git add website_data.json pinterest.xml
+          git add website_data.json pinterest.xml pinterest_upload.csv
           git commit -m "Daily AI Update: Site Data & Pinterest Feed" || echo "No changes to commit"
           git push
