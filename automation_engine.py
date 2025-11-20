@@ -2,6 +2,7 @@ import os
 import json
 import time
 import random
+import csv
 import xml.etree.ElementTree as ET
 from datetime import datetime
 import google.generativeai as genai
@@ -12,10 +13,10 @@ GEMINI_KEY = os.environ.get("GEMINI_API_KEY")
 AMAZON_KEY = os.environ.get("AMAZON_ACCESS_KEY")
 AMAZON_SECRET = os.environ.get("AMAZON_SECRET_KEY")
 AMAZON_TAG = os.environ.get("AMAZON_TAG")
-REAL_AMAZON_TAG = "chiche0420-20" 
-COUNTRY = "US" 
+REAL_AMAZON_TAG = "chiche0420-20"
+COUNTRY = "US"
 
-# --- VİTRİN (YEDEK ÜRÜNLER) ---
+# --- YEDEK ÜRÜNLER ---
 BACKUP_PRODUCTS = [
     {
         "title": "Bohemian Summer Floral Maxi Dress",
@@ -61,7 +62,6 @@ BACKUP_PRODUCTS = [
     }
 ]
 
-# API Başlat
 try:
     genai.configure(api_key=GEMINI_KEY)
     model = genai.GenerativeModel('gemini-2.5-flash-preview-09-2025')
@@ -72,7 +72,6 @@ except:
 class AIContentGenerator:
     def generate_review(self, product_title, price):
         print(f"🤖 AI İnceliyor: {product_title[:30]}...")
-        # PINTEREST ODAKLI PROMPT
         prompt = f"""
         Act as a fashion influencer. Analyze: "{product_title}" (${price}).
         Output JSON keys:
@@ -92,12 +91,10 @@ class AIContentGenerator:
                 "pin_title": "Trendy Fashion Find", "pin_desc": "Check out this style #fashion"
             }
 
-# --- PINTEREST XML OLUŞTURUCU ---
+# --- PINTEREST XML (RSS) OLUŞTURUCU ---
 def create_pinterest_feed(products):
-    print("📌 Pinterest XML Hazırlanıyor...")
     rss = ET.Element("rss", version="2.0")
     channel = ET.SubElement(rss, "channel")
-    
     ET.SubElement(channel, "title").text = "Chic-Cheap Trends"
     ET.SubElement(channel, "link").text = "https://chic-cheap.com"
     ET.SubElement(channel, "description").text = "Daily Fashion Deals"
@@ -105,32 +102,45 @@ def create_pinterest_feed(products):
     for p in products:
         item = ET.SubElement(channel, "item")
         ET.SubElement(item, "title").text = p.get('pin_title', p['title'])
-        ET.SubElement(item, "link").text = "https://chic-cheap.com" # Pinterest kuralı: Siteye gitmeli
+        ET.SubElement(item, "link").text = "https://chic-cheap.com"
         ET.SubElement(item, "description").text = p.get('pin_desc', p['title'])
-        
-        # Resim
         enclosure = ET.SubElement(item, "enclosure")
         enclosure.set("url", p['image_url'])
         enclosure.set("type", "image/jpeg")
-        
-        # Tarih (Her gün taze görünsün)
         ET.SubElement(item, "pubDate").text = datetime.now().strftime("%a, %d %b %Y %H:%M:%S GMT")
 
     tree = ET.ElementTree(rss)
     tree.write("pinterest.xml", encoding='utf-8', xml_declaration=True)
-    print("✅ XML Dosyası Hazır!")
+
+# --- PINTEREST CSV (EXCEL) OLUŞTURUCU ---
+def create_pinterest_csv(products):
+    print("📊 Pinterest CSV Dosyası Hazırlanıyor...")
+    # Pinterest CSV Formatı: Title, Description, Link, Image Link, Board Name
+    with open('pinterest_upload.csv', 'w', newline='', encoding='utf-8') as csvfile:
+        fieldnames = ['Title', 'Description', 'Link', 'Image URL', 'Board Name']
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        writer.writeheader()
+        
+        for p in products:
+            writer.writerow({
+                'Title': p.get('pin_title', p['title']),
+                'Description': p.get('pin_desc', p['title']),
+                'Link': "https://chic-cheap.com",
+                'Image URL': p['image_url'],
+                'Board Name': "Summer Trends 2025" # Buraya kendi pano adını yazabilirsin
+            })
+    print("✅ pinterest_upload.csv oluşturuldu!")
 
 def main():
-    print("--- 🚀 Chic-Cheap V4.0 (Pinterest Ready) ---")
+    print("--- 🚀 Chic-Cheap V5.0 (CSV + XML) ---")
     processed_products = []
     ai_engine = AIContentGenerator()
     
-    # 1. API Kontrol (Şimdilik pasif, satış bekleniyor)
     api_success = False
     try:
         if all([GEMINI_KEY, AMAZON_KEY, AMAZON_SECRET]):
             items = amazon.search_items(keywords="Womens Fashion", item_count=1)
-            # api_success = True (Aktif olunca açacağız)
+            # api_success = True (Satış sonrası açılacak)
     except:
         pass
 
@@ -147,14 +157,24 @@ def main():
         except:
             continue
 
-    # 1. Site için JSON kaydet
+    # Dosyaları Kaydet
     with open('website_data.json', 'w', encoding='utf-8') as f:
         json.dump(final_data, f, indent=4, ensure_ascii=False)
     
-    # 2. Pinterest için XML kaydet
-    create_pinterest_feed(final_data)
+    create_pinterest_feed(final_data) # XML (Gelecek için)
+    create_pinterest_csv(final_data)  # CSV (Şu an için)
     
-    print(f"💾 TAMAMLANDI: {len(final_data)} ürün işlendi.")
+    print(f"💾 İŞLEM TAMAM: {len(final_data)} ürün işlendi.")
 
 if __name__ == "__main__":
     main()
+```
+
+### 2. ADIM: `daily_update.yml` Güncellemesi (Çantaya Ekleme) 🎒
+
+Robot yeni bir dosya (`pinterest_upload.csv`) daha ürettiği için, GitHub'a "Bunu da siteye yükle" demeliyiz.
+
+GitHub'da `.github/workflows/daily_update.yml` dosyasını aç, en alttaki `git add` satırını şöyle değiştir:
+
+```yaml
+          git add website_data.json pinterest.xml pinterest_upload.csv
