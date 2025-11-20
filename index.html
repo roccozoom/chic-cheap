@@ -4,15 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
-    <!-- GOOGLE SEARCH CONSOLE DOĞRULAMA (Lütfen kendi kodunu buraya ekle) -->
-    <meta name="google-site-verification" content="H-PqzN3KrM0O4ro2d-UafKktwugGyhub4uC4DltyxPU" />
-    <!-- <meta name="google-site-verification" content="KODUNUZ" /> -->
-
-    <!-- GOOGLE ADSENSE OTO REKLAM KODU -->
-    <!-- Aşağıdaki 'YOUR_ADSENSE_CLIENT_ID' yerine kendi ca-pub kodunu yazmalısın -->
-    <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=YOUR_ADSENSE_CLIENT_ID"
-     crossorigin="anonymous"></script> -->
-     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4267818870826080"
+    <!-- ========================================== -->
+    <!-- 1. ADIM: ADSENSE GLOBAL KODUNU BURAYA YAPIŞTIR -->
+    <!-- AdSense panelinden aldığın <script> kodunu buraya yapıştır. -->
+    <!-- ÖRNEK (Kendi kodunla değiştir): -->
+    <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> -->
+    <!-- ========================================== -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4267818870826080"
      crossorigin="anonymous"></script>
 
     <!-- SEO & Meta Tags -->
@@ -28,11 +26,9 @@
     <meta property="og:url" content="https://chic-cheap.com">
     <meta property="og:type" content="website">
 
-    <!-- PWA (Mobil Uygulama) Ayarları -->
+    <!-- PWA Ayarları -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#ffffff">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3050/3050239.png">
 
     <!-- Tailwind CSS -->
@@ -41,30 +37,24 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
 
     <style>
-        /* Typography */
         h1, h2, h3, .serif-font { font-family: 'Playfair Display', serif; }
         body { font-family: 'Lato', sans-serif; scroll-behavior: smooth; }
         
-        /* Masonry Grid Fix */
         .masonry-grid { column-count: 1; column-gap: 1.5rem; }
         @media (min-width: 640px) { .masonry-grid { column-count: 2; } }
         @media (min-width: 1024px) { .masonry-grid { column-count: 3; } }
         .break-inside-avoid { break-inside: avoid-column; margin-bottom: 1.5rem; }
-
-        /* Animations */
         .hover-zoom img { transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
         .hover-zoom:hover img { transform: scale(1.05); }
         
-        /* AdSense Placeholder Style (Onaylanana kadar bu görünür) */
-        .ad-placeholder {
-            background: repeating-linear-gradient(45deg, #f3f4f6, #f3f4f6 10px, #e5e7eb 10px, #e5e7eb 20px);
+        /* Reklam Alanı Stili (Reklam Yüklenmezse Şık Dursun) */
+        .ad-container {
+            min-height: 250px;
+            background: #f9fafb;
+            border-radius: 0.75rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #9ca3af;
-            font-size: 0.75rem;
-            letter-spacing: 0.1em;
-            border: 1px dashed #d1d5db;
             overflow: hidden;
         }
     </style>
@@ -72,7 +62,7 @@
 <body class="bg-white text-gray-800 antialiased">
 
     <!-- NAVBAR -->
-    <nav class="bg-white/90 backdrop-blur-md border-b border-gray-100 sticky top-0 z-50 transition-all duration-300">
+    <nav class="bg-white/90 backdrop-blur-md border-b border-gray-100 sticky top-0 z-50">
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
             <div class="flex items-center space-x-2 cursor-pointer" onclick="window.location.reload()">
                 <div class="bg-black text-white p-2 rounded-full shadow-lg">
@@ -83,227 +73,91 @@
                     <span class="text-[10px] block text-gray-500 tracking-[0.2em] uppercase">AI Curated Fashion</span>
                 </div>
             </div>
-            
-            <!-- Desktop Menu -->
             <div class="hidden md:flex space-x-8 text-sm font-medium text-gray-500">
-                <a href="#product-grid" class="hover:text-black transition border-b-2 border-transparent hover:border-black py-1">NEW ARRIVALS</a>
-                <a href="#trending" class="hover:text-black transition border-b-2 border-transparent hover:border-black py-1">TRENDING</a>
-                <a href="#dresses" class="hover:text-black transition border-b-2 border-transparent hover:border-black py-1">DRESSES</a>
+                <a href="#product-grid" class="hover:text-black transition">NEW ARRIVALS</a>
+                <a href="#trending" class="hover:text-black transition">TRENDING</a>
             </div>
-
-            <!-- Mobile Menu Icon -->
-            <button class="md:hidden text-2xl text-gray-700"><i class="fa-solid fa-bars"></i></button>
         </div>
     </nav>
 
-    <!-- ADSENSE ALANI 1 (Header Altı - 728x90 veya Duyarlı) -->
+    <!-- HEADER ALTINDAKİ İLK REKLAM -->
     <div class="container mx-auto px-4 mt-6 mb-2">
-        <div class="ad-placeholder w-full h-24 rounded-lg">
-            <!-- AdSense Reklam Birimi Kodu Buraya Gelecek -->
-            <!-- <ins class="adsbygoogle" ...></ins> -->
-            <!-- <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> -->
-            <span class="uppercase font-bold">Advertisement Space</span>
+        <div class="ad-container w-full">
+            <!-- Buraya AdSense kodunu dinamik olarak basacağız -->
+            <p class="text-xs text-gray-300">Sponsored</p>
         </div>
     </div>
 
     <!-- HERO SECTION -->
-    <header class="py-16 md:py-24 text-center px-4">
+    <header class="py-16 md:py-20 text-center px-4">
         <div class="max-w-4xl mx-auto">
             <span class="inline-flex items-center bg-purple-50 text-purple-700 text-xs font-bold px-4 py-1.5 rounded-full mb-6 shadow-sm border border-purple-100">
-                <i class="fa-solid fa-wand-magic-sparkles mr-2"></i> AI-POWERED SHOPPING ASSISTANT
+                <i class="fa-solid fa-wand-magic-sparkles mr-2"></i> AI-POWERED SHOPPING
             </span>
-            <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight text-gray-900 serif-font">
-                Curated Style.<br>
-                <span class="italic text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">Unbeatable Prices.</span>
+            <h1 class="text-5xl md:text-6xl font-bold mb-6 serif-font text-gray-900">
+                Curated Style.<br><span class="text-purple-600">Smart Prices.</span>
             </h1>
-            <p class="text-lg text-gray-500 mb-10 max-w-2xl mx-auto font-light">
-                Our AI scans millions of Amazon products daily to find the hidden gems, price drops, and trending styles so you don't have to.
-            </p>
         </div>
     </header>
 
     <!-- MAIN CONTENT -->
     <main class="container mx-auto px-4 pb-20" id="product-grid">
-        
-        <!-- Kategori Başlığı -->
         <div class="flex items-center justify-between mb-8 border-b border-gray-100 pb-4" id="trending">
             <h2 class="text-2xl font-bold serif-font">Trending Now</h2>
-            <div class="flex space-x-2">
-                <span class="w-3 h-3 rounded-full bg-red-500"></span>
-                <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
-                <span class="w-3 h-3 rounded-full bg-green-500"></span>
-            </div>
         </div>
 
-        <!-- Ürün Izgarası -->
-        <div id="grid-container" class="masonry-grid">
-            <!-- JS burayı dolduracak -->
-        </div>
-
-        <!-- Loading State -->
-        <div id="loading-state" class="text-center py-20">
-            <div class="inline-block animate-spin rounded-full h-12 w-12 border-4 border-gray-200 border-t-black"></div>
-            <p class="mt-4 text-gray-400 text-sm tracking-widest uppercase">AI is curating...</p>
-        </div>
-
-        <!-- ADSENSE ALANI 2 (Footer Üstü) -->
-        <div class="mt-16">
-            <div class="ad-placeholder w-full h-32 rounded-lg">
-                <!-- AdSense Reklam Birimi Kodu Buraya Gelecek -->
-                 <span class="uppercase font-bold">Advertisement Space</span>
-            </div>
-        </div>
+        <div id="grid-container" class="masonry-grid"></div>
+        <div id="loading-state" class="text-center py-20"><div class="inline-block animate-spin rounded-full h-12 w-12 border-4 border-gray-200 border-t-black"></div></div>
     </main>
 
     <!-- FOOTER -->
     <footer class="bg-gray-900 text-white py-12 border-t border-gray-800">
-        <div class="container mx-auto px-4 grid md:grid-cols-3 gap-8 text-center md:text-left">
-            <div>
-                <h3 class="text-2xl font-bold serif-font mb-4">chic-cheap</h3>
-                <p class="text-gray-400 text-sm leading-relaxed">
-                    The smartest way to shop fashion. Powered by Gemini AI and Amazon.
-                </p>
-            </div>
-            <div>
-                <h4 class="font-bold mb-4 text-gray-300 uppercase tracking-widest text-xs">Legal</h4>
-                <ul class="space-y-2 text-gray-400 text-sm">
-                    <li><a href="#" class="hover:text-white">Privacy Policy</a></li>
-                    <li><a href="#" class="hover:text-white">Terms of Service</a></li>
-                    <li><a href="#" class="hover:text-white">Affiliate Disclosure</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="font-bold mb-4 text-gray-300 uppercase tracking-widest text-xs">Connect</h4>
-                <div class="flex justify-center md:justify-start space-x-4">
-                    <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-white hover:text-black transition"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-white hover:text-black transition"><i class="fa-brands fa-pinterest"></i></a>
-                    <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-white hover:text-black transition"><i class="fa-brands fa-tiktok"></i></a>
-                </div>
-            </div>
-        </div>
-        <div class="text-center mt-12 pt-8 border-t border-gray-800 text-xs text-gray-600">
-            &copy; 2025 Chic-Cheap. All rights reserved. We earn a commission from qualifying purchases.
+        <div class="container mx-auto px-4 text-center">
+            <h3 class="text-2xl font-bold serif-font mb-4">chic-cheap</h3>
+            <p class="text-xs text-gray-600">&copy; 2025 Chic-Cheap. Amazon Associate.</p>
         </div>
     </footer>
 
-    <!-- JavaScript Logic -->
     <script>
+        // ==========================================
+        // 2. ADIM: REKLAM AYARLARINI BURAYA GİR
+        // ==========================================
+        const ADSENSE_CLIENT_ID = "ca-pub-4267818870826080"; // Kendi 'ca-pub-...' kodunu buraya yaz (Tırnak içinde)
+        const ADSENSE_SLOT_ID = "7287051976"; // Oluşturduğun 'Display Ad' biriminin slot ID'sini buraya yaz
+        // ==========================================
+
         const grid = document.getElementById('grid-container');
         const loader = document.getElementById('loading-state');
-        const FALLBACK_IMAGE = "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=600&auto=format&fit=crop";
-
-        // --- MOCK DATA (Yedek Veriler) ---
-        const MOCK_DATA = [
-            {
-                "title": "Bohemian Summer Floral Maxi Dress",
-                "price": "$39.99",
-                "image_url": "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?q=80&w=600&auto=format&fit=crop",
-                "link": "#",
-                "category": "Dress",
-                "review_text": "A must-have for summer, featuring breathable fabric and vibrant prints.",
-                "styling_tip": "Pair with sandals.",
-                "ai_score": 94
-            },
-            {
-                "title": "Classic Oversized Denim Jacket",
-                "price": "$45.50",
-                "image_url": "https://images.unsplash.com/photo-1544441893-675973e31985?q=80&w=600&auto=format&fit=crop",
-                "link": "#",
-                "category": "Jacket",
-                "review_text": "Timeless style that goes with everything.",
-                "styling_tip": "Layer over a hoodie.",
-                "ai_score": 88
-            },
-             {
-                "title": "Minimalist Gold Layered Necklace",
-                "price": "$14.99",
-                "image_url": "https://images.unsplash.com/photo-1599643478518-17488fbbcd75?q=80&w=600&auto=format&fit=crop",
-                "link": "#",
-                "category": "Jewelry",
-                "review_text": "Adds a touch of elegance to any outfit.",
-                "styling_tip": "Wear with V-neck.",
-                "ai_score": 91
-            },
-            {
-                "title": "Vintage Cat Eye Sunglasses",
-                "price": "$18.99",
-                "image_url": "https://images.unsplash.com/photo-1511499767150-a48a237f0083?q=80&w=600&auto=format&fit=crop",
-                "link": "#",
-                "category": "Accessories",
-                "review_text": "Retro chic vibes for sunny days.",
-                "styling_tip": "Perfect for beach days.",
-                "ai_score": 85
-            },
-             {
-                "title": "White Summer Canvas Sneakers",
-                "price": "$29.99",
-                "image_url": "https://images.unsplash.com/photo-1560769629-975ec94e6a86?q=80&w=600&auto=format&fit=crop",
-                "link": "#",
-                "category": "Shoes",
-                "review_text": "Comfort meets style in these everyday sneakers.",
-                "styling_tip": "Match with jeans.",
-                "ai_score": 89
-            }
-        ];
+        const FALLBACK_IMAGE = "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=600";
+        const MOCK_DATA = [{"title": "Boho Dress", "price": "$39.99", "image_url": FALLBACK_IMAGE, "link": "#", "ai_score": 94}];
 
         async function init() {
-            // Önizleme (Blob URL) Kontrolü
-            if (window.location.protocol === 'blob:') {
-                console.log("Önizleme Modu Tespit Edildi: Yedek veriler yükleniyor.");
-                render(MOCK_DATA);
-                loader.classList.add('hidden');
-                return;
-            }
-
+            if (window.location.protocol === 'blob:') { render(MOCK_DATA); loader.classList.add('hidden'); return; }
             try {
-                // Canlı Sitede Gerçek Veriyi Çek
                 const res = await fetch(`website_data.json?t=${new Date().getTime()}`);
-                
-                if (!res.ok) {
-                    throw new Error("Veri dosyası bulunamadı.");
-                }
-                
+                if (!res.ok) throw new Error("Veri yok");
                 const products = await res.json();
                 render(products);
-                
-            } catch (err) {
-                console.warn("Canlı veri henüz oluşmadı, vitrin modu açılıyor...", err);
-                render(MOCK_DATA); 
-            } finally {
-                loader.classList.add('hidden');
-            }
+            } catch (err) { render(MOCK_DATA); } 
+            finally { loader.classList.add('hidden'); initAds(); }
         }
 
         function render(products) {
             let html = '';
             products.forEach((p, index) => {
+                // ÜRÜN KARTI
                 html += `
                 <div class="break-inside-avoid group mb-6">
                     <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl transition duration-500">
                         <div class="relative hover-zoom overflow-hidden aspect-[3/4]">
-                            <img src="${p.image_url}" 
-                                 alt="${p.title}" 
-                                 class="w-full h-full object-cover"
-                                 onerror="this.src='${FALLBACK_IMAGE}'"> 
-                            
-                            <div class="absolute top-3 left-3 bg-black/70 backdrop-blur-md text-white text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wide">
-                                ${p.category || 'Fashion'}
-                            </div>
-
-                            <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur-md px-2 py-1 rounded-lg flex items-center gap-1 shadow-sm border border-gray-100">
+                            <img src="${p.image_url}" alt="${p.title}" class="w-full h-full object-cover" onerror="this.src='${FALLBACK_IMAGE}'">
+                            <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur-md px-2 py-1 rounded-lg flex items-center gap-1 shadow-sm">
                                 <i class="fa-solid fa-wand-magic-sparkles text-purple-600 text-xs"></i>
                                 <span class="text-xs font-bold text-gray-800">${p.ai_score || 90}</span>
                             </div>
                         </div>
-                        
                         <div class="p-5">
-                            <h3 class="font-bold text-gray-900 text-lg leading-snug mb-2 group-hover:text-purple-700 transition line-clamp-2">${p.title}</h3>
-                            
-                            <div class="bg-gray-50 rounded-lg p-3 mb-4 border border-gray-100">
-                                <p class="text-xs text-gray-600 italic mb-1">"${p.review_text || 'A stunning choice for your wardrobe.'}"</p>
-                                <p class="text-[10px] text-purple-700 font-bold uppercase tracking-wider"><i class="fa-solid fa-lightbulb mr-1"></i> ${p.styling_tip || 'Style with confidence.'}</p>
-                            </div>
-
+                            <h3 class="font-bold text-gray-900 text-lg leading-snug mb-2 line-clamp-2">${p.title}</h3>
                             <div class="flex items-center justify-between pt-2 border-t border-gray-50">
                                 <span class="text-2xl font-bold text-gray-900 serif-font">${p.price}</span>
                                 <a href="${p.link}" target="_blank" rel="nofollow" class="bg-black text-white px-5 py-2.5 rounded-full text-sm font-medium hover:bg-purple-600 transition transform active:scale-95 shadow-lg flex items-center gap-2">
@@ -312,22 +166,38 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                `;
+                </div>`;
 
-                // ADSENSE MANTIĞI (Her 4 üründe bir reklam)
+                // REKLAM ALANI (Her 4 üründe bir)
                 if ((index + 1) % 4 === 0) {
                     html += `
-                    <div class="break-inside-avoid mb-6">
-                        <div class="ad-placeholder w-full h-64 rounded-xl">
-                            <!-- AdSense kodunu buraya ekleyebilirsiniz -->
-                            <span class="text-center"><i class="fa-solid fa-ad block text-2xl mb-2"></i>Advertisement</span>
+                    <div class="break-inside-avoid mb-6 ad-wrapper">
+                        <div class="ad-container w-full">
+                            <!-- AdSense Kodunu JS ile buraya basacağız -->
+                            <ins class="adsbygoogle"
+                                 style="display:block"
+                                 data-ad-client="${ADSENSE_CLIENT_ID}"
+                                 data-ad-slot="${ADSENSE_SLOT_ID}"
+                                 data-ad-format="auto"
+                                 data-full-width-responsive="true"></ins>
                         </div>
-                    </div>
-                    `;
+                    </div>`;
                 }
             });
             grid.innerHTML = html;
+        }
+
+        // Reklamları Tetikleyen Fonksiyon
+        function initAds() {
+            try {
+                // Sayfadaki tüm .adsbygoogle etiketlerini bul ve doldur
+                const ads = document.querySelectorAll('.adsbygoogle');
+                ads.forEach(ad => {
+                    (window.adsbygoogle = window.adsbygoogle || []).push({});
+                });
+            } catch (e) {
+                console.log("AdSense henüz yüklenmedi veya bir hata oluştu.");
+            }
         }
 
         init();
