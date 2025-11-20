@@ -32,6 +32,9 @@ jobs:
           AMAZON_ACCESS_KEY: ${{ secrets.AMAZON_ACCESS_KEY }}
           AMAZON_SECRET_KEY: ${{ secrets.AMAZON_SECRET_KEY }}
           AMAZON_TAG: ${{ secrets.AMAZON_TAG }}
+          ADSENSE_ID: ${{ secrets.ADSENSE_ID }}
+          ADSENSE_SLOT: ${{ secrets.ADSENSE_SLOT }}
+          PINTEREST_URL: ${{ secrets.PINTEREST_URL }}
         run: python automation_engine.py
 
       - name: Commit and push changes
