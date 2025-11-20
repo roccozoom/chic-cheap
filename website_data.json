@@ -1,32 +1,62 @@
 [
     {
-        "title": "Womens Boho Floral V-Neck Maxi Dress",
+        "title": "Bohemian Summer Floral Maxi Dress",
         "price": "$39.99",
-        "image_url": "https://m.media-amazon.com/images/I/71lJ8B8-qUL._AC_SY879_.jpg",
+        "image_url": "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?q=80&w=600&auto=format&fit=crop",
         "link": "https://www.amazon.com/dp/B09XYZ123?tag=chiche0420-20",
         "category": "Fashion",
-        "review_text": "Stylish choice!",
-        "styling_tip": "Wear it well.",
-        "ai_score": 90
+        "review_text": "A stylish choice for the season.",
+        "styling_tip": "Wear with confidence.",
+        "ai_score": 92
     },
     {
-        "title": "Classic Oversized Denim Jacket Blue",
+        "title": "Oversized Vintage Denim Jacket",
         "price": "$45.50",
-        "image_url": "https://m.media-amazon.com/images/I/61q+M9XzRlL._AC_SY879_.jpg",
+        "image_url": "https://images.unsplash.com/photo-1544441893-675973e31985?q=80&w=600&auto=format&fit=crop",
         "link": "https://www.amazon.com/dp/B08ABC456?tag=chiche0420-20",
         "category": "Fashion",
-        "review_text": "Stylish choice!",
-        "styling_tip": "Wear it well.",
-        "ai_score": 90
+        "review_text": "A stylish choice for the season.",
+        "styling_tip": "Wear with confidence.",
+        "ai_score": 92
     },
     {
-        "title": "Gold Plated Layered Chain Necklace",
+        "title": "Minimalist Gold Layered Necklace",
         "price": "$14.99",
-        "image_url": "https://m.media-amazon.com/images/I/61-wX1+D2JL._AC_SY695_.jpg",
+        "image_url": "https://images.unsplash.com/photo-1599643478518-17488fbbcd75?q=80&w=600&auto=format&fit=crop",
         "link": "https://www.amazon.com/dp/B07DEF789?tag=chiche0420-20",
         "category": "Fashion",
-        "review_text": "Stylish choice!",
-        "styling_tip": "Wear it well.",
-        "ai_score": 90
+        "review_text": "A stylish choice for the season.",
+        "styling_tip": "Wear with confidence.",
+        "ai_score": 92
+    },
+    {
+        "title": "Classic Aviator Sunglasses Gold",
+        "price": "$18.99",
+        "image_url": "https://images.unsplash.com/photo-1572635196237-14b3f281503f?q=80&w=600&auto=format&fit=crop",
+        "link": "https://www.amazon.com/dp/B09SUN123?tag=chiche0420-20",
+        "category": "Fashion",
+        "review_text": "A stylish choice for the season.",
+        "styling_tip": "Wear with confidence.",
+        "ai_score": 92
+    },
+    {
+        "title": "White Summer Sneakers Comfortable",
+        "price": "$29.99",
+        "image_url": "https://images.unsplash.com/photo-1560769629-975ec94e6a86?q=80&w=600&auto=format&fit=crop",
+        "link": "https://www.amazon.com/dp/B08SHOE123?tag=chiche0420-20",
+        "category": "Fashion",
+        "review_text": "A stylish choice for the season.",
+        "styling_tip": "Wear with confidence.",
+        "ai_score": 92
+    },
+    {
+        "title": "Leather Crossbody Bag Brown",
+        "price": "$55.00",
+        "image_url": "https://images.unsplash.com/photo-1584917865442-de89df76afd3?q=80&w=600&auto=format&fit=crop",
+        "link": "https://www.amazon.com/dp/B08BAG456?tag=chiche0420-20",
+        "category": "Fashion",
+        "review_text": "A stylish choice for the season.",
+        "styling_tip": "Wear with confidence.",
+        "ai_score": 92
     }
 ]
