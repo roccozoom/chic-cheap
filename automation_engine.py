@@ -23,7 +23,7 @@ SITE_CONFIG = {
     "pinterest_url": os.environ.get("PINTEREST_URL", "https://pinterest.com")
 }
 
-# --- YEDEK ÜRÜNLER ---
+# --- YEDEK ÜRÜNLER (Paraşüt) ---
 BACKUP_PRODUCTS = [
     { "title": "Bohemian Summer Floral Maxi Dress", "price": "$39.99", "image_url": "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?q=80&w=600", "link": f"https://www.amazon.com/s?k=boho+dress&tag={REAL_AMAZON_TAG}", "category": "Dress" },
     { "title": "Classic Oversized Denim Jacket", "price": "$45.50", "image_url": "https://images.unsplash.com/photo-1544441893-675973e31985?q=80&w=600", "link": f"https://www.amazon.com/s?k=denim+jacket&tag={REAL_AMAZON_TAG}", "category": "Jacket" },
@@ -33,10 +33,11 @@ BACKUP_PRODUCTS = [
     { "title": "Luxury Leather Crossbody Bag", "price": "$55.00", "image_url": "https://images.unsplash.com/photo-1584917865442-de89df76afd3?q=80&w=600", "link": f"https://www.amazon.com/s?k=crossbody+bag&tag={REAL_AMAZON_TAG}", "category": "Bags" }
 ]
 
+# API Başlatmayı Dene
 try:
     genai.configure(api_key=GEMINI_KEY)
     model = genai.GenerativeModel('gemini-2.5-flash-preview-09-2025')
-    # Throttling'i artırdık, belki yavaş sorarsak cevap verir
+    # Throttling'i artırdık (5sn), Amazon'a yavaş ve nazik davranır
     amazon = AmazonApi(AMAZON_KEY, AMAZON_SECRET, REAL_AMAZON_TAG, COUNTRY, throttling=5)
 except:
     pass
@@ -46,7 +47,7 @@ class AIContentGenerator:
         print(f"🤖 AI İnceliyor: {product_title[:30]}...")
         prompt = f"""
         Act as a fashion influencer. Review: "{product_title}" (${price}).
-        Output JSON: 'review_text' (20 words), 'styling_tip', 'ai_score' (85-99), 'category', 'pin_title', 'pin_desc'.
+        Output JSON keys: 'review_text' (20 words), 'styling_tip', 'ai_score' (85-99), 'category', 'pin_title', 'pin_desc'.
         """
         try:
             response = model.generate_content(prompt)
@@ -63,14 +64,14 @@ def create_pinterest_files(products):
         writer.writeheader()
         
         for p in products:
-            # XML Item
+            # XML
             item = ET.SubElement(channel, "item")
             ET.SubElement(item, "title").text = p.get('pin_title', p['title'])
             ET.SubElement(item, "link").text = "https://chic-cheap.com"
             enclosure = ET.SubElement(item, "enclosure"); enclosure.set("url", p['image_url']); enclosure.set("type", "image/jpeg")
             ET.SubElement(item, "pubDate").text = datetime.now().strftime("%a, %d %b %Y %H:%M:%S GMT")
             
-            # CSV Row
+            # CSV
             writer.writerow({'Title': p.get('pin_title', p['title']), 'Description': p.get('pin_desc', p['title']), 'Link': "https://chic-cheap.com", 'Image': p['image_url'], 'Board': BOARD_NAME})
 
     ET.ElementTree(rss).write("pinterest.xml", encoding='utf-8', xml_declaration=True)
@@ -81,10 +82,11 @@ def main():
     ai_engine = AIContentGenerator()
     api_success = False
 
+    # 1. API TESTİ
     try:
         if all([GEMINI_KEY, AMAZON_KEY, AMAZON_SECRET]):
             print("📡 Amazon API'ye bağlanılıyor...")
-            # Spesifik bir ürün arayalım (Daha kolay sonuç verir)
+            # Sadece 'Womens Dress' arayarak basit bir test yapalım
             items = amazon.search_items(keywords="Womens Dress", item_count=3)
             
             if items:
@@ -95,27 +97,30 @@ def main():
                         title = item.item_info.title.display_value
                         link = item.detail_page_url
                         img = item.images.primary.large.url
-                        price = item.offers.listings[0].price.display_amount if item.offers else "$Check"
+                        price = item.offers.listings[0].price.display_amount if item.offers else "$Check Price"
                         processed_products.append({"title": title, "price": price, "image_url": img, "link": link})
                     except: continue
             else:
-                print("⚠️ Amazon bağlandı ama ürün listesi boş döndü.")
+                print("⚠️ Amazon bağlandı ama ürün listesi boş döndü (Stok veya Kategori sorunu).")
     except Exception as e:
         print(f"❌ AMAZON HATASI: {e}")
         print("👉 Bu hata, henüz satış yapılmadığı için API'nin kilitli olduğunu gösterir.")
 
+    # 2. SONUÇ KONTROLÜ
     if not processed_products:
-        print("🔄 Yedek ürünler devreye alınıyor...")
+        print("🔄 API yanıt vermedi, Yedek Ürünler (Vitrin Modu) devreye alınıyor...")
         processed_products = BACKUP_PRODUCTS
 
+    # 3. İŞLEME VE KAYIT
     final_data = []
     for product in processed_products:
         ai_data = ai_engine.generate_review(product['title'], product['price'])
         final_data.append({**product, **ai_data})
         time.sleep(0.5)
 
+    final_output = {"config": SITE_CONFIG, "products": final_data}
     with open('website_data.json', 'w', encoding='utf-8') as f:
-        json.dump({"config": SITE_CONFIG, "products": final_data}, f, indent=4)
+        json.dump(final_output, f, indent=4)
     
     create_pinterest_files(final_data)
     print("💾 İşlem tamamlandı.")
