@@ -31,6 +31,7 @@ INVENTORY_POOL = [
     {"title": "Elegant Red Evening Gown", "price": "$59.50", "category": "Dress", "image_url": "https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=600", "link": f"https://www.amazon.com/s?k=red+evening+dress&tag={REAL_AMAZON_TAG}"},
     {"title": "Casual White Summer Dress", "price": "$34.00", "category": "Dress", "image_url": "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?q=80&w=600", "link": f"https://www.amazon.com/s?k=white+summer+dress&tag={REAL_AMAZON_TAG}"},
     {"title": "Vintage Polka Dot Midi Dress", "price": "$42.99", "category": "Dress", "image_url": "https://images.unsplash.com/photo-1612336307429-8a898d10e223?q=80&w=600", "link": f"https://www.amazon.com/s?k=vintage+dress&tag={REAL_AMAZON_TAG}"},
+    {"title": "Enchanted Garden: Black Floral Mesh Overlay Evening Gown", "price": "$168.42", "category": "Dress", "image_url": "https://m.media-amazon.com/images/I/912ZoPZhcdS._AC_SX569_.jpg", "link": f"https://www.amazon.com/Dress-Population-Embellished-Plunging-Sleeveless/dp/B07M7L6SWM={REAL_AMAZON_TAG}"},
     
     # JACKETS & TOPS
     {"title": "Classic Oversized Denim Jacket", "price": "$45.50", "category": "Jacket", "image_url": "https://images.unsplash.com/photo-1544441893-675973e31985?q=80&w=600", "link": f"https://www.amazon.com/s?k=denim+jacket&tag={REAL_AMAZON_TAG}"},
@@ -131,3 +132,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
