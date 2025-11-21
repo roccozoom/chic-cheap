@@ -32,8 +32,8 @@ INVENTORY_POOL = [
     {"title": "Casual White Summer Dress", "price": "$34.00", "category": "Dress", "image_url": "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?q=80&w=600", "link": f"https://www.amazon.com/s?k=white+summer+dress&tag={REAL_AMAZON_TAG}"},
     {"title": "Vintage Polka Dot Midi Dress", "price": "$42.99", "category": "Dress", "image_url": "https://images.unsplash.com/photo-1612336307429-8a898d10e223?q=80&w=600", "link": f"https://www.amazon.com/s?k=vintage+dress&tag={REAL_AMAZON_TAG}"},
     {"title": "Enchanted Garden: Black Floral Mesh Overlay Evening Gown", "price": "$168.42", "category": "Dress", "image_url": "https://m.media-amazon.com/images/I/912ZoPZhcdS._AC_SX569_.jpg", "link": f"https://amzn.to/4reV5Mv"},
-    {"title": "Classic Crew Neck Career Dress: Professional Office Wear for Women", "price": "$59.97", "category": "Dress", "image_url": "https://m.media-amazon.com/images/I/41ZV9tUZJ1L._AC_SX679_.jpg", "link": f"https://amzn.to/4iiG9ca"},
-    {"title": "Women's Navy Blue Sequin Lace Mother of the Bride Dress with 3/4 Sleeves", "price": "$83.57", "category": "Dress", "image_url": "https://m.media-amazon.com/images/I/816IuEGnk+L._AC_SX679_.jpg", "link": f"https://amzn.to/3LRGlD7"},
+    {"title": "Classic Crew Neck Career Dress: Professional Office Wear for Women", "price": "$59.97", "category": "Dress", "image_url": "https://m.media-amazon.com/images/I/41ZV9tUZJ1L._AC_SX679_.jpg", "link": f"https://amzn.to/3XdSN2r"},
+    {"title": "Women's Navy Blue Sequin Lace Mother of the Bride Dress with 3/4 Sleeves", "price": "$83.57", "category": "Dress", "image_url": "https://m.media-amazon.com/images/I/816IuEGnk+L._AC_SX679_.jpg", "link": f"https://amzn.to/3K8nIdB"},
     {"title": "Vintage Romance: Gold Brocade Evening Dress with Bow Waist Detail", "price": "$220", "category": "Dress", "image_url": "https://m.media-amazon.com/images/I/614bG0bdWuL._AC_SX679_.jpg", "link": f"https://amzn.to/3XHdPXh"},
     
     # JACKETS & TOPS
@@ -135,6 +135,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
