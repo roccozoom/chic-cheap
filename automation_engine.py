@@ -17,21 +17,20 @@ REAL_AMAZON_TAG = "chiche0420-20"
 COUNTRY = "US"
 BOARD_NAME = "Summer Trends 2025"
 
-# Site Ayarları (Senin ID'lerin)
 SITE_CONFIG = {
-    "adsense_id": "ca-pub-4267818870826080",
-    "adsense_slot": "7287051976",
-    "pinterest_url": "https://www.pinterest.com/chiccheapcom"
+    "adsense_id": os.environ.get("ADSENSE_ID", ""),
+    "adsense_slot": os.environ.get("ADSENSE_SLOT", ""),
+    "pinterest_url": os.environ.get("PINTEREST_URL", "https://pinterest.com")
 }
 
-# --- SANAL DEPO (40+ Ürünlük Yedek Havuz) ---
-# Robot her sabah buradan rastgele 15 ürün seçecek.
+# --- SANAL DEPO (GÖRSELLER DÜZELTİLDİ) ---
+# Her ürünün resmi, başlığıyla uyumlu ve benzersiz seçildi.
 INVENTORY_POOL = [
     # ELBİSELER
-    {"title": "Bohemian Floral Maxi Dress", "price": "$39.99", "category": "Dress", "image_url": "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?q=80&w=600", "link": f"https://www.amazon.com/s?k=boho+maxi+dress&tag={REAL_AMAZON_TAG}"},
+    {"title": "Bohemian Floral Maxi Dress", "price": "$39.99", "category": "Dress", "image_url": "https://images.unsplash.com/photo-1612336307429-8a898d10e223?q=80&w=600", "link": f"https://www.amazon.com/s?k=boho+maxi+dress&tag={REAL_AMAZON_TAG}"},
     {"title": "Elegant Red Satin Evening Gown", "price": "$59.50", "category": "Dress", "image_url": "https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=600", "link": f"https://www.amazon.com/s?k=red+satin+dress&tag={REAL_AMAZON_TAG}"},
     {"title": "White Linen Summer Dress", "price": "$34.00", "category": "Dress", "image_url": "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?q=80&w=600", "link": f"https://www.amazon.com/s?k=white+linen+dress&tag={REAL_AMAZON_TAG}"},
-    {"title": "Vintage Polka Dot Midi Dress", "price": "$42.99", "category": "Dress", "image_url": "https://images.unsplash.com/photo-1612336307429-8a898d10e223?q=80&w=600", "link": f"https://www.amazon.com/s?k=polka+dot+dress&tag={REAL_AMAZON_TAG}"},
+    {"title": "Polka Dot Vintage Midi Dress", "price": "$42.99", "category": "Dress", "image_url": "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?q=80&w=600", "link": f"https://www.amazon.com/s?k=polka+dot+dress&tag={REAL_AMAZON_TAG}"},
     {"title": "Black Cocktail Mini Dress", "price": "$45.00", "category": "Dress", "image_url": "https://images.unsplash.com/photo-1539008835657-9e8e9680c956?q=80&w=600", "link": f"https://www.amazon.com/s?k=black+cocktail+dress&tag={REAL_AMAZON_TAG}"},
     {"title": "Yellow Floral Sundress", "price": "$29.99", "category": "Dress", "image_url": "https://images.unsplash.com/photo-1566174053879-31528523f8ae?q=80&w=600", "link": f"https://www.amazon.com/s?k=yellow+sundress&tag={REAL_AMAZON_TAG}"},
     {"title": "Pastel Pink Slip Dress", "price": "$38.00", "category": "Dress", "image_url": "https://images.unsplash.com/photo-1585487000160-6ebcfceb0d03?q=80&w=600", "link": f"https://www.amazon.com/s?k=pink+slip+dress&tag={REAL_AMAZON_TAG}"},
@@ -72,7 +71,7 @@ INVENTORY_POOL = [
     {"title": "Black Designer Handbag", "price": "$120.00", "category": "Bags", "image_url": "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?q=80&w=600", "link": f"https://www.amazon.com/s?k=black+handbag&tag={REAL_AMAZON_TAG}"}
 ]
 
-# API Başlatma Denemesi
+# API Başlatma
 try:
     genai.configure(api_key=GEMINI_KEY)
     model = genai.GenerativeModel('gemini-2.5-flash-preview-09-2025')
@@ -90,7 +89,7 @@ class AIContentGenerator:
             response = model.generate_content(prompt)
             return json.loads(response.text.replace('```json', '').replace('```', '').strip())
         except:
-            return {"review_text": "A stylish choice for the season.", "styling_tip": "Wear with confidence.", "ai_score": 92, "category": "Fashion", "pin_title": "Fashion Find", "pin_desc": "Trendy style"}
+            return {"review_text": "A stylish choice.", "styling_tip": "Wear with confidence.", "ai_score": 92, "category": "Fashion", "pin_title": "Fashion Find", "pin_desc": "Trendy style"}
 
 def create_pinterest_files(products):
     rss = ET.Element("rss", version="2.0"); channel = ET.SubElement(rss, "channel")
@@ -109,23 +108,20 @@ def create_pinterest_files(products):
     ET.ElementTree(rss).write("pinterest.xml", encoding='utf-8', xml_declaration=True)
 
 def main():
-    print("--- 🚀 Chic-Cheap V15.0 (Mega Envanter) ---")
+    print("--- 🚀 Chic-Cheap V16.0 (Görseller Düzeltildi) ---")
     processed_products = []
     ai_engine = AIContentGenerator()
     
-    # 1. API Kontrolü (Satış olana kadar pasif)
+    # 1. API Kontrolü (Şimdilik pasif)
     api_success = False
     try:
         if all([GEMINI_KEY, AMAZON_KEY, AMAZON_SECRET]):
             items = amazon.search_items(keywords="Womens Fashion", item_count=2)
-            # Şu an API kapalı, satış gelince burayı açacağız
     except: pass
 
     if not api_success:
         print("✅ Vitrin Modu: Depodan rastgele ürünler seçiliyor...")
-        # BURASI SİHRİN OLDUĞU YER:
-        # 30+ ürünlük havuzdan, rastgele 15 tanesini seç ve karıştır.
-        # Böylece site her gün farklı görünür.
+        # 40+ ürün arasından rastgele 15 tanesini seç
         count = min(len(INVENTORY_POOL), 15) 
         processed_products = random.sample(INVENTORY_POOL, count)
 
