@@ -80,9 +80,9 @@ INVENTORY_POOL = [
 # BAGS
 {"title": "Luxury Leather Crossbody Bag", "price": "$55.00", "category": "Bags", "image_url": "https://images.unsplash.com/photo-1584917865442-de89df76afd3?q=80&w=600", "link": f"https://www.amazon.com/s?k=crossbody+bag&tag={REAL_AMAZON_TAG}"},
 {"title": "Chic Tote Bag", "price": "$32.50", "category": "Bags", "image_url": "https://images.unsplash.com/photo-1591561954557-26941169b49e?q=80&w=600", "link": f"https://www.amazon.com/s?k=tote+bag&tag={REAL_AMAZON_TAG}"},
-{"title": "Woven Beach Bag", "price": "$28.00", "category": "Bags", "image_url": "https://images.unsplash.com/photo-1544816155-12df9643f363?q=80&w=600", "link": f"https://www.amazon.com/s?k=woven+bag&tag={REAL_AMAZON_TAG}"}
-{"title": "Cloud-Like Comfort: Featherlight Soft Nylon Mini Travel Rucksack for Women", "price": "$24.99", "category": "Bags", "image_url": "https://m.media-amazon.com/images/I/71uB3S+DCaL._AC_SL1500_.jpg", "link": f"https://amzn.to/48895ik"}
-{"title": "Black Designer Handbag", "price": "$120.00", "category": "Bags", "image_url": "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?q=80&w=600", "link": f"https://www.amazon.com/s?k=black+handbag&tag={REAL_AMAZON_TAG}"}
+{"title": "Woven Beach Bag", "price": "$28.00", "category": "Bags", "image_url": "https://images.unsplash.com/photo-1544816155-12df9643f363?q=80&w=600", "link": f"https://www.amazon.com/s?k=woven+bag&tag={REAL_AMAZON_TAG}"},
+{"title": "Cloud-Like Comfort: Featherlight Soft Nylon Mini Travel Rucksack for Women", "price": "$24.99", "category": "Bags", "image_url": "https://m.media-amazon.com/images/I/71uB3S+DCaL._AC_SL1500_.jpg", "link": f"https://amzn.to/48895ik"},
+{"title": "Black Designer Handbag", "price": "$120.00", "category": "Bags", "image_url": "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?q=80&w=600", "link": f"https://www.amazon.com/s?k=black+handbag&tag={REAL_AMAZON_TAG}"},
 ]
 
 # API Başlatma Denemesi
@@ -159,3 +159,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
