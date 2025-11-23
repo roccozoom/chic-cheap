@@ -4,25 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
-    <!-- 1. ADIM: SENİN ADSENSE GLOBAL KODUN -->
+    <!-- 1. ADIM: ADSENSE GLOBAL KODUN -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4267818870826080" crossorigin="anonymous"></script>
 
-    <!-- SEO & Meta Tags -->
-    <title>Chic-Cheap | AI Curated Fashion Deals & Trends</title>
+    <!-- GELİŞMİŞ SEO & META ETİKETLERİ -->
+    <title>Chic-Cheap | AI Curated Fashion Deals & Trends 2025</title>
     <meta name="description" content="Discover the best women's fashion deals on Amazon using AI. Curated dresses, jewelry, bags, and trends at the best prices. Shop smarter with Chic-Cheap.">
-    <meta name="keywords" content="fashion deals, AI fashion, amazon finds, boho dresses, affordable style, women clothing, cheap chic style">
+    <meta name="keywords" content="fashion deals, AI fashion, amazon finds, boho dresses, affordable style, women clothing, cheap chic style, 2025 fashion trends">
     <meta name="author" content="Chic-Cheap AI">
+    <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://chic-cheap.com/">
     
-    <!-- SCHEMA MARKUP (Google'ın Siteni Anlaması İçin Kritik) -->
+    <!-- GOOGLE İÇİN YAPISAL VERİ (SCHEMA MARKUP) - SİTEYİ MAĞAZA OLARAK TANITIR -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "OnlineStore",
       "name": "Chic-Cheap",
       "url": "https://chic-cheap.com",
-      "description": "AI curated fashion deals from Amazon.",
       "logo": "https://cdn-icons-png.flaticon.com/512/3050/3050239.png",
+      "description": "AI curated fashion deals from Amazon.",
+      "foundingDate": "2025",
+      "priceRange": "$",
       "potentialAction": {
         "@type": "SearchAction",
         "target": "https://chic-cheap.com/?q={search_term_string}",
@@ -31,11 +34,17 @@
     }
     </script>
 
+    <!-- Social Media (Open Graph) -->
+    <meta property="og:title" content="Chic-Cheap | AI Powered Fashion Curation">
+    <meta property="og:description" content="Don't search for hours. Our AI finds the best fashion deals for you.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=1000">
+    <meta property="og:url" content="https://chic-cheap.com">
+    <meta property="og:type" content="website">
+
     <!-- PWA & Icons -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#ffffff">
     <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3050/3050239.png">
-    <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/3050/3050239.png">
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -58,6 +67,18 @@
         .pinterest-card { background: linear-gradient(135deg, #E60023 0%, #b3001b 100%); color: white; }
         .best-seller-card { background: linear-gradient(135deg, #111827 0%, #374151 100%); color: white; }
         .ad-container { background: #f9fafb; border: 1px dashed #d1d5db; }
+        
+        /* Paylaş Butonu Stili */
+        .share-btn {
+            position: absolute; top: 10px; right: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%; width: 35px; height: 35px;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; transition: all 0.3s;
+            opacity: 0; transform: translateY(-10px);
+        }
+        .group:hover .share-btn { opacity: 1; transform: translateY(0); }
+        .share-btn:hover { background: black; color: white; }
     </style>
 </head>
 <body class="bg-white text-gray-800 antialiased">
@@ -71,14 +92,14 @@
             </div>
             <div class="hidden md:flex space-x-8 text-sm font-medium text-gray-500">
                 <a href="#product-grid" class="hover:text-black transition">NEW ARRIVALS</a>
-                <a href="#how-it-works" class="hover:text-black transition">HOW IT WORKS</a>
                 <a href="#about" class="hover:text-black transition">ABOUT</a>
+                <a href="#newsletter" class="hover:text-black transition">SUBSCRIBE</a>
             </div>
             <button class="md:hidden text-2xl text-gray-700"><i class="fa-solid fa-bars"></i></button>
         </div>
     </nav>
 
-    <!-- HEADER AD (Senin Slot ID'n) -->
+    <!-- HEADER AD -->
     <div class="container mx-auto px-4 mt-6 mb-2">
         <div id="header-ad" class="mixed-card ad-container w-full !h-24 !min-h-0">
             <span class="text-[10px] text-gray-400 mt-1">Advertisement</span>
@@ -104,27 +125,6 @@
         </div>
     </header>
 
-    <!-- HOW IT WORKS (YENİ - GÜVEN BÖLÜMÜ) -->
-    <section id="how-it-works" class="container mx-auto px-4 mb-16">
-        <div class="grid grid-cols-3 gap-4 text-center max-w-3xl mx-auto">
-            <div class="p-4">
-                <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-3 text-xl">🤖</div>
-                <h4 class="font-bold text-sm">AI Curated</h4>
-                <p class="text-xs text-gray-500 mt-1">Selected by algorithms</p>
-            </div>
-            <div class="p-4">
-                <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-3 text-xl">🛒</div>
-                <h4 class="font-bold text-sm">Amazon Secure</h4>
-                <p class="text-xs text-gray-500 mt-1">Checkout via Amazon</p>
-            </div>
-            <div class="p-4">
-                <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-3 text-xl">🔥</div>
-                <h4 class="font-bold text-sm">Best Deals</h4>
-                <p class="text-xs text-gray-500 mt-1">Verified price drops</p>
-            </div>
-        </div>
-    </section>
-
     <!-- MAIN GRID -->
     <main class="container mx-auto px-4 pb-20" id="product-grid">
         <div id="grid-container" class="masonry-grid"></div>
@@ -139,6 +139,11 @@
             <p class="text-gray-600 leading-relaxed mb-8">
                 We believe fashion shouldn't break the bank. Our proprietary AI technology analyzes thousands of products on Amazon every day, looking for the perfect balance of <strong>style, quality, and price</strong>. We do the digging, so you don't have to.
             </p>
+            <div class="flex justify-center gap-8 text-center">
+                <div><span class="block text-3xl font-bold text-gray-900">100%</span><span class="text-xs text-gray-500 uppercase tracking-wide">Curated</span></div>
+                <div><span class="block text-3xl font-bold text-gray-900">24/7</span><span class="text-xs text-gray-500 uppercase tracking-wide">Updates</span></div>
+                <div><span class="block text-3xl font-bold text-gray-900">Amazon</span><span class="text-xs text-gray-500 uppercase tracking-wide">Secure Checkout</span></div>
+            </div>
         </div>
     </section>
 
@@ -163,7 +168,6 @@
     </footer>
 
     <script>
-        // SENİN SABİT AYARLARIN
         let CONFIG = { 
             adsense_id: "ca-pub-4267818870826080", 
             adsense_slot: "7287051976", 
@@ -172,25 +176,17 @@
 
         const grid = document.getElementById('grid-container');
         const loader = document.getElementById('loading-state');
+        const FALLBACK_IMAGE = "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=600";
         
-        // GENİŞLETİLMİŞ YEDEK VERİ (Siteyi her zaman dolu gösterir)
+        // YEDEK VERİLER (Site her zaman dolu görünsün diye)
         const MOCK_DATA = [
-            {"title": "Boho Summer Floral Dress", "price": "$39.99", "image_url": "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?q=80&w=600", "link": "#", "ai_score": 94},
-            {"title": "Classic Oversized Denim Jacket", "price": "$45.50", "image_url": "https://images.unsplash.com/photo-1544441893-675973e31985?q=80&w=600", "link": "#", "ai_score": 88},
-            {"title": "Minimalist Gold Layered Necklace", "price": "$14.99", "image_url": "https://images.unsplash.com/photo-1599643478518-17488fbbcd75?q=80&w=600", "link": "#", "ai_score": 91},
-            {"title": "Vintage Cat Eye Sunglasses", "price": "$18.99", "image_url": "https://images.unsplash.com/photo-1511499767150-a48a237f0083?q=80&w=600", "link": "#", "ai_score": 85},
-            {"title": "White Summer Canvas Sneakers", "price": "$29.99", "image_url": "https://images.unsplash.com/photo-1560769629-975ec94e6a86?q=80&w=600", "link": "#", "ai_score": 89},
-            {"title": "Luxury Leather Crossbody Bag", "price": "$55.00", "image_url": "https://images.unsplash.com/photo-1584917865442-de89df76afd3?q=80&w=600", "link": "#", "ai_score": 95},
-            {"title": "Chic Beige Tote Bag", "price": "$32.50", "image_url": "https://images.unsplash.com/photo-1591561954557-26941169b49e?q=80&w=600", "link": "#", "ai_score": 87},
-            {"title": "Pearl Drop Earrings", "price": "$12.50", "image_url": "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?q=80&w=600", "link": "#", "ai_score": 90},
-            {"title": "Red Satin Evening Gown", "price": "$59.50", "image_url": "https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=600", "link": "#", "ai_score": 93},
-            {"title": "Leather Ankle Boots", "price": "$65.00", "image_url": "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=80&w=600", "link": "#", "ai_score": 86},
-            {"title": "Wide Brim Straw Hat", "price": "$22.00", "image_url": "https://images.unsplash.com/photo-1521335629791-ce4aec6c1d09?q=80&w=600", "link": "#", "ai_score": 88},
-            {"title": "Cozy Knitted Sweater", "price": "$35.99", "image_url": "https://images.unsplash.com/photo-1576566588028-4147f3842f27?q=80&w=600", "link": "#", "ai_score": 91}
+            {"title": "Boho Summer Floral Dress", "price": "$39.99", "image_url": FALLBACK_IMAGE, "link": "#", "ai_score": 94},
+            {"title": "Classic Denim Jacket", "price": "$45.50", "image_url": FALLBACK_IMAGE, "link": "#", "ai_score": 88},
+            {"title": "Gold Necklace", "price": "$14.99", "image_url": FALLBACK_IMAGE, "link": "#", "ai_score": 91}
         ];
 
         async function init() {
-            // Önizleme Modu Kontrolü
+            // Önizleme Modu Koruması
             if (window.location.protocol === 'blob:' || window.location.protocol === 'file:') {
                 console.log("Önizleme Modu: Yedek veriler yükleniyor.");
                 render(MOCK_DATA);
@@ -200,21 +196,14 @@
 
             try {
                 const res = await fetch(`website_data.json?t=${new Date().getTime()}`);
-                if (!res.ok) throw new Error("Veri dosyası bulunamadı.");
+                if (!res.ok) throw new Error("Veri yok");
                 
                 const data = await res.json();
-                
-                if (data.config && data.config.adsense_id) {
-                    CONFIG = data.config;
-                }
+                if (data.config && data.config.adsense_id) CONFIG = data.config;
                 
                 const productList = Array.isArray(data) ? data : data.products;
-                // Eğer backend'den gelen veri azsa, boş görünmesin diye Mock Data ile birleştir
-                const finalProducts = productList.length > 5 ? productList : MOCK_DATA;
+                render(productList);
                 
-                render(finalProducts);
-                
-                // Reklamları tetikle
                 setTimeout(() => {
                      try { 
                          const ads = document.querySelectorAll('.adsbygoogle');
@@ -223,7 +212,7 @@
                 }, 1000);
 
             } catch (err) { 
-                console.warn("Veri çekilemedi, yedekler devrede.", err);
+                console.warn("Veri çekilemedi, yedek mod devrede.", err);
                 render(MOCK_DATA); 
             } finally { 
                 loader.classList.add('hidden'); 
@@ -235,11 +224,19 @@
             let adCounter = 0;
 
             products.forEach((p, index) => {
+                // PAYLAŞIM FONKSİYONU
+                const shareData = `try { navigator.share({ title: '${p.title.replace(/'/g, "")}', url: 'https://chic-cheap.com' }); } catch(e) { alert('Link copied!'); }`;
+
                 html += `
                 <div class="break-inside-avoid group mb-6">
-                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl transition duration-500">
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl transition duration-500 relative">
+                        <!-- PAYLAŞ BUTONU -->
+                        <button onclick="${shareData}" class="share-btn z-10" title="Share this item">
+                            <i class="fa-solid fa-share-nodes"></i>
+                        </button>
+
                         <div class="relative hover-zoom overflow-hidden aspect-[3/4]">
-                            <img src="${p.image_url}" alt="${p.title}" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=600'">
+                            <img src="${p.image_url}" alt="${p.title}" class="w-full h-full object-cover" loading="lazy" onerror="this.src='${FALLBACK_IMAGE}'">
                             <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur-md px-2 py-1 rounded-lg flex items-center gap-1 shadow-sm">
                                 <span class="text-xs font-bold text-gray-800">AI: ${p.ai_score || 90}</span>
                             </div>
@@ -254,7 +251,7 @@
                     </div>
                 </div>`;
 
-                // Dinamik Reklam ve Kartlar
+                // DİNAMİK REKLAM VE PINTEREST KARTLARI
                 if ((index + 1) % 4 === 0) {
                     adCounter++;
                     html += `<div class="break-inside-avoid mb-6">`;
