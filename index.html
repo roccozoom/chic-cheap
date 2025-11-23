@@ -4,21 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
-    <!-- 1. ADIM: SENİN ADSENSE GLOBAL KODUN -->
+    <!-- ADSENSE -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4267818870826080" crossorigin="anonymous"></script>
 
-    <!-- SEO & Meta Tags -->
-    <title>Chic-Cheap | AI Curated Fashion Deals & Trends</title>
-    <meta name="description" id="page-desc" content="Discover the best women's fashion deals on Amazon using AI. Curated dresses, jewelry, bags, and trends at the best prices.">
-    <meta name="keywords" content="fashion deals, AI fashion, amazon finds, boho dresses, affordable style, women clothing">
+    <!-- SEO -->
+    <title>Chic-Cheap | AI Curated Fashion Deals</title>
+    <meta name="description" id="page-desc" content="Daily curated fashion deals and trends.">
     <meta name="author" content="Chic-Cheap AI">
-    
-    <!-- PWA & Icons -->
+
+    <!-- PWA -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#ffffff">
     <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3050/3050239.png">
 
-    <!-- Tailwind CSS -->
+    <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
@@ -33,21 +32,21 @@
         .hover-zoom img { transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
         .hover-zoom:hover img { transform: scale(1.05); }
         
-        /* Kart ve Reklam Stilleri */
         .mixed-card { min-height: 250px; border-radius: 0.75rem; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; text-align: center; padding: 20px; transition: transform 0.3s ease; }
         .mixed-card:hover { transform: translateY(-5px); }
         .pinterest-card { background: linear-gradient(135deg, #E60023 0%, #b3001b 100%); color: white; }
         .best-seller-card { background: linear-gradient(135deg, #111827 0%, #374151 100%); color: white; }
         .ad-container { background: #f9fafb; border: 1px dashed #d1d5db; }
         
-        /* Blog Kartı Animasyonu */
-        #latest-story .bg-white { cursor: pointer; transition: all 0.4s ease; }
-        #latest-story .bg-white:hover { transform: translateY(-5px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); }
+        /* Blog Stil */
+        .prose h2 { font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-top: 1.5rem; margin-bottom: 0.5rem; color: #111827; }
+        .prose p { margin-bottom: 1rem; line-height: 1.7; }
+        .prose ul { list-style-type: disc; padding-left: 1.5rem; margin-bottom: 1rem; }
+        .prose li { margin-bottom: 0.5rem; }
     </style>
 </head>
 <body class="bg-white text-gray-800 antialiased">
 
-    <!-- NAVBAR -->
     <nav class="bg-white/90 backdrop-blur-md border-b border-gray-100 sticky top-0 z-50">
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
             <div class="flex items-center space-x-2 cursor-pointer" onclick="window.location.reload()">
@@ -59,217 +58,115 @@
                 <a href="#product-grid" class="hover:text-black transition">SHOP</a>
                 <a href="#newsletter" class="hover:text-black transition">SUBSCRIBE</a>
             </div>
-            <button class="md:hidden text-2xl text-gray-700"><i class="fa-solid fa-bars"></i></button>
         </div>
     </nav>
 
-    <!-- HERO + BLOG (Yan Yana Tasarım) -->
+    <!-- HERO + BLOG KARTI -->
     <header class="py-12 px-4 bg-gradient-to-b from-gray-50 to-white">
         <div class="container mx-auto max-w-6xl grid md:grid-cols-2 gap-12 items-center">
-            <!-- Sol: Karşılama -->
             <div class="text-center md:text-left">
-                <span class="inline-flex items-center bg-purple-100 text-purple-700 text-xs font-bold px-3 py-1 rounded-full mb-4">
-                    <i class="fa-solid fa-wand-magic-sparkles mr-2"></i> DAILY UPDATE
-                </span>
-                <h1 class="text-5xl md:text-6xl font-bold mb-6 serif-font text-gray-900 leading-tight">
-                    Curated Style.<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-500">Smart Prices.</span>
-                </h1>
-                <p class="text-gray-500 mb-8 text-lg">We use AI to find the best fashion deals on Amazon, so you don't have to search for hours.</p>
-                <a href="#product-grid" class="bg-black text-white px-8 py-3 rounded-full font-bold hover:bg-gray-800 transition shadow-lg inline-block">Start Shopping</a>
+                <span class="inline-flex items-center bg-purple-100 text-purple-700 text-xs font-bold px-3 py-1 rounded-full mb-4"><i class="fa-solid fa-wand-magic-sparkles mr-2"></i> DAILY UPDATE</span>
+                <h1 class="text-5xl md:text-6xl font-bold mb-6 serif-font text-gray-900 leading-tight">Curated Style.<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-500">Smart Prices.</span></h1>
+                <p class="text-gray-500 mb-8 text-lg">We use AI to find the best fashion deals on Amazon.</p>
             </div>
-
-            <!-- Sağ: Günün Blog Yazısı (Dinamik Olarak Dolacak) -->
-            <div id="latest-story" class="hidden md:block">
-                <div onclick="openBlog()" class="bg-white p-6 rounded-2xl shadow-xl border border-gray-100">
+            
+            <!-- BLOG KARTI -->
+            <div id="latest-story" class="hidden md:block cursor-pointer" onclick="openBlog()">
+                <div class="bg-white p-6 rounded-2xl shadow-xl border border-gray-100 transform rotate-1 hover:rotate-0 transition duration-500">
                     <div class="h-48 bg-gray-200 rounded-xl mb-4 overflow-hidden relative">
-                        <img id="blog-img" src="https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=800" class="w-full h-full object-cover" alt="Fashion Trends">
-                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold">NEW POST</div>
+                        <img id="blog-img" src="" class="w-full h-full object-cover" alt="Trend">
+                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold">NEW STORY</div>
                     </div>
-                    <h3 id="blog-title" class="text-2xl font-bold serif-font mb-2">Loading Trends...</h3>
-                    <p id="blog-summary" class="text-gray-500 text-sm mb-4 line-clamp-3">Our AI is analyzing the latest fashion trends for you. Check back in a few seconds.</p>
-                    <span class="text-purple-600 font-bold text-sm uppercase tracking-wide hover:underline flex items-center">Read Article <i class="fa-solid fa-arrow-right ml-2"></i></span>
+                    <h3 id="blog-title" class="text-2xl font-bold serif-font mb-2">Loading...</h3>
+                    <p id="blog-summary" class="text-gray-500 text-sm mb-4 line-clamp-2">...</p>
+                    <span class="text-purple-600 font-bold text-sm uppercase tracking-wide hover:underline">Read Full Article <i class="fa-solid fa-arrow-right ml-1"></i></span>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- HEADER AD (Senin Slot ID'n) -->
+    <!-- AD -->
     <div class="container mx-auto px-4 mb-8">
-        <div id="header-ad" class="mixed-card ad-container w-full !h-24 !min-h-0">
-            <span class="text-[10px] text-gray-400 mt-1">Advertisement</span>
-            <ins class="adsbygoogle"
-                 style="display:block; width:100%; height:100%"
-                 data-ad-client="ca-pub-4267818870826080"
-                 data-ad-slot="7287051976"
-                 data-ad-format="horizontal"
-                 data-full-width-responsive="true"></ins>
+        <div class="mixed-card ad-container w-full !h-24 !min-h-0">
+             <ins class="adsbygoogle" style="display:block; width:100%; height:100%" data-ad-client="ca-pub-4267818870826080" data-ad-slot="7287051976" data-ad-format="horizontal" data-full-width-responsive="true"></ins>
+             <span class="text-[10px] text-gray-400 mt-1">Advertisement</span>
         </div>
     </div>
 
-    <!-- MAIN GRID -->
+    <!-- GRID -->
     <main class="container mx-auto px-4 pb-20" id="product-grid">
-        <div class="flex items-center justify-between mb-8 border-b border-gray-100 pb-4">
-            <h2 class="text-2xl font-bold serif-font">Today's Picks</h2>
-        </div>
         <div id="grid-container" class="masonry-grid"></div>
         <div id="loading-state" class="text-center py-20"><div class="inline-block animate-spin rounded-full h-12 w-12 border-4 border-gray-200 border-t-black"></div></div>
     </main>
 
-    <!-- BLOG MODAL (Yazı Okuma Ekranı) -->
-    <div id="blog-modal" class="fixed inset-0 bg-black/50 z-50 hidden flex items-center justify-center p-4 backdrop-blur-sm transition-opacity duration-300">
-        <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-8 relative shadow-2xl">
-            <button onclick="closeBlog()" class="absolute top-4 right-4 text-gray-400 hover:text-black text-2xl z-10"><i class="fa-solid fa-times"></i></button>
-            <img id="modal-img" src="" class="w-full h-64 object-cover rounded-xl mb-6 hidden md:block">
-            <h2 id="modal-title" class="text-3xl font-bold serif-font mb-4 text-gray-900"></h2>
-            <div id="modal-content" class="prose prose-purple text-gray-600 leading-relaxed text-lg"></div>
+    <!-- BLOG MODAL (Pop-up) -->
+    <div id="blog-modal" class="fixed inset-0 bg-black/60 z-50 hidden flex items-center justify-center p-4 backdrop-blur-sm transition-opacity duration-300">
+        <div class="bg-white rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto p-8 relative shadow-2xl animate-fade-in">
+            <button onclick="closeBlog()" class="absolute top-4 right-4 bg-gray-100 hover:bg-gray-200 p-2 rounded-full text-gray-600 transition"><i class="fa-solid fa-times text-xl"></i></button>
+            <img id="modal-img" src="" class="w-full h-72 object-cover rounded-xl mb-8 shadow-md">
+            <h2 id="modal-title" class="text-4xl font-bold serif-font mb-6 text-gray-900 leading-tight"></h2>
+            <div id="modal-content" class="prose prose-lg text-gray-600 leading-relaxed"></div>
             <div class="mt-8 pt-6 border-t border-gray-100 text-center">
-                <button onclick="closeBlog()" class="bg-black text-white px-6 py-2 rounded-full hover:bg-gray-800 transition">Close</button>
+                <p class="text-sm text-gray-400 italic mb-4">Written by Chic-Cheap AI Fashion Editor</p>
+                <button onclick="closeBlog()" class="bg-black text-white px-8 py-3 rounded-full font-bold hover:bg-gray-800 transition">Close Article</button>
             </div>
         </div>
     </div>
 
-    <!-- ABOUT SECTION -->
-    <section id="about" class="bg-gray-50 py-16 border-t border-gray-200">
-        <div class="container mx-auto px-4 max-w-4xl text-center">
-            <i class="fa-solid fa-quote-left text-4xl text-gray-300 mb-6"></i>
-            <h2 class="text-3xl font-bold serif-font mb-6">Why Chic-Cheap?</h2>
-            <p class="text-gray-600 leading-relaxed mb-8">
-                We believe fashion shouldn't break the bank. Our proprietary AI technology analyzes thousands of products on Amazon every day, looking for the perfect balance of <strong>style, quality, and price</strong>. We do the digging, so you don't have to.
-            </p>
-            <div class="flex justify-center gap-8 text-center">
-                <div><span class="block text-3xl font-bold text-gray-900">100%</span><span class="text-xs text-gray-500 uppercase tracking-wide">Curated</span></div>
-                <div><span class="block text-3xl font-bold text-gray-900">24/7</span><span class="text-xs text-gray-500 uppercase tracking-wide">Updates</span></div>
-                <div><span class="block text-3xl font-bold text-gray-900">Amazon</span><span class="text-xs text-gray-500 uppercase tracking-wide">Secure Checkout</span></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- NEWSLETTER -->
-    <section id="newsletter" class="py-16 bg-black text-white text-center">
-        <div class="container mx-auto px-4 max-w-xl">
-            <h2 class="text-2xl font-bold serif-font mb-4">Join the Club</h2>
-            <p class="text-gray-400 mb-8">Get the best deals directly to your inbox.</p>
-            <form onsubmit="event.preventDefault(); alert('Thanks for subscribing!');" class="flex gap-2">
-                <input type="email" placeholder="Email address" class="flex-1 px-4 py-3 rounded-lg text-black focus:outline-none">
-                <button class="bg-purple-600 px-6 py-3 rounded-lg font-bold hover:bg-purple-500 transition">Join</button>
-            </form>
-        </div>
-    </section>
-    <footer class="bg-gray-900 text-white py-8 border-t border-gray-800 text-center text-xs text-gray-600">
-        &copy; 2025 Chic-Cheap. Amazon Associate.
+    <!-- FOOTER -->
+    <footer class="bg-gray-900 text-white py-12 border-t border-gray-800 text-center">
+        <h3 class="text-2xl font-bold serif-font mb-4">chic-cheap</h3>
+        <p class="text-xs text-gray-600">&copy; 2025 Chic-Cheap. Amazon Associate.</p>
     </footer>
 
     <script>
-        // SENİN SABİT AYARLARIN
-        let CONFIG = { 
-            adsense_id: "ca-pub-4267818870826080", 
-            adsense_slot: "7287051976", 
-            pinterest_url: "https://www.pinterest.com/chiccheapcom" 
-        };
-
+        let CONFIG = { adsense_id: "ca-pub-4267818870826080", adsense_slot: "7287051976", pinterest_url: "https://www.pinterest.com/chiccheapcom" };
         const grid = document.getElementById('grid-container');
         const loader = document.getElementById('loading-state');
         const FALLBACK_IMAGE = "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=600";
-        
-        // Blog Verisi (Yedek)
-        let currentBlog = {
-            title: "Welcome to Chic-Cheap Style",
-            summary: "Discover the latest trends curated by AI.",
-            content: "<p>Our AI is currently writing the next big fashion story. Check back tomorrow for fresh insights!</p>",
-            image_url: "https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=800"
-        };
-        
-        const MOCK_DATA = [
-            {"title": "Boho Summer Floral Dress", "price": "$39.99", "image_url": FALLBACK_IMAGE, "link": "#", "ai_score": 94}
-        ];
+        let currentBlog = {};
 
         async function init() {
-            if (window.location.protocol === 'blob:' || window.location.protocol === 'file:') {
-                console.log("Önizleme Modu"); render(MOCK_DATA); loader.classList.add('hidden'); return; 
-            }
-
+            if (window.location.protocol === 'blob:' || window.location.protocol === 'file:') { loader.classList.add('hidden'); return; }
             try {
                 const res = await fetch(`website_data.json?t=${new Date().getTime()}`);
                 if (!res.ok) throw new Error("Veri yok");
-                
                 const data = await res.json();
-                
-                // Config Güncelleme
-                if (data.config && data.config.adsense_id) CONFIG = data.config;
-                
-                // BLOG YERLEŞTİRME (Buraya Dikkat)
+                if (data.config) CONFIG = data.config;
+
+                // BLOGU GÜNCELLE
                 if (data.blog) {
                     currentBlog = data.blog;
-                    // Kartı Güncelle
                     document.getElementById('blog-title').innerText = data.blog.title;
                     document.getElementById('blog-summary').innerText = data.blog.summary;
                     document.getElementById('blog-img').src = data.blog.image_url;
-                    // Modalı Güncelle
                     document.getElementById('modal-img').src = data.blog.image_url;
-                    
-                    // Sayfa Başlığını Güncelle (SEO)
-                    document.title = `${data.blog.title} | Chic-Cheap`;
-                    document.getElementById('page-desc').setAttribute('content', data.blog.summary);
                 }
 
-                const productList = Array.isArray(data) ? data : data.products;
-                render(productList);
-                
+                render(data.products || []);
                 setTimeout(() => { try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) {} }, 1000);
-
-            } catch (err) { 
-                console.warn("Veri okunamadı, yedek mod.", err);
-                render(MOCK_DATA); 
-            } finally { 
-                loader.classList.add('hidden'); 
-            }
+            } catch (err) { console.log(err); } 
+            finally { loader.classList.add('hidden'); }
         }
 
         function render(products) {
             let html = '';
             let adCounter = 0;
-
             products.forEach((p, index) => {
-                // Paylaşım
-                const shareData = `try { navigator.share({ title: '${p.title.replace(/'/g, "")}', url: 'https://chic-cheap.com' }); } catch(e) { alert('Link copied!'); }`;
-
-                html += `
-                <div class="break-inside-avoid group mb-6">
-                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl transition duration-500 relative">
-                        <button onclick="${shareData}" class="absolute top-3 right-3 z-10 bg-white/90 p-2 rounded-full shadow-md opacity-0 group-hover:opacity-100 transition"><i class="fa-solid fa-share-nodes"></i></button>
-                        <div class="relative hover-zoom overflow-hidden aspect-[3/4]">
-                            <img src="${p.image_url}" alt="${p.title}" class="w-full h-full object-cover" onerror="this.src='${FALLBACK_IMAGE}'">
-                            <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur-md px-2 py-1 rounded-lg flex items-center gap-1 shadow-sm">
-                                <span class="text-xs font-bold text-gray-800">AI: ${p.ai_score || 90}</span>
-                            </div>
-                        </div>
-                        <div class="p-5">
-                            <h3 class="font-bold text-gray-900 text-lg leading-snug mb-2 line-clamp-2">${p.title}</h3>
-                            <div class="flex items-center justify-between pt-2 border-t border-gray-50">
-                                <span class="text-2xl font-bold text-gray-900 serif-font">${p.price}</span>
-                                <a href="${p.link}" target="_blank" rel="nofollow" class="bg-black text-white px-5 py-2.5 rounded-full text-sm font-medium hover:bg-purple-600 transition transform active:scale-95 shadow-lg flex items-center gap-2">Shop Now</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>`;
+                html += `<div class="break-inside-avoid group mb-6"><div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl transition duration-500"><div class="relative hover-zoom overflow-hidden aspect-[3/4]"><img src="${p.image_url}" class="w-full h-full object-cover" onerror="this.src='${FALLBACK_IMAGE}'"><div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur-md px-2 py-1 rounded-lg shadow-sm"><span class="text-xs font-bold text-gray-800">AI: ${p.ai_score || 90}</span></div></div><div class="p-5"><h3 class="font-bold text-gray-900 text-lg leading-snug mb-2 line-clamp-2">${p.title}</h3><div class="flex items-center justify-between pt-2 border-t border-gray-50"><span class="text-2xl font-bold text-gray-900 serif-font">${p.price}</span><a href="${p.link}" target="_blank" class="bg-black text-white px-5 py-2.5 rounded-full text-sm font-medium hover:bg-purple-600 transition shadow-lg flex items-center gap-2">Shop Now</a></div></div></div></div>`;
                 
                 if ((index + 1) % 4 === 0) {
                     adCounter++;
                     html += `<div class="break-inside-avoid mb-6">`;
-                    if (adCounter % 3 === 1) {
-                        html += `<div class="mixed-card ad-container"><ins class="adsbygoogle" style="display:block; width:100%;" data-ad-client="${CONFIG.adsense_id}" data-ad-slot="${CONFIG.adsense_slot}" data-ad-format="auto" data-full-width-responsive="true"></ins><span class="text-[10px] text-gray-400">Sponsored</span></div>`;
-                    } else if (adCounter % 3 === 2) {
-                        html += `<a href="${CONFIG.pinterest_url}" target="_blank" class="mixed-card pinterest-card shadow-lg cursor-pointer group"><i class="fa-brands fa-pinterest text-5xl mb-4 group-hover:scale-110 transition"></i><h3 class="text-xl font-bold mb-2">Follow Trends</h3><span class="bg-white text-[#E60023] px-6 py-2 rounded-full font-bold text-sm">Follow Us</span></a>`;
-                    } else {
-                         html += `<div class="mixed-card best-seller-card shadow-lg"><i class="fa-solid fa-fire text-4xl text-yellow-400 mb-4"></i><h3 class="text-xl font-bold mb-2">Hot Deals</h3><span class="border border-white/30 text-white px-6 py-2 rounded-full font-bold text-sm">View All</span></div>`;
-                    }
+                    if (adCounter % 3 === 1) { html += `<div class="mixed-card ad-container"><ins class="adsbygoogle" style="display:block; width:100%;" data-ad-client="${CONFIG.adsense_id}" data-ad-slot="${CONFIG.adsense_slot}" data-ad-format="auto" data-full-width-responsive="true"></ins><span class="text-[10px] text-gray-400">Sponsored</span></div>`; }
+                    else if (adCounter % 3 === 2) { html += `<a href="${CONFIG.pinterest_url}" target="_blank" class="mixed-card pinterest-card shadow-lg cursor-pointer group"><i class="fa-brands fa-pinterest text-5xl mb-4 group-hover:scale-110 transition"></i><h3 class="text-xl font-bold mb-2">Follow Trends</h3><span class="bg-white text-[#E60023] px-6 py-2 rounded-full font-bold text-sm">Follow Us</span></a>`; }
+                    else { html += `<div class="mixed-card best-seller-card shadow-lg"><i class="fa-solid fa-fire text-4xl text-yellow-400 mb-4"></i><h3 class="text-xl font-bold mb-2">Hot Deals</h3><span class="border border-white/30 text-white px-6 py-2 rounded-full font-bold text-sm">View All</span></div>`; }
                     html += `</div>`;
                 }
             });
             grid.innerHTML = html;
         }
 
-        // Blog Aç/Kapa
         window.openBlog = function() {
             document.getElementById('modal-title').innerText = currentBlog.title;
             document.getElementById('modal-content').innerHTML = currentBlog.content;
@@ -280,7 +177,6 @@
             document.getElementById('blog-modal').classList.add('hidden');
             document.body.style.overflow = 'auto';
         }
-
         init();
     </script>
 </body>
