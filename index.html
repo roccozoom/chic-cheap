@@ -7,43 +7,19 @@
     <!-- 1. ADIM: SENİN ADSENSE GLOBAL KODUN -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4267818870826080" crossorigin="anonymous"></script>
 
-    <!-- GELİŞMİŞ SEO & Meta Tags -->
-    <title>Chic-Cheap | Affordable Women's Fashion & Trending Styles</title>
-    <meta name="description" content="Discover the latest women's fashion trends at unbeatable prices. Chic-Cheap uses AI to curate the best deals on dresses, jewelry, bags, and more from Amazon.">
-    <meta name="keywords" content="affordable fashion, boho dresses, trendy clothes, women's jewelry, amazon fashion finds, chic style, budget fashion">
-    <meta name="author" content="Chic-Cheap AI">
-    <link rel="canonical" href="https://chic-cheap.com/">
+    <!-- SEO & Meta Tags -->
+    <title>Chic-Cheap | AI Curated Fashion Deals & Trends</title>
+    <meta name="description" content="Discover the best women's fashion deals on Amazon using AI. Curated dresses, jewelry, and trends at the best prices. Shop smarter with Chic-Cheap.">
+    <meta name="keywords" content="fashion deals, AI fashion, amazon finds, boho dresses, affordable style, women clothing">
+    <meta name="author" content="Chic-Cheap">
     
-    <!-- Google Search Console -->
-    <!-- <meta name="google-site-verification" content="KODUNU_BURAYA_YAZABILIRSIN" /> -->
-
-    <!-- Social Media (Open Graph) - Paylaşılınca Güzel Görünsün -->
-    <meta property="og:title" content="Chic-Cheap | Curated Fashion Deals">
-    <meta property="og:description" content="Stop searching, start finding. AI-curated fashion trends at smart prices.">
-    <meta property="og:image" content="https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=1000">
-    <meta property="og:url" content="https://chic-cheap.com">
-    <meta property="og:type" content="website">
-    <meta name="twitter:card" content="summary_large_image">
-
-    <!-- SCHEMA MARKUP (Google'a Siteyi Tanıtma) -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "OnlineStore",
-      "name": "Chic-Cheap",
-      "url": "https://chic-cheap.com",
-      "logo": "https://cdn-icons-png.flaticon.com/512/3050/3050239.png",
-      "description": "AI curated fashion deals for women.",
-      "foundingDate": "2025",
-      "priceRange": "$"
-    }
-    </script>
+    <!-- Google Search Console (Eğer varsa buraya ekle, yoksa boş kalsın) -->
+    <!-- <meta name="google-site-verification" content="..." /> -->
 
     <!-- PWA & Icons -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#ffffff">
     <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3050/3050239.png">
-    <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/3050/3050239.png">
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -82,11 +58,12 @@
                 <a href="#about" class="hover:text-black transition">ABOUT</a>
                 <a href="#newsletter" class="hover:text-black transition">SUBSCRIBE</a>
             </div>
+            <!-- Mobile Menu Icon -->
             <button class="md:hidden text-2xl text-gray-700"><i class="fa-solid fa-bars"></i></button>
         </div>
     </nav>
 
-    <!-- HEADER AD -->
+    <!-- HEADER AD (Senin Slot ID'n ile) -->
     <div class="container mx-auto px-4 mt-6 mb-2">
         <div id="header-ad" class="mixed-card ad-container w-full !h-24 !min-h-0">
             <span class="text-[10px] text-gray-400 mt-1">Advertisement</span>
@@ -118,7 +95,7 @@
         <div id="loading-state" class="text-center py-20"><div class="inline-block animate-spin rounded-full h-12 w-12 border-4 border-gray-200 border-t-black"></div></div>
     </main>
 
-    <!-- ABOUT SECTION -->
+    <!-- ABOUT SECTION (Sayfayı Dolu Gösteren Bölüm) -->
     <section id="about" class="bg-gray-50 py-16 border-t border-gray-200">
         <div class="container mx-auto px-4 max-w-4xl text-center">
             <i class="fa-solid fa-quote-left text-4xl text-gray-300 mb-6"></i>
@@ -134,7 +111,7 @@
         </div>
     </section>
 
-    <!-- NEWSLETTER -->
+    <!-- NEWSLETTER (Profesyonel Görünüm İçin) -->
     <section id="newsletter" class="py-16 bg-black text-white text-center">
         <div class="container mx-auto px-4 max-w-xl">
             <h2 class="text-2xl font-bold serif-font mb-4">Don't Miss the Next Drop</h2>
@@ -155,11 +132,15 @@
     </footer>
 
     <script>
+        // ==========================================
+        // SENİN SABİT AYARLARIN (BURADA TUTUYORUZ)
+        // ==========================================
         let CONFIG = { 
             adsense_id: "ca-pub-4267818870826080", 
             adsense_slot: "7287051976", 
             pinterest_url: "https://www.pinterest.com/chiccheapcom" 
         };
+        // ==========================================
 
         const grid = document.getElementById('grid-container');
         const loader = document.getElementById('loading-state');
@@ -171,19 +152,31 @@
         ];
 
         async function init() {
+            // ÖNİZLEME HATASI KORUMASI
             if (window.location.protocol === 'blob:' || window.location.protocol === 'file:') {
-                console.log("Önizleme Modu"); render(MOCK_DATA); loader.classList.add('hidden'); return; 
+                console.log("Önizleme Modu: Yedek veriler yükleniyor.");
+                render(MOCK_DATA);
+                loader.classList.add('hidden');
+                return; 
             }
 
             try {
+                // Veriyi Çek
                 const res = await fetch(`website_data.json?t=${new Date().getTime()}`);
-                if (!res.ok) throw new Error("Veri yok");
+                if (!res.ok) throw new Error("Veri dosyası bulunamadı.");
                 
                 const data = await res.json();
-                if (data.config && data.config.adsense_id) CONFIG = data.config;
+                
+                // JSON formatı değiştiyse (config + products) uyum sağla
+                // Eğer JSON'dan config geliyorsa ve doluysa onu kullan, yoksa yukarıdaki sabitleri kullan
+                if (data.config && data.config.adsense_id) {
+                    CONFIG = data.config;
+                }
+                
                 const productList = Array.isArray(data) ? data : data.products;
                 render(productList);
                 
+                // Reklamları tetikle
                 setTimeout(() => {
                      try { 
                          const ads = document.querySelectorAll('.adsbygoogle');
@@ -192,7 +185,7 @@
                 }, 1000);
 
             } catch (err) { 
-                console.warn("Yedek mod devrede.", err);
+                console.warn("Veri çekilemedi (Normal), yedekler gösteriliyor.", err);
                 render(MOCK_DATA); 
             } finally { 
                 loader.classList.add('hidden'); 
@@ -204,23 +197,8 @@
             let adCounter = 0;
 
             products.forEach((p, index) => {
-                // ÜRÜN SCHEMA (SEO İÇİN ÇOK ÖNEMLİ)
-                const schema = JSON.stringify({
-                    "@context": "https://schema.org/",
-                    "@type": "Product",
-                    "name": p.title,
-                    "image": p.image_url,
-                    "description": p.review_text,
-                    "offers": {
-                        "@type": "Offer",
-                        "priceCurrency": "USD",
-                        "price": p.price.replace('$','')
-                    }
-                });
-
                 html += `
                 <div class="break-inside-avoid group mb-6">
-                    <script type="application/ld+json">${schema}<\/script>
                     <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl transition duration-500">
                         <div class="relative hover-zoom overflow-hidden aspect-[3/4]">
                             <img src="${p.image_url}" alt="${p.title}" class="w-full h-full object-cover" onerror="this.src='${FALLBACK_IMAGE}'">
@@ -238,14 +216,30 @@
                     </div>
                 </div>`;
 
+                // DİNAMİK REKLAM VE PINTEREST KARTLARI
                 if ((index + 1) % 4 === 0) {
                     adCounter++;
                     html += `<div class="break-inside-avoid mb-6">`;
-                    if (adCounter % 3 === 1) {
-                        html += `<div class="mixed-card ad-container"><ins class="adsbygoogle" style="display:block; width:100%;" data-ad-client="${CONFIG.adsense_id}" data-ad-slot="${CONFIG.adsense_slot}" data-ad-format="auto" data-full-width-responsive="true"></ins><span class="text-[10px] text-gray-400">Sponsored</span></div>`;
-                    } else if (adCounter % 3 === 2) {
-                        html += `<a href="${CONFIG.pinterest_url}" target="_blank" class="mixed-card pinterest-card shadow-lg cursor-pointer group"><i class="fa-brands fa-pinterest text-5xl mb-4 group-hover:scale-110 transition"></i><h3 class="text-xl font-bold mb-2">Follow Trends</h3><span class="bg-white text-[#E60023] px-6 py-2 rounded-full font-bold text-sm">Follow Us</span></a>`;
-                    } else {
+                    
+                    if (adCounter % 3 === 1) { // REKLAM
+                        html += `
+                        <div class="mixed-card ad-container">
+                            <ins class="adsbygoogle"
+                                 style="display:block; width:100%;"
+                                 data-ad-client="${CONFIG.adsense_id}"
+                                 data-ad-slot="${CONFIG.adsense_slot}"
+                                 data-ad-format="auto"
+                                 data-full-width-responsive="true"></ins>
+                            <span class="text-[10px] text-gray-400">Sponsored</span>
+                        </div>`;
+                    } else if (adCounter % 3 === 2) { // PINTEREST
+                        html += `
+                        <a href="${CONFIG.pinterest_url}" target="_blank" class="mixed-card pinterest-card shadow-lg cursor-pointer group">
+                            <i class="fa-brands fa-pinterest text-5xl mb-4 group-hover:scale-110 transition"></i>
+                            <h3 class="text-xl font-bold mb-2">Follow Trends</h3>
+                            <span class="bg-white text-[#E60023] px-6 py-2 rounded-full font-bold text-sm">Follow Us</span>
+                        </a>`;
+                    } else { // HOT DEALS
                          html += `<div class="mixed-card best-seller-card shadow-lg"><i class="fa-solid fa-fire text-4xl text-yellow-400 mb-4"></i><h3 class="text-xl font-bold mb-2">Hot Deals</h3><span class="border border-white/30 text-white px-6 py-2 rounded-full font-bold text-sm">View All</span></div>`;
                     }
                     html += `</div>`;
