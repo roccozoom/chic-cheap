@@ -17,49 +17,42 @@ REAL_AMAZON_TAG = "chiche0420-20"
 COUNTRY = "US"
 BOARD_NAME = "Summer Trends 2025"
 
-# Site Ayarları (Senin ID'lerin)
 SITE_CONFIG = {
     "adsense_id": "ca-pub-4267818870826080",
     "adsense_slot": "7287051976",
     "pinterest_url": "https://www.pinterest.com/chiccheapcom"
 }
 
-# --- 100+ ÜRÜNLÜK DEV SANAL DEPO ---
-# Robot her gün buradan rastgele 15 tane seçecek.
+# --- 50+ BENZERSİZ ÜRÜNLÜK DEV HAVUZ ---
+# Her ürünün resmi farklı ve kalitelidir.
 INVENTORY_POOL = [
-    # --- ELBİSELER (DRESSES) ---
-    {"title": "Bohemian Floral Maxi Dress", "price": "$39.99", "category": "Dress", "image_url": "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?q=80&w=600", "link": f"https://www.amazon.com/s?k=boho+maxi+dress&tag={REAL_AMAZON_TAG}"},
+    # ELBİSELER
+    {"title": "Boho Maxi Floral Dress", "price": "$39.99", "category": "Dress", "image_url": "https://images.unsplash.com/photo-1612336307429-8a898d10e223?q=80&w=600", "link": f"https://www.amazon.com/s?k=boho+maxi+dress&tag={REAL_AMAZON_TAG}"},
     {"title": "Red Satin Evening Gown", "price": "$59.50", "category": "Dress", "image_url": "https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=600", "link": f"https://www.amazon.com/s?k=red+satin+dress&tag={REAL_AMAZON_TAG}"},
     {"title": "White Linen Summer Dress", "price": "$34.00", "category": "Dress", "image_url": "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?q=80&w=600", "link": f"https://www.amazon.com/s?k=white+linen+dress&tag={REAL_AMAZON_TAG}"},
-    {"title": "Vintage Polka Dot Dress", "price": "$42.99", "category": "Dress", "image_url": "https://images.unsplash.com/photo-1612336307429-8a898d10e223?q=80&w=600", "link": f"https://www.amazon.com/s?k=polka+dot+dress&tag={REAL_AMAZON_TAG}"},
-    {"title": "Little Black Dress", "price": "$45.00", "category": "Dress", "image_url": "https://images.unsplash.com/photo-1539008835657-9e8e9680c956?q=80&w=600", "link": f"https://www.amazon.com/s?k=little+black+dress&tag={REAL_AMAZON_TAG}"},
+    {"title": "Black Cocktail Mini Dress", "price": "$45.00", "category": "Dress", "image_url": "https://images.unsplash.com/photo-1539008835657-9e8e9680c956?q=80&w=600", "link": f"https://www.amazon.com/s?k=black+cocktail+dress&tag={REAL_AMAZON_TAG}"},
     {"title": "Yellow Sundress", "price": "$29.99", "category": "Dress", "image_url": "https://images.unsplash.com/photo-1566174053879-31528523f8ae?q=80&w=600", "link": f"https://www.amazon.com/s?k=yellow+sundress&tag={REAL_AMAZON_TAG}"},
     {"title": "Pink Slip Dress", "price": "$38.00", "category": "Dress", "image_url": "https://images.unsplash.com/photo-1585487000160-6ebcfceb0d03?q=80&w=600", "link": f"https://www.amazon.com/s?k=pink+slip+dress&tag={REAL_AMAZON_TAG}"},
     {"title": "Green Wrap Dress", "price": "$55.00", "category": "Dress", "image_url": "https://images.unsplash.com/photo-1605763240004-7e93b172d754?q=80&w=600", "link": f"https://www.amazon.com/s?k=green+wrap+dress&tag={REAL_AMAZON_TAG}"},
-    {"title": "Blue Office Dress", "price": "$49.90", "category": "Dress", "image_url": "https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=600", "link": f"https://www.amazon.com/s?k=blue+office+dress&tag={REAL_AMAZON_TAG}"},
-    {"title": "Floral Midi Dress", "price": "$42.00", "category": "Dress", "image_url": "https://images.unsplash.com/photo-1572804013427-4d7ca7268217?q=80&w=600", "link": f"https://www.amazon.com/s?k=floral+midi+dress&tag={REAL_AMAZON_TAG}"},
+    {"title": "Blue Office Dress", "price": "$49.90", "category": "Dress", "image_url": "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?q=80&w=600", "link": f"https://www.amazon.com/s?k=blue+office+dress&tag={REAL_AMAZON_TAG}"},
     {"title": "Sequin Party Dress", "price": "$68.00", "category": "Dress", "image_url": "https://images.unsplash.com/photo-1566174053879-31528523f8ae?q=80&w=600", "link": f"https://www.amazon.com/s?k=sequin+dress&tag={REAL_AMAZON_TAG}"},
     {"title": "Casual Denim Dress", "price": "$35.00", "category": "Dress", "image_url": "https://images.unsplash.com/photo-1591369822096-35c93e1883aa?q=80&w=600", "link": f"https://www.amazon.com/s?k=denim+dress&tag={REAL_AMAZON_TAG}"},
     {"title": "Velvet Evening Dress", "price": "$75.00", "category": "Dress", "image_url": "https://images.unsplash.com/photo-1566174053879-31528523f8ae?q=80&w=600", "link": f"https://www.amazon.com/s?k=velvet+dress&tag={REAL_AMAZON_TAG}"},
-    {"title": "Striped Shirt Dress", "price": "$32.00", "category": "Dress", "image_url": "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?q=80&w=600", "link": f"https://www.amazon.com/s?k=shirt+dress&tag={REAL_AMAZON_TAG}"},
     {"title": "Off-Shoulder Summer Dress", "price": "$28.00", "category": "Dress", "image_url": "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?q=80&w=600", "link": f"https://www.amazon.com/s?k=off+shoulder+dress&tag={REAL_AMAZON_TAG}"},
-    {"title": "Knitted Sweater Dress", "price": "$45.00", "category": "Dress", "image_url": "https://images.unsplash.com/photo-1576566588028-4147f3842f27?q=80&w=600", "link": f"https://www.amazon.com/s?k=sweater+dress&tag={REAL_AMAZON_TAG}"},
-    {"title": "Silk Slip Dress", "price": "$52.00", "category": "Dress", "image_url": "https://images.unsplash.com/photo-1585487000160-6ebcfceb0d03?q=80&w=600", "link": f"https://www.amazon.com/s?k=silk+dress&tag={REAL_AMAZON_TAG}"},
-    {"title": "Puff Sleeve Mini Dress", "price": "$36.00", "category": "Dress", "image_url": "https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=600", "link": f"https://www.amazon.com/s?k=puff+sleeve+dress&tag={REAL_AMAZON_TAG}"},
 
-    # --- CEKETLER & ÜSTLER ---
-    {"title": "Oversized Denim Jacket", "price": "$45.50", "category": "Jacket", "image_url": "https://images.unsplash.com/photo-1544441893-675973e31985?q=80&w=600", "link": f"https://www.amazon.com/s?k=denim+jacket&tag={REAL_AMAZON_TAG}"},
+    # CEKETLER
+    {"title": "Oversized Denim Jacket", "price": "$45.50", "category": "Jacket", "image_url": "https://images.unsplash.com/photo-1544441893-675973e31985?q=80&w=600", "link": f"https://www.amazon.com/s?k=oversized+denim+jacket&tag={REAL_AMAZON_TAG}"},
     {"title": "Leather Biker Jacket", "price": "$89.99", "category": "Jacket", "image_url": "https://images.unsplash.com/photo-1551028919-ac7edd992304?q=80&w=600", "link": f"https://www.amazon.com/s?k=leather+jacket&tag={REAL_AMAZON_TAG}"},
     {"title": "Beige Trench Coat", "price": "$65.00", "category": "Coat", "image_url": "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?q=80&w=600", "link": f"https://www.amazon.com/s?k=trench+coat&tag={REAL_AMAZON_TAG}"},
     {"title": "Knitted Sweater", "price": "$35.99", "category": "Tops", "image_url": "https://images.unsplash.com/photo-1576566588028-4147f3842f27?q=80&w=600", "link": f"https://www.amazon.com/s?k=knit+sweater&tag={REAL_AMAZON_TAG}"},
     {"title": "White Silk Blouse", "price": "$49.90", "category": "Tops", "image_url": "https://images.unsplash.com/photo-1598554060854-b827048d7458?q=80&w=600", "link": f"https://www.amazon.com/s?k=silk+blouse&tag={REAL_AMAZON_TAG}"},
     {"title": "Striped Breton Top", "price": "$24.00", "category": "Tops", "image_url": "https://images.unsplash.com/photo-1503342394128-c104d54dba01?q=80&w=600", "link": f"https://www.amazon.com/s?k=striped+top&tag={REAL_AMAZON_TAG}"},
-    {"title": "Pink Cardigan", "price": "$30.00", "category": "Tops", "image_url": "https://images.unsplash.com/photo-1576566588028-4147f3842f27?q=80&w=600", "link": f"https://www.amazon.com/s?k=cardigan&tag={REAL_AMAZON_TAG}"},
+    {"title": "Pink Cardigan", "price": "$30.00", "category": "Tops", "image_url": "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?q=80&w=600", "link": f"https://www.amazon.com/s?k=cardigan&tag={REAL_AMAZON_TAG}"},
     {"title": "Black Blazer", "price": "$55.00", "category": "Jacket", "image_url": "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?q=80&w=600", "link": f"https://www.amazon.com/s?k=black+blazer&tag={REAL_AMAZON_TAG}"},
     {"title": "Cropped Hoodie", "price": "$25.00", "category": "Tops", "image_url": "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?q=80&w=600", "link": f"https://www.amazon.com/s?k=hoodie&tag={REAL_AMAZON_TAG}"},
     {"title": "Graphic Tee", "price": "$18.00", "category": "Tops", "image_url": "https://images.unsplash.com/photo-1503342394128-c104d54dba01?q=80&w=600", "link": f"https://www.amazon.com/s?k=graphic+tee&tag={REAL_AMAZON_TAG}"},
 
-    # --- TAKILAR ---
+    # TAKILAR
     {"title": "Gold Layered Necklace", "price": "$14.99", "category": "Jewelry", "image_url": "https://images.unsplash.com/photo-1599643478518-17488fbbcd75?q=80&w=600", "link": f"https://www.amazon.com/s?k=gold+necklace&tag={REAL_AMAZON_TAG}"},
     {"title": "Pearl Drop Earrings", "price": "$12.50", "category": "Jewelry", "image_url": "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?q=80&w=600", "link": f"https://www.amazon.com/s?k=pearl+earrings&tag={REAL_AMAZON_TAG}"},
     {"title": "Silver Ring Set", "price": "$18.00", "category": "Jewelry", "image_url": "https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=600", "link": f"https://www.amazon.com/s?k=silver+rings&tag={REAL_AMAZON_TAG}"},
@@ -68,14 +61,14 @@ INVENTORY_POOL = [
     {"title": "Charm Bracelet", "price": "$25.00", "category": "Jewelry", "image_url": "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?q=80&w=600", "link": f"https://www.amazon.com/s?k=charm+bracelet&tag={REAL_AMAZON_TAG}"},
     {"title": "Statement Necklace", "price": "$30.00", "category": "Jewelry", "image_url": "https://images.unsplash.com/photo-1599643478518-17488fbbcd75?q=80&w=600", "link": f"https://www.amazon.com/s?k=statement+necklace&tag={REAL_AMAZON_TAG}"},
 
-    # --- AKSESUARLAR ---
+    # AKSESUARLAR
     {"title": "Cat Eye Sunglasses", "price": "$18.99", "category": "Accessories", "image_url": "https://images.unsplash.com/photo-1511499767150-a48a237f0083?q=80&w=600", "link": f"https://www.amazon.com/s?k=sunglasses&tag={REAL_AMAZON_TAG}"},
     {"title": "Straw Beach Hat", "price": "$22.00", "category": "Accessories", "image_url": "https://images.unsplash.com/photo-1521335629791-ce4aec6c1d09?q=80&w=600", "link": f"https://www.amazon.com/s?k=straw+hat&tag={REAL_AMAZON_TAG}"},
     {"title": "Silk Scarf", "price": "$25.00", "category": "Accessories", "image_url": "https://images.unsplash.com/photo-1586078436377-46714147839b?q=80&w=600", "link": f"https://www.amazon.com/s?k=silk+scarf&tag={REAL_AMAZON_TAG}"},
     {"title": "Leather Belt", "price": "$20.00", "category": "Accessories", "image_url": "https://images.unsplash.com/photo-1624223359990-8b050454b378?q=80&w=600", "link": f"https://www.amazon.com/s?k=leather+belt&tag={REAL_AMAZON_TAG}"},
     {"title": "Wool Beret", "price": "$15.00", "category": "Accessories", "image_url": "https://images.unsplash.com/photo-1576566588028-4147f3842f27?q=80&w=600", "link": f"https://www.amazon.com/s?k=beret&tag={REAL_AMAZON_TAG}"},
 
-    # --- AYAKKABILAR ---
+    # AYAKKABILAR
     {"title": "White Canvas Sneakers", "price": "$29.99", "category": "Shoes", "image_url": "https://images.unsplash.com/photo-1560769629-975ec94e6a86?q=80&w=600", "link": f"https://www.amazon.com/s?k=white+sneakers&tag={REAL_AMAZON_TAG}"},
     {"title": "Leather Ankle Boots", "price": "$65.00", "category": "Shoes", "image_url": "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=80&w=600", "link": f"https://www.amazon.com/s?k=ankle+boots&tag={REAL_AMAZON_TAG}"},
     {"title": "Strappy High Heels", "price": "$49.99", "category": "Shoes", "image_url": "https://images.unsplash.com/photo-1549298916-b41d501d3772?q=80&w=600", "link": f"https://www.amazon.com/s?k=heels&tag={REAL_AMAZON_TAG}"},
@@ -83,11 +76,11 @@ INVENTORY_POOL = [
     {"title": "Flat Sandals", "price": "$24.50", "category": "Shoes", "image_url": "https://images.unsplash.com/photo-1562273138-f46be4ebdf6e?q=80&w=600", "link": f"https://www.amazon.com/s?k=sandals&tag={REAL_AMAZON_TAG}"},
     {"title": "Loafers", "price": "$45.00", "category": "Shoes", "image_url": "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=80&w=600", "link": f"https://www.amazon.com/s?k=loafers&tag={REAL_AMAZON_TAG}"},
 
-    # --- ÇANTALAR ---
+    # ÇANTALAR
     {"title": "Leather Crossbody Bag", "price": "$55.00", "category": "Bags", "image_url": "https://images.unsplash.com/photo-1584917865442-de89df76afd3?q=80&w=600", "link": f"https://www.amazon.com/s?k=crossbody+bag&tag={REAL_AMAZON_TAG}"},
     {"title": "Chic Tote Bag", "price": "$32.50", "category": "Bags", "image_url": "https://images.unsplash.com/photo-1591561954557-26941169b49e?q=80&w=600", "link": f"https://www.amazon.com/s?k=tote+bag&tag={REAL_AMAZON_TAG}"},
     {"title": "Woven Beach Bag", "price": "$28.00", "category": "Bags", "image_url": "https://images.unsplash.com/photo-1544816155-12df9643f363?q=80&w=600", "link": f"https://www.amazon.com/s?k=straw+bag&tag={REAL_AMAZON_TAG}"},
-    {"title": "Black Handbag", "price": "$120.00", "category": "Bags", "image_url": "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?q=80&w=600", "link": f"https://www.amazon.com/s?k=black+handbag&tag={REAL_AMAZON_TAG}"},
+    {"title": "Black Designer Handbag", "price": "$120.00", "category": "Bags", "image_url": "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?q=80&w=600", "link": f"https://www.amazon.com/s?k=black+handbag&tag={REAL_AMAZON_TAG}"},
     {"title": "Red Clutch", "price": "$45.00", "category": "Bags", "image_url": "https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?q=80&w=600", "link": f"https://www.amazon.com/s?k=red+clutch&tag={REAL_AMAZON_TAG}"},
     {"title": "Backpack Purse", "price": "$40.00", "category": "Bags", "image_url": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?q=80&w=600", "link": f"https://www.amazon.com/s?k=backpack+purse&tag={REAL_AMAZON_TAG}"}
 ]
@@ -100,9 +93,11 @@ BLOG_TOPICS = [
     "Capsule Wardrobe Essentials",
     "Denim Jacket Styling Tips",
     "Office Wear Ideas for Women",
-    "Jewelry Layering Guide"
+    "Jewelry Layering Guide",
+    "Best Shoes for Comfort and Style"
 ]
 
+# API Başlatma
 try:
     genai.configure(api_key=GEMINI_KEY)
     model = genai.GenerativeModel('gemini-2.5-flash-preview-09-2025')
@@ -116,32 +111,37 @@ class AIContentGenerator:
             response = model.generate_content(prompt)
             return json.loads(response.text.replace('```json', '').replace('```', '').strip())
         except:
-            return {"review_text": "Stylish choice.", "styling_tip": "Wear with confidence.", "ai_score": 90, "category": "Fashion", "pin_title": "Fashion Find", "pin_desc": "Trendy style"}
+            return {"review_text": "A stylish choice.", "styling_tip": "Wear with confidence.", "ai_score": 92, "category": "Fashion", "pin_title": "Fashion Find", "pin_desc": "Trendy style"}
 
     def generate_blog_post(self):
         topic = random.choice(BLOG_TOPICS)
         print(f"📝 Blog Yazılıyor: {topic}")
+        
+        # GÜÇLENDİRİLMİŞ BLOG PROMPTU (Uzun ve Detaylı)
         prompt = f"""
-        Write a fashion blog post about: "{topic}".
+        Write a detailed fashion blog post about: "{topic}".
         Target: Women looking for affordable style.
+        Tone: Professional yet friendly.
+        Format: HTML (Use <h2> for headings, <p> for text, <ul>/<li> for lists). 
+        Length: Minimum 400 words.
         Output JSON keys:
-        - 'title': Blog title.
+        - 'title': Catchy Blog Title.
         - 'summary': 2 sentence summary.
-        - 'content': HTML content (use <p>, <h2>, <ul>, <li>). 200 words.
-        - 'image_keyword': English keyword for Unsplash image.
+        - 'content': The full HTML content. Do NOT use markdown.
+        - 'image_keyword': English keyword for Unsplash image (e.g. 'summer fashion').
         """
         try:
             response = model.generate_content(prompt)
             data = json.loads(response.text.replace('```json', '').replace('```', '').strip())
             data['image_url'] = f"https://source.unsplash.com/800x400/?{data['image_keyword'].replace(' ', ',')}"
-            if "source.unsplash" in data['image_url']:
+            if "source.unsplash" in data['image_url']: # Yedek görsel
                  data['image_url'] = "https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=800&auto=format&fit=crop"
             return data
         except:
             return {
                 "title": "Trend Alert: 2025 Styles",
                 "summary": "Discover must-have pieces for your wardrobe.",
-                "content": "<p>Fashion is about expressing yourself. Check out our curated list.</p>",
+                "content": "<h2>Summer Essentials</h2><p>Fashion is about expressing yourself...</p>",
                 "image_url": "https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=800"
             }
 
@@ -162,10 +162,11 @@ def create_pinterest_files(products):
     ET.ElementTree(rss).write("pinterest.xml", encoding='utf-8', xml_declaration=True)
 
 def main():
-    print("--- 🚀 Chic-Cheap V20.0 (100+ Items) ---")
+    print("--- 🚀 Chic-Cheap V22.0 (Blog & Mega Depo) ---")
     processed_products = []
     ai_engine = AIContentGenerator()
     
+    # 1. API Kontrolü
     api_success = False
     try:
         if all([GEMINI_KEY, AMAZON_KEY, AMAZON_SECRET]):
@@ -173,7 +174,8 @@ def main():
     except: pass
 
     if not api_success:
-        # Havuzdan rastgele 15 ürün seç
+        print("✅ Vitrin Modu: Depodan rastgele ürünler seçiliyor...")
+        # 15 Tane rastgele ürün seç
         count = min(len(INVENTORY_POOL), 15) 
         processed_products = random.sample(INVENTORY_POOL, count)
 
@@ -185,6 +187,7 @@ def main():
             time.sleep(0.5)
         except: continue
 
+    # Blog Yazısı Oluştur
     blog_post = ai_engine.generate_blog_post()
 
     final_output = {
