@@ -72,7 +72,7 @@ INVENTORY_POOL = [
     {"title": "Red Clutch Bag", "price": "$45.00", "category": "Bags", "image_url": "https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?q=80&w=600", "link": f"https://www.amazon.com/s?k=red+clutch&tag={REAL_AMAZON_TAG}"}
 ]
 
-# BLOG KONULARI
+# BLOG KONULARI (SEO İçin)
 BLOG_TOPICS = [
     "Top 10 Fashion Trends Taking Over 2025",
     "How to Style a Capsule Wardrobe on a Budget",
@@ -82,6 +82,7 @@ BLOG_TOPICS = [
     "Vintage Fashion Comeback: What to Buy Now"
 ]
 
+# API Başlatma Denemesi
 try:
     genai.configure(api_key=GEMINI_KEY)
     model = genai.GenerativeModel('gemini-2.5-flash-preview-09-2025')
@@ -150,6 +151,7 @@ def main():
     processed_products = []
     ai_engine = AIContentGenerator()
     
+    # 1. API Kontrolü (Şimdilik pasif)
     api_success = False
     try:
         if all([GEMINI_KEY, AMAZON_KEY, AMAZON_SECRET]):
@@ -158,7 +160,7 @@ def main():
 
     if not api_success:
         print("✅ Vitrin Modu: Depodan rastgele ürünler seçiliyor...")
-        # 15 Tane rastgele ürün seç
+        # 40+ ürün arasından rastgele 15 tanesini seç
         count = min(len(INVENTORY_POOL), 15) 
         processed_products = random.sample(INVENTORY_POOL, count)
 
@@ -176,7 +178,7 @@ def main():
     final_output = {
         "config": SITE_CONFIG,
         "products": final_data,
-        "blog": blog_post # Blog da eklendi
+        "blog": blog_post # Blog verisi eklendi
     }
 
     with open('website_data.json', 'w', encoding='utf-8') as f:
