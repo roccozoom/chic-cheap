@@ -6,11 +6,11 @@
     },
     "products": [
         {
-            "title": "White Linen Summer Dress",
-            "price": "$34.00",
+            "title": "Cat Eye Sunglasses",
+            "price": "$18.99",
             "category": "Fashion",
-            "image_url": "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?q=80&w=600",
-            "link": "https://www.amazon.com/s?k=white+linen+dress&tag=chiche0420-20",
+            "image_url": "https://images.unsplash.com/photo-1511499767150-a48a237f0083?q=80&w=600",
+            "link": "https://www.amazon.com/s?k=sunglasses&tag=chiche0420-20",
             "review_text": "Stylish choice.",
             "styling_tip": "Wear with confidence.",
             "ai_score": 90,
@@ -18,11 +18,11 @@
             "pin_desc": "Trendy style"
         },
         {
-            "title": "Silver Stackable Rings Set",
-            "price": "$18.00",
+            "title": "Floral Midi Dress",
+            "price": "$42.00",
             "category": "Fashion",
-            "image_url": "https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=600",
-            "link": "https://www.amazon.com/s?k=silver+rings+set&tag=chiche0420-20",
+            "image_url": "https://images.unsplash.com/photo-1572804013427-4d7ca7268217?q=80&w=600",
+            "link": "https://www.amazon.com/s?k=floral+midi+dress&tag=chiche0420-20",
             "review_text": "Stylish choice.",
             "styling_tip": "Wear with confidence.",
             "ai_score": 90,
@@ -30,7 +30,55 @@
             "pin_desc": "Trendy style"
         },
         {
-            "title": "Pastel Pink Slip Dress",
+            "title": "Puff Sleeve Mini Dress",
+            "price": "$36.00",
+            "category": "Fashion",
+            "image_url": "https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=600",
+            "link": "https://www.amazon.com/s?k=puff+sleeve+dress&tag=chiche0420-20",
+            "review_text": "Stylish choice.",
+            "styling_tip": "Wear with confidence.",
+            "ai_score": 90,
+            "pin_title": "Fashion Find",
+            "pin_desc": "Trendy style"
+        },
+        {
+            "title": "Pink Cardigan",
+            "price": "$30.00",
+            "category": "Fashion",
+            "image_url": "https://images.unsplash.com/photo-1576566588028-4147f3842f27?q=80&w=600",
+            "link": "https://www.amazon.com/s?k=cardigan&tag=chiche0420-20",
+            "review_text": "Stylish choice.",
+            "styling_tip": "Wear with confidence.",
+            "ai_score": 90,
+            "pin_title": "Fashion Find",
+            "pin_desc": "Trendy style"
+        },
+        {
+            "title": "Flat Sandals",
+            "price": "$24.50",
+            "category": "Fashion",
+            "image_url": "https://images.unsplash.com/photo-1562273138-f46be4ebdf6e?q=80&w=600",
+            "link": "https://www.amazon.com/s?k=sandals&tag=chiche0420-20",
+            "review_text": "Stylish choice.",
+            "styling_tip": "Wear with confidence.",
+            "ai_score": 90,
+            "pin_title": "Fashion Find",
+            "pin_desc": "Trendy style"
+        },
+        {
+            "title": "White Canvas Sneakers",
+            "price": "$29.99",
+            "category": "Fashion",
+            "image_url": "https://images.unsplash.com/photo-1560769629-975ec94e6a86?q=80&w=600",
+            "link": "https://www.amazon.com/s?k=white+sneakers&tag=chiche0420-20",
+            "review_text": "Stylish choice.",
+            "styling_tip": "Wear with confidence.",
+            "ai_score": 90,
+            "pin_title": "Fashion Find",
+            "pin_desc": "Trendy style"
+        },
+        {
+            "title": "Pink Slip Dress",
             "price": "$38.00",
             "category": "Fashion",
             "image_url": "https://images.unsplash.com/photo-1585487000160-6ebcfceb0d03?q=80&w=600",
@@ -42,11 +90,11 @@
             "pin_desc": "Trendy style"
         },
         {
-            "title": "Comfortable Running Shoes",
+            "title": "Leather Crossbody Bag",
             "price": "$55.00",
             "category": "Fashion",
-            "image_url": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=600",
-            "link": "https://www.amazon.com/s?k=running+shoes+women&tag=chiche0420-20",
+            "image_url": "https://images.unsplash.com/photo-1584917865442-de89df76afd3?q=80&w=600",
+            "link": "https://www.amazon.com/s?k=crossbody+bag&tag=chiche0420-20",
             "review_text": "Stylish choice.",
             "styling_tip": "Wear with confidence.",
             "ai_score": 90,
@@ -54,11 +102,11 @@
             "pin_desc": "Trendy style"
         },
         {
-            "title": "Statement Gold Hoop Earrings",
-            "price": "$16.99",
+            "title": "Green Wrap Dress",
+            "price": "$55.00",
             "category": "Fashion",
-            "image_url": "https://images.unsplash.com/photo-1630019852942-f89202989a51?q=80&w=600",
-            "link": "https://www.amazon.com/s?k=gold+hoop+earrings&tag=chiche0420-20",
+            "image_url": "https://images.unsplash.com/photo-1605763240004-7e93b172d754?q=80&w=600",
+            "link": "https://www.amazon.com/s?k=green+wrap+dress&tag=chiche0420-20",
             "review_text": "Stylish choice.",
             "styling_tip": "Wear with confidence.",
             "ai_score": 90,
@@ -66,11 +114,11 @@
             "pin_desc": "Trendy style"
         },
         {
-            "title": "Wide Brim Straw Beach Hat",
-            "price": "$22.00",
+            "title": "Backpack Purse",
+            "price": "$40.00",
             "category": "Fashion",
-            "image_url": "https://images.unsplash.com/photo-1521335629791-ce4aec6c1d09?q=80&w=600",
-            "link": "https://www.amazon.com/s?k=straw+beach+hat&tag=chiche0420-20",
+            "image_url": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?q=80&w=600",
+            "link": "https://www.amazon.com/s?k=backpack+purse&tag=chiche0420-20",
             "review_text": "Stylish choice.",
             "styling_tip": "Wear with confidence.",
             "ai_score": 90,
@@ -78,11 +126,11 @@
             "pin_desc": "Trendy style"
         },
         {
-            "title": "Cozy Knitted Oversized Sweater",
-            "price": "$35.99",
+            "title": "Charm Bracelet",
+            "price": "$25.00",
             "category": "Fashion",
-            "image_url": "https://images.unsplash.com/photo-1576566588028-4147f3842f27?q=80&w=600",
-            "link": "https://www.amazon.com/s?k=chunky+knit+sweater&tag=chiche0420-20",
+            "image_url": "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?q=80&w=600",
+            "link": "https://www.amazon.com/s?k=charm+bracelet&tag=chiche0420-20",
             "review_text": "Stylish choice.",
             "styling_tip": "Wear with confidence.",
             "ai_score": 90,
@@ -90,7 +138,7 @@
             "pin_desc": "Trendy style"
         },
         {
-            "title": "Vintage Polka Dot Midi Dress",
+            "title": "Vintage Polka Dot Dress",
             "price": "$42.99",
             "category": "Fashion",
             "image_url": "https://images.unsplash.com/photo-1612336307429-8a898d10e223?q=80&w=600",
@@ -102,35 +150,11 @@
             "pin_desc": "Trendy style"
         },
         {
-            "title": "White Silk Blouse",
+            "title": "Blue Office Dress",
             "price": "$49.90",
             "category": "Fashion",
-            "image_url": "https://images.unsplash.com/photo-1598554060854-b827048d7458?q=80&w=600",
-            "link": "https://www.amazon.com/s?k=white+silk+blouse&tag=chiche0420-20",
-            "review_text": "Stylish choice.",
-            "styling_tip": "Wear with confidence.",
-            "ai_score": 90,
-            "pin_title": "Fashion Find",
-            "pin_desc": "Trendy style"
-        },
-        {
-            "title": "Summer Flat Sandals",
-            "price": "$24.50",
-            "category": "Fashion",
-            "image_url": "https://images.unsplash.com/photo-1562273138-f46be4ebdf6e?q=80&w=600",
-            "link": "https://www.amazon.com/s?k=flat+sandals&tag=chiche0420-20",
-            "review_text": "Stylish choice.",
-            "styling_tip": "Wear with confidence.",
-            "ai_score": 90,
-            "pin_title": "Fashion Find",
-            "pin_desc": "Trendy style"
-        },
-        {
-            "title": "Red Satin Evening Gown",
-            "price": "$59.50",
-            "category": "Fashion",
             "image_url": "https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=600",
-            "link": "https://www.amazon.com/s?k=red+satin+dress&tag=chiche0420-20",
+            "link": "https://www.amazon.com/s?k=blue+office+dress&tag=chiche0420-20",
             "review_text": "Stylish choice.",
             "styling_tip": "Wear with confidence.",
             "ai_score": 90,
@@ -138,11 +162,11 @@
             "pin_desc": "Trendy style"
         },
         {
-            "title": "White Summer Canvas Sneakers",
-            "price": "$29.99",
+            "title": "Leather Biker Jacket",
+            "price": "$89.99",
             "category": "Fashion",
-            "image_url": "https://images.unsplash.com/photo-1560769629-975ec94e6a86?q=80&w=600",
-            "link": "https://www.amazon.com/s?k=white+canvas+sneakers&tag=chiche0420-20",
+            "image_url": "https://images.unsplash.com/photo-1551028919-ac7edd992304?q=80&w=600",
+            "link": "https://www.amazon.com/s?k=leather+jacket&tag=chiche0420-20",
             "review_text": "Stylish choice.",
             "styling_tip": "Wear with confidence.",
             "ai_score": 90,
@@ -150,35 +174,11 @@
             "pin_desc": "Trendy style"
         },
         {
-            "title": "Leather Ankle Boots",
-            "price": "$65.00",
+            "title": "Knitted Sweater",
+            "price": "$35.99",
             "category": "Fashion",
-            "image_url": "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=80&w=600",
-            "link": "https://www.amazon.com/s?k=ankle+boots+women&tag=chiche0420-20",
-            "review_text": "Stylish choice.",
-            "styling_tip": "Wear with confidence.",
-            "ai_score": 90,
-            "pin_title": "Fashion Find",
-            "pin_desc": "Trendy style"
-        },
-        {
-            "title": "Striped Breton Top",
-            "price": "$24.00",
-            "category": "Fashion",
-            "image_url": "https://images.unsplash.com/photo-1503342394128-c104d54dba01?q=80&w=600",
-            "link": "https://www.amazon.com/s?k=striped+shirt+women&tag=chiche0420-20",
-            "review_text": "Stylish choice.",
-            "styling_tip": "Wear with confidence.",
-            "ai_score": 90,
-            "pin_title": "Fashion Find",
-            "pin_desc": "Trendy style"
-        },
-        {
-            "title": "Bohemian Floral Maxi Dress",
-            "price": "$39.99",
-            "category": "Fashion",
-            "image_url": "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?q=80&w=600",
-            "link": "https://www.amazon.com/s?k=boho+maxi+dress&tag=chiche0420-20",
+            "image_url": "https://images.unsplash.com/photo-1576566588028-4147f3842f27?q=80&w=600",
+            "link": "https://www.amazon.com/s?k=knit+sweater&tag=chiche0420-20",
             "review_text": "Stylish choice.",
             "styling_tip": "Wear with confidence.",
             "ai_score": 90,
@@ -187,9 +187,9 @@
         }
     ],
     "blog": {
-        "title": "Trend Alert: Essential Styles for 2025",
-        "summary": "Discover the must-have pieces for your wardrobe this season. Affordable luxury is just a click away.",
-        "content": "<p>Fashion is about expressing yourself without breaking the bank. This season, we are seeing a return to classic staples mixed with bold accessories.</p><p>From oversized denim jackets to minimalist jewelry, the key is versatility.</p>",
+        "title": "Trend Alert: 2025 Styles",
+        "summary": "Discover must-have pieces for your wardrobe.",
+        "content": "<p>Fashion is about expressing yourself. Check out our curated list.</p>",
         "image_url": "https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=800"
     }
 }
