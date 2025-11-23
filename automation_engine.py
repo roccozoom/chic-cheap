@@ -93,8 +93,8 @@ INVENTORY_POOL = [
     {"title": "Woven Beach Bag", "price": "$28.00", "category": "Bags", "image_url": "https://images.unsplash.com/photo-1544816155-12df9643f363?q=80&w=600", "link": f"https://www.amazon.com/s?k=straw+bag&tag={REAL_AMAZON_TAG}"},
     # DÜZELTİLEN SATIR: Siyah çanta için doğru görsel
     {"title": "Black Handbag", "price": "$120.00", "category": "Bags", "image_url": "https://images.unsplash.com/photo-1584917865442-de89df76afd3?q=80&w=600", "link": f"https://www.amazon.com/s?k=black+handbag&tag={REAL_AMAZON_TAG}"},
-    {"title": "Red Clutch", "price": "$45.00", "category": "Bags", "image_url": "https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?q=80&w=600", "link": f"https://www.amazon.com/s?k=red+clutch&tag={REAL_AMAZON_TAG}"}
-    {"title": "Cloud-Like Comfort: Featherlight Soft Nylon Mini Travel Rucksack for Women", "price": "$24.99", "category": "Bags", "image_url": "https://m.media-amazon.com/images/I/71uB3S+DCaL._AC_SL1500_.jpg", "link": f"https://amzn.to/48895ik"}
+    {"title": "Red Clutch", "price": "$45.00", "category": "Bags", "image_url": "https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?q=80&w=600", "link": f"https://www.amazon.com/s?k=red+clutch&tag={REAL_AMAZON_TAG}"},
+    {"title": "Cloud-Like Comfort: Featherlight Soft Nylon Mini Travel Rucksack for Women", "price": "$24.99", "category": "Bags", "image_url": "https://m.media-amazon.com/images/I/71uB3S+DCaL._AC_SL1500_.jpg", "link": f"https://amzn.to/48895ik"},
 ]
 
 # BLOG KONULARI
@@ -242,4 +242,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
