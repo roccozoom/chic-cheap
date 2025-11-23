@@ -9,22 +9,24 @@ import google.generativeai as genai
 from amazon_paapi import AmazonApi
 
 # --- AYARLAR ---
+# Bu ayarlar GitHub Secrets'tan gelir.
 GEMINI_KEY = os.environ.get("GEMINI_API_KEY")
 AMAZON_KEY = os.environ.get("AMAZON_ACCESS_KEY")
 AMAZON_SECRET = os.environ.get("AMAZON_SECRET_KEY")
-AMAZON_TAG = os.environ.get("AMAZON_TAG")
-REAL_AMAZON_TAG = "chiche0420-20"
+# Eğer secret yoksa varsayılan tag'i kullan (Senin tag'in)
+REAL_AMAZON_TAG = os.environ.get("AMAZON_TAG", "chiche0420-20")
 COUNTRY = "US"
 BOARD_NAME = "Summer Trends 2025"
 
 SITE_CONFIG = {
-    "adsense_id": os.environ.get("ADSENSE_ID", ""),
-    "adsense_slot": os.environ.get("ADSENSE_SLOT", ""),
-    "pinterest_url": os.environ.get("PINTEREST_URL", "https://pinterest.com/chiccheapcom")
+    # Eğer secret yoksa senin ID'lerini varsayılan olarak kullan
+    "adsense_id": os.environ.get("ADSENSE_ID", "ca-pub-4267818870826080"),
+    "adsense_slot": os.environ.get("ADSENSE_SLOT", "7287051976"),
+    "pinterest_url": os.environ.get("PINTEREST_URL", "https://www.pinterest.com/chiccheapcom")
 }
 
 # --- 50+ BENZERSİZ GÖRSELLİ ÜRÜN HAVUZU ---
-# Not: Her resim linki özel olarak seçildi, tekrar etmez.
+# Not: Görseller başlıklarla uyumlu hale getirildi.
 INVENTORY_POOL = [
     # ELBİSELER
     {"title": "Bohemian Floral Maxi Dress", "price": "$39.99", "category": "Dress", "image_url": "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?q=80&w=600", "link": f"https://www.amazon.com/s?k=boho+maxi+dress&tag={REAL_AMAZON_TAG}"},
@@ -38,7 +40,7 @@ INVENTORY_POOL = [
     {"title": "Blue Office Dress", "price": "$49.90", "category": "Dress", "image_url": "https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=600", "link": f"https://www.amazon.com/s?k=blue+office+dress&tag={REAL_AMAZON_TAG}"},
     {"title": "Floral Midi Dress", "price": "$42.00", "category": "Dress", "image_url": "https://images.unsplash.com/photo-1572804013427-4d7ca7268217?q=80&w=600", "link": f"https://www.amazon.com/s?k=floral+midi+dress&tag={REAL_AMAZON_TAG}"},
     
-    # CEKETLER
+    # CEKETLER & ÜSTLER
     {"title": "Oversized Denim Jacket", "price": "$45.50", "category": "Jacket", "image_url": "https://images.unsplash.com/photo-1544441893-675973e31985?q=80&w=600", "link": f"https://www.amazon.com/s?k=denim+jacket&tag={REAL_AMAZON_TAG}"},
     {"title": "Leather Biker Jacket", "price": "$89.99", "category": "Jacket", "image_url": "https://images.unsplash.com/photo-1551028919-ac7edd992304?q=80&w=600", "link": f"https://www.amazon.com/s?k=leather+jacket&tag={REAL_AMAZON_TAG}"},
     {"title": "Beige Trench Coat", "price": "$65.00", "category": "Coat", "image_url": "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?q=80&w=600", "link": f"https://www.amazon.com/s?k=trench+coat&tag={REAL_AMAZON_TAG}"},
@@ -68,11 +70,12 @@ INVENTORY_POOL = [
     {"title": "Running Shoes", "price": "$55.00", "category": "Shoes", "image_url": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=600", "link": f"https://www.amazon.com/s?k=running+shoes&tag={REAL_AMAZON_TAG}"},
     {"title": "Summer Flat Sandals", "price": "$24.50", "category": "Shoes", "image_url": "https://images.unsplash.com/photo-1562273138-f46be4ebdf6e?q=80&w=600", "link": f"https://www.amazon.com/s?k=sandals&tag={REAL_AMAZON_TAG}"},
 
-    # ÇANTALAR
-    {"title": "Leather Crossbody Bag", "price": "$55.00", "category": "Bags", "image_url": "https://images.unsplash.com/photo-1584917865442-de89df76afd3?q=80&w=600", "link": f"https://www.amazon.com/s?k=crossbody+bag&tag={REAL_AMAZON_TAG}"},
+    # ÇANTALAR (DÜZELTİLDİ)
+    {"title": "Leather Crossbody Bag", "price": "$55.00", "category": "Bags", "image_url": "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?q=80&w=600", "link": f"https://www.amazon.com/s?k=crossbody+bag&tag={REAL_AMAZON_TAG}"},
     {"title": "Chic Tote Bag", "price": "$32.50", "category": "Bags", "image_url": "https://images.unsplash.com/photo-1591561954557-26941169b49e?q=80&w=600", "link": f"https://www.amazon.com/s?k=tote+bag&tag={REAL_AMAZON_TAG}"},
     {"title": "Woven Beach Bag", "price": "$28.00", "category": "Bags", "image_url": "https://images.unsplash.com/photo-1544816155-12df9643f363?q=80&w=600", "link": f"https://www.amazon.com/s?k=straw+bag&tag={REAL_AMAZON_TAG}"},
-    {"title": "Black Handbag", "price": "$120.00", "category": "Bags", "image_url": "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?q=80&w=600", "link": f"https://www.amazon.com/s?k=black+handbag&tag={REAL_AMAZON_TAG}"},
+    # DÜZELTİLEN SATIR: Siyah çanta için doğru görsel
+    {"title": "Black Handbag", "price": "$120.00", "category": "Bags", "image_url": "https://images.unsplash.com/photo-1584917865442-de89df76afd3?q=80&w=600", "link": f"https://www.amazon.com/s?k=black+handbag&tag={REAL_AMAZON_TAG}"},
     {"title": "Red Clutch", "price": "$45.00", "category": "Bags", "image_url": "https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?q=80&w=600", "link": f"https://www.amazon.com/s?k=red+clutch&tag={REAL_AMAZON_TAG}"}
 ]
 
@@ -96,105 +99,128 @@ except: pass
 
 class AIContentGenerator:
     def generate_review(self, product_title, price):
+        # AI'a ürün incelemesi yazdırır
         prompt = f"Act as a fashion influencer. Review: '{product_title}' (${price}). Output JSON keys: 'review_text' (20 words), 'styling_tip', 'ai_score' (85-99), 'category', 'pin_title', 'pin_desc'."
         try:
             response = model.generate_content(prompt)
             return json.loads(response.text.replace('```json', '').replace('```', '').strip())
         except:
+            # Hata durumunda yedek veri döner
             return {"review_text": "Stylish choice.", "styling_tip": "Wear with confidence.", "ai_score": 90, "category": "Fashion", "pin_title": "Fashion Find", "pin_desc": "Trendy style"}
 
     def generate_blog_post(self):
+        # Rastgele bir konu seç
         topic = random.choice(BLOG_TOPICS)
         print(f"📝 Blog Yazılıyor (Uzun Format): {topic}")
         
-        # --- GÜÇLENDİRİLMİŞ PROMPT (UZUN MAKALELER İÇİN) ---
+        # --- GÜÇLENDİRİLMİŞ BLOG PROMPTU (UZUN VE DETAYLI) ---
         prompt = f"""
-        Act as a professional Vogue fashion editor. Write a comprehensive blog post about: "{topic}".
+        Act as a professional Vogue fashion editor. Write a comprehensive fashion blog post about: "{topic}".
         
         Requirements:
-        1. Length: Minimum 500 words.
-        2. Structure: Use proper HTML tags (<h2> for headings, <p> for paragraphs, <ul>/<li> for lists).
-        3. Tone: Trendy, engaging, and expert.
-        4. Content: Include styling tips, why it's trending, and practical advice.
+        1. Length: **Minimum 500 words**. Make it detailed and engaging.
+        2. Structure: Use proper HTML tags:
+           - `<h2>` for main subheadings.
+           - `<p>` for paragraphs.
+           - `<ul>` and `<li>` for bullet points or lists.
+        3. Tone: Trendy, expert, and inspiring.
+        4. Content: Include styling tips, why it's trending now, and practical advice for readers.
         
-        Output JSON keys:
-        - 'title': The blog title.
-        - 'summary': 2 sentence summary for homepage.
-        - 'content': The FULL HTML content of the article. Do NOT use markdown.
-        - 'image_keyword': English keyword for Unsplash image (e.g. 'summer dress').
+        Output must be a JSON object with these keys:
+        - 'title': The catchy blog title.
+        - 'summary': A 2-sentence summary for the homepage card.
+        - 'content': The full HTML content of the article (long format). Do NOT use markdown.
+        - 'image_keyword': A single English keyword for finding an Unsplash image (e.g. 'summer dress').
         """
         try:
             response = model.generate_content(prompt)
             data = json.loads(response.text.replace('```json', '').replace('```', '').strip())
             
-            # Kaliteli Unsplash Görseli
-            data['image_url'] = f"https://source.unsplash.com/800x400/?{data['image_keyword'].replace(' ', ',')}"
-            if "source.unsplash" in data['image_url']:
-                 data['image_url'] = f"https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=800&auto=format&fit=crop" 
+            # Konuya uygun, kaliteli bir Unsplash görseli bul
+            keyword = data.get('image_keyword', 'fashion').replace(' ', ',')
+            # source.unsplash.com artık çok güvenilir değil, bu yüzden belirli bir kaliteli görseli yedek olarak kullanıyoruz.
+            # Eğer daha dinamik olsun istersen burası değişebilir ama şimdilik garanti bir moda görseli atıyoruz.
+            data['image_url'] = f"https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=800&auto=format&fit=crop"
+            
             return data
         except Exception as e:
             print(f"Blog Hatası: {e}")
+            # Hata durumunda yedek blog içeriği
             return {
-                "title": "Trend Alert: 2025 Styles",
-                "summary": "Discover must-have pieces for your wardrobe.",
-                "content": "<h2>Summer Essentials</h2><p>Fashion is about expressing yourself...</p>",
+                "title": "Trend Alert: 2025 Style Guide",
+                "summary": "Discover the must-have pieces for your wardrobe this season. Our editors pick the best looks.",
+                "content": "<h2>Summer Essentials</h2><p>Fashion is about expressing yourself. This season is all about comfort mixed with style.</p><ul><li>Flowy Dresses</li><li>Statement Jewelry</li><li>Comfortable Sandals</li></ul><p>Check back soon for more detailed updates!</p>",
                 "image_url": "https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=800"
             }
 
 def create_pinterest_files(products):
+    # Pinterest için RSS XML dosyası oluşturur
     rss = ET.Element("rss", version="2.0"); channel = ET.SubElement(rss, "channel")
     ET.SubElement(channel, "title").text = "Chic-Cheap Trends"; ET.SubElement(channel, "link").text = "https://chic-cheap.com"
     
+    # Pinterest toplu yükleme için CSV dosyası oluşturur
     with open('pinterest_upload.csv', 'w', newline='', encoding='utf-8-sig') as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames=['Title', 'Description', 'Link', 'Image', 'Board'], quoting=csv.QUOTE_ALL)
         writer.writeheader()
         for p in products:
+            # XML öğesi ekle
             item = ET.SubElement(channel, "item")
             ET.SubElement(item, "title").text = p.get('pin_title', p['title'])
             ET.SubElement(item, "link").text = "https://chic-cheap.com"
             enclosure = ET.SubElement(item, "enclosure"); enclosure.set("url", p['image_url']); enclosure.set("type", "image/jpeg")
             ET.SubElement(item, "pubDate").text = datetime.now().strftime("%a, %d %b %Y %H:%M:%S GMT")
+            # CSV satırı ekle
             writer.writerow({'Title': p.get('pin_title', p['title']), 'Description': p.get('pin_desc', p['title']), 'Link': "https://chic-cheap.com", 'Image': p['image_url'], 'Board': BOARD_NAME})
     ET.ElementTree(rss).write("pinterest.xml", encoding='utf-8', xml_declaration=True)
 
 def main():
-    print("--- 🚀 Chic-Cheap V30.0 (Pro Writer + Dev Depo) ---")
+    print("--- 🚀 Chic-Cheap V31.0 (Düzeltilmiş Görseller) ---")
     processed_products = []
     ai_engine = AIContentGenerator()
     
+    # 1. Amazon API Kontrolü (Şu an çalışmayacağı için atlanacak)
     api_success = False
     try:
         if all([GEMINI_KEY, AMAZON_KEY, AMAZON_SECRET]):
-            items = amazon.search_items(keywords="Womens Fashion", item_count=2)
+            # Gerçek API çağrısı simülasyonu
+            # items = amazon.search_items(keywords="Womens Fashion", item_count=2)
+            api_success = False # Test için kapalı tutuyoruz
     except: pass
 
     if not api_success:
-        # Havuzdan rastgele 15 ürün seç
+        print("ℹ️ API/Secret yok. Depodan rastgele ürünler seçiliyor.")
+        # Havuzdan rastgele 15 ürün seç (Her seferinde farklı ürünler gelir)
         count = min(len(INVENTORY_POOL), 15) 
         processed_products = random.sample(INVENTORY_POOL, count)
 
+    # 2. Seçilen Ürünler İçin AI İçerik Üret
     final_data = []
+    print(f"✅ {len(processed_products)} ürün için AI yorumları yazılıyor...")
     for product in processed_products:
         try:
             ai_data = ai_engine.generate_review(product['title'], product['price'])
             final_data.append({**product, **ai_data})
+            # API hız sınırına takılmamak için kısa bir bekleme
             time.sleep(0.5)
         except: continue
 
-    # Blog Yazısı
+    # 3. Uzun Blog Yazısını Oluştur
     blog_post = ai_engine.generate_blog_post()
 
+    # 4. Tüm Veriyi Paketle
     final_output = {
         "config": SITE_CONFIG,
         "products": final_data,
         "blog": blog_post
     }
 
+    # 5. Dosyaları Kaydet (Bu dosya web sitesi tarafından okunacak)
     with open('website_data.json', 'w', encoding='utf-8') as f:
         json.dump(final_output, f, indent=4, ensure_ascii=False)
     
+    # Pinterest dosyalarını oluştur
     create_pinterest_files(final_data)
-    print("💾 İşlem Tamamlandı.")
+    print("💾 İşlem Tamamlandı: website_data.json, pinterest.xml ve pinterest_upload.csv oluşturuldu.")
 
 if __name__ == "__main__":
     main()
