@@ -26,13 +26,13 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install anthropic
-          pip install python-amazon-paapi
+          pip install google-generativeai
+          pip install python-amazon-paapi || true
           pip install requests
 
       - name: Run automation engine
         env:
-          ANTHROPIC_API_KEY:  ${{ secrets.ANTHROPIC_API_KEY }}
+          GEMINI_API_KEY:     ${{ secrets.GEMINI_API_KEY }}
           AMAZON_ACCESS_KEY:  ${{ secrets.AMAZON_ACCESS_KEY }}
           AMAZON_SECRET_KEY:  ${{ secrets.AMAZON_SECRET_KEY }}
           AMAZON_TAG:         ${{ secrets.AMAZON_TAG }}
