@@ -11,13 +11,23 @@ import random
 import csv
 import xml.etree.ElementTree as ET
 from datetime import datetime
-import anthropic
-from amazon_paapi import AmazonApi
+import google.generativeai as genai
+try:
+    from amazon_paapi import AmazonApi
+except ImportError:
+    try:
+        from amazon_creatorsapi import AmazonApi
+    except ImportError:
+        AmazonApi = None
 
 # ============================================================
 # AYARLAR — Tüm değerler GitHub Secrets'tan gelir
 # ============================================================
-ANTHROPIC_KEY   = os.environ.get("ANTHROPIC_API_KEY")
+GEMINI_KEY      = os.environ.get("GEMINI_API_KEY")
+try:
+    from amazon_paapi import AmazonApi
+except ImportError:
+    AmazonApi = None
 AMAZON_KEY      = os.environ.get("AMAZON_ACCESS_KEY")
 AMAZON_SECRET   = os.environ.get("AMAZON_SECRET_KEY")
 AMAZON_TAG      = os.environ.get("AMAZON_TAG", "chiccheap-20")
@@ -103,9 +113,7 @@ def fetch_amazon_products():
             try:
                 results = amazon.search_items(
                     keywords=cat["keyword"],
-                    item_count=2,
-                    min_reviews_count=30,
-                    min_saving_percent=0
+                    item_count=2
                 )
                 if results and results.items:
                     for item in results.items:
@@ -139,25 +147,27 @@ def fetch_amazon_products():
 
 
 # ============================================================
-# CLAUDE AI — İçerik Üretimi
+# GEMINI AI — İçerik Üretimi (Ücretsiz)
 # ============================================================
-class ClaudeContentEngine:
+class GeminiContentEngine:
     def __init__(self):
-        self.client = anthropic.Anthropic(api_key=ANTHROPIC_KEY) if ANTHROPIC_KEY else None
+        self.model = None
+        if GEMINI_KEY:
+            try:
+                genai.configure(api_key=GEMINI_KEY)
+                self.model = genai.GenerativeModel('gemini-2.0-flash')
+            except Exception as e:
+                print(f"⚠️  Gemini başlatma hatası: {e}")
 
-    def _call(self, prompt, max_tokens=1000):
-        """Claude API çağrısı yapar."""
-        if not self.client:
+    def _call(self, prompt):
+        """Gemini API çağrısı yapar."""
+        if not self.model:
             return None
         try:
-            msg = self.client.messages.create(
-                model="claude-sonnet-4-20250514",
-                max_tokens=max_tokens,
-                messages=[{"role": "user", "content": prompt}]
-            )
-            return msg.content[0].text
+            response = self.model.generate_content(prompt)
+            return response.text
         except Exception as e:
-            print(f"   Claude API hatası: {e}")
+            print(f"   Gemini API hatası: {e}")
             return None
 
     def enrich_product(self, title, price, category):
@@ -174,10 +184,15 @@ Return ONLY valid JSON (no markdown, no extra text):
   "pin_desc": "Pinterest pin description (max 25 words, include call to action)."
 }}"""
 
-        raw = self._call(prompt, max_tokens=300)
+        raw = self._call(prompt)
         if raw:
             try:
-                return json.loads(raw.strip())
+                clean = raw.strip()
+                if "```" in clean:
+                    clean = clean.split("```")[1]
+                    if clean.startswith("json"):
+                        clean = clean[4:]
+                return json.loads(clean.strip())
             except:
                 pass
         # Fallback
@@ -197,42 +212,39 @@ Return ONLY valid JSON (no markdown, no extra text):
 
         print(f"📝 Blog yazılıyor: {topic}")
 
-        prompt = f"""You are a senior fashion editor at a top style magazine writing for chic-cheap.com.
+        prompt = f"""You are a senior fashion editor writing for chic-cheap.com.
 
 Write a complete, SEO-optimized blog post about: "{topic}"
 Target keyword: "{keyword}"
 
 Requirements:
 - Minimum 600 words
-- Engaging, conversational tone — like talking to a best friend
+- Engaging, conversational tone
 - Use proper HTML tags: <h2>, <h3>, <p>, <ul>, <li>, <strong>
 - Include 3-5 Amazon product recommendations naturally in the text
-- Add a "Shopping Tips" section
+- Add a Shopping Tips section
 - End with a motivating conclusion
 - DO NOT use markdown — pure HTML only
 
 Return ONLY valid JSON (no markdown fence, no extra text):
 {{
   "title": "The exact blog post title",
-  "meta_description": "SEO meta description (max 155 characters, include keyword)",
+  "meta_description": "SEO meta description (max 155 characters)",
   "summary": "Two-sentence teaser for the homepage card.",
   "content": "Full HTML content of the article",
-  "image_keyword": "Single English word for Unsplash image search (e.g. fashion, dress, style)"
+  "image_keyword": "Single English word for Unsplash image"
 }}"""
 
-        raw = self._call(prompt, max_tokens=2000)
+        raw = self._call(prompt)
         if raw:
             try:
-                # JSON parse
                 clean = raw.strip()
-                if clean.startswith("```"):
+                if "```" in clean:
                     clean = clean.split("```")[1]
                     if clean.startswith("json"):
                         clean = clean[4:]
                 data = json.loads(clean.strip())
-                # Unsplash görsel
-                kw = data.get("image_keyword", "fashion").replace(" ", ",")
-                data["image_url"] = f"https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=800&auto=format&fit=crop"
+                data["image_url"] = "https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=800&auto=format&fit=crop"
                 return data
             except Exception as e:
                 print(f"   Blog parse hatası: {e}")
@@ -242,7 +254,7 @@ Return ONLY valid JSON (no markdown fence, no extra text):
             "title": topic,
             "meta_description": f"{keyword} — Curated picks from chic-cheap.com",
             "summary": "Discover this week's most stylish affordable fashion picks, handpicked by our editors.",
-            "content": f"<h2>Editor's Note</h2><p>We're working on bringing you the best fashion content. Check back soon for our full guide on: <strong>{topic}</strong>.</p>",
+            "content": f"<h2>Editor's Note</h2><p>Our editors are working on bringing you the best guide on: <strong>{topic}</strong>. Check back soon!</p>",
             "image_url": "https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=800"
         }
 
@@ -308,7 +320,7 @@ def main():
     print(f"  {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print("=" * 55)
 
-    ai = ClaudeContentEngine()
+    ai = GeminiContentEngine()
 
     # 1. Ürünleri çek
     print("\n📦 Ürünler çekiliyor...")
