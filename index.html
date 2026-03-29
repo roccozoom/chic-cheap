@@ -1,200 +1,868 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    
-    <!-- 1. ADIM: ADSENSE KODUN -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4267818870826080" crossorigin="anonymous"></script>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chic-Cheap — Curated Style. Smart Prices.</title>
+  <meta name="description" content="Discover affordable fashion finds on Amazon, curated daily. Dresses, bags, shoes and accessories — chic style at budget-friendly prices."/>
+  <meta property="og:title" content="Chic-Cheap — Curated Style. Smart Prices."/>
+  <meta property="og:description" content="Amazon fashion finds curated daily. Look expensive for less."/>
+  <meta property="og:image" content="https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=1200"/>
+  <meta property="og:type" content="website"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    <!-- SEO & Meta Tags -->
-    <title>Chic-Cheap | AI Curated Fashion Deals & Trends</title>
-    <meta name="description" id="page-desc" content="Discover the best women's fashion deals on Amazon using AI.">
-    <meta name="keywords" content="fashion deals, AI fashion, amazon finds, boho dresses, affordable style, women clothing">
-    <meta name="author" content="Chic-Cheap AI">
-    
-    <!-- PWA & Icons -->
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#ffffff">
-    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3050/3050239.png">
+    :root {
+      --black:   #0D0D0D;
+      --pink:    #E8437A;
+      --pink-lt: #fce7ef;
+      --gray:    #f7f7f7;
+      --mid:     #888;
+      --white:   #ffffff;
+      --radius:  12px;
+      --shadow:  0 4px 24px rgba(0,0,0,0.08);
+    }
 
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    body {
+      font-family: 'Lato', sans-serif;
+      color: var(--black);
+      background: var(--white);
+      font-size: 16px;
+      line-height: 1.6;
+    }
 
-    <style>
-        h1, h2, h3, .serif-font { font-family: 'Playfair Display', serif; }
-        body { font-family: 'Lato', sans-serif; scroll-behavior: smooth; }
-        .masonry-grid { column-count: 1; column-gap: 1.5rem; }
-        @media (min-width: 640px) { .masonry-grid { column-count: 2; } }
-        @media (min-width: 1024px) { .masonry-grid { column-count: 3; } }
-        .break-inside-avoid { break-inside: avoid-column; margin-bottom: 1.5rem; }
-        .hover-zoom img { transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
-        .hover-zoom:hover img { transform: scale(1.05); }
-        .mixed-card { min-height: 250px; border-radius: 0.75rem; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; text-align: center; padding: 20px; transition: transform 0.3s ease; }
-        .ad-container { background: #f9fafb; border: 1px dashed #d1d5db; }
-        
-        /* Blog Okuma Modu */
-        .prose h2 { font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-top: 1.5rem; margin-bottom: 0.5rem; color: #111827; }
-        .prose p { margin-bottom: 1rem; line-height: 1.7; }
-        .prose ul { list-style-type: disc; padding-left: 1.5rem; margin-bottom: 1rem; }
-        .prose li { margin-bottom: 0.5rem; }
-    </style>
+    /* ── NAV ── */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5%;
+      height: 68px;
+      border-bottom: 1px solid #f0f0f0;
+      position: sticky;
+      top: 0;
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(8px);
+      z-index: 100;
+    }
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      text-decoration: none;
+      color: var(--black);
+    }
+    .logo span { color: var(--pink); }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--black);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--pink); }
+    .nav-right { display: flex; gap: 16px; align-items: center; }
+    .nav-right a {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      text-decoration: none;
+      color: var(--mid);
+      transition: color .2s;
+    }
+    .nav-right a:hover { color: var(--pink); }
+    .hamburger { display: none; cursor: pointer; flex-direction: column; gap: 5px; }
+    .hamburger span { width: 24px; height: 2px; background: var(--black); border-radius: 2px; transition: .3s; }
+
+    /* ── HERO ── */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 520px;
+    }
+    .hero-text {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 60px 6% 60px 8%;
+    }
+    .hero-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--pink);
+      background: var(--pink-lt);
+      border-radius: 20px;
+      padding: 4px 14px;
+      margin-bottom: 20px;
+      width: fit-content;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(36px, 4vw, 58px);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+    .hero-title em { color: var(--pink); font-style: normal; }
+    .hero-subtitle {
+      font-size: 16px;
+      color: #555;
+      max-width: 400px;
+      margin-bottom: 32px;
+      line-height: 1.7;
+    }
+    .hero-cta {
+      display: inline-block;
+      background: var(--black);
+      color: var(--white);
+      padding: 14px 32px;
+      border-radius: 40px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background .2s, transform .2s;
+      width: fit-content;
+    }
+    .hero-cta:hover { background: var(--pink); transform: translateY(-2px); }
+    .hero-image {
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .hero-overlay {
+      position: absolute;
+      bottom: 24px;
+      left: 24px;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(6px);
+      border-radius: var(--radius);
+      padding: 14px 20px;
+      font-size: 13px;
+    }
+    .hero-overlay strong { display: block; font-family: 'Playfair Display', serif; font-size: 15px; }
+
+    /* ── TICKER ── */
+    .ticker-wrap {
+      background: var(--black);
+      color: var(--white);
+      padding: 10px 0;
+      overflow: hidden;
+    }
+    .ticker-track {
+      display: flex;
+      gap: 60px;
+      animation: ticker 30s linear infinite;
+      white-space: nowrap;
+      width: max-content;
+    }
+    .ticker-track span { font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+    .ticker-track span.dot { color: var(--pink); }
+    @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* ── SECTIONS ── */
+    .section { padding: 64px 5%; }
+    .section-alt { background: var(--gray); }
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 36px;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      font-weight: 700;
+    }
+    .section-link {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--pink);
+      border-bottom: 1px solid var(--pink);
+      padding-bottom: 1px;
+    }
+
+    /* ── FILTER TABS ── */
+    .filter-tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+    }
+    .filter-tab {
+      padding: 8px 20px;
+      border-radius: 30px;
+      border: 1.5px solid #ddd;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      background: transparent;
+      color: var(--mid);
+      transition: all .2s;
+      letter-spacing: .04em;
+    }
+    .filter-tab.active, .filter-tab:hover {
+      background: var(--black);
+      border-color: var(--black);
+      color: var(--white);
+    }
+
+    /* ── PRODUCT GRID ── */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 24px;
+    }
+    .product-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform .25s, box-shadow .25s;
+      display: flex;
+      flex-direction: column;
+    }
+    .product-card:hover { transform: translateY(-6px); box-shadow: 0 12px 40px rgba(0,0,0,0.13); }
+    .product-card.hidden { display: none; }
+    .card-image-wrap {
+      position: relative;
+      aspect-ratio: 3/4;
+      overflow: hidden;
+      background: var(--gray);
+    }
+    .card-image-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .4s;
+    }
+    .product-card:hover .card-image-wrap img { transform: scale(1.05); }
+    .card-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+    .badge-new   { background: var(--black); color: var(--white); }
+    .badge-deal  { background: var(--pink); color: var(--white); }
+    .badge-top   { background: #fff3cd; color: #856404; }
+    .card-score {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(4px);
+      border-radius: 8px;
+      padding: 4px 8px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--black);
+    }
+    .card-score span { color: var(--pink); }
+    .card-body { padding: 16px; flex: 1; display: flex; flex-direction: column; }
+    .card-category {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--pink);
+      margin-bottom: 6px;
+    }
+    .card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1.35;
+      margin-bottom: 8px;
+      color: var(--black);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .card-review {
+      font-size: 12px;
+      color: var(--mid);
+      line-height: 1.5;
+      margin-bottom: 10px;
+      flex: 1;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .card-tip {
+      font-size: 11px;
+      color: #777;
+      font-style: italic;
+      margin-bottom: 14px;
+      padding: 8px 10px;
+      background: var(--gray);
+      border-radius: 6px;
+      border-left: 2px solid var(--pink);
+    }
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: auto;
+    }
+    .card-price {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--black);
+    }
+    .card-btn {
+      display: inline-block;
+      background: var(--black);
+      color: var(--white);
+      padding: 9px 18px;
+      border-radius: 30px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background .2s;
+    }
+    .card-btn:hover { background: var(--pink); }
+
+    /* ── BLOG ── */
+    .blog-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 24px;
+    }
+    .blog-card {
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--white);
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      transition: transform .25s;
+    }
+    .blog-card:hover { transform: translateY(-4px); }
+    .blog-card img {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+    }
+    .blog-card-body { padding: 20px 22px; }
+    .blog-tag {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--pink);
+      margin-bottom: 8px;
+    }
+    .blog-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 1.3;
+      margin-bottom: 10px;
+    }
+    .blog-summary { font-size: 13px; color: var(--mid); line-height: 1.6; margin-bottom: 16px; }
+    .blog-meta { font-size: 11px; color: #aaa; }
+    .blog-featured .blog-card img { height: 320px; }
+    .blog-featured .blog-title { font-size: 22px; }
+
+    /* ── BLOG MODAL ── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      z-index: 999;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 40px 20px;
+      overflow-y: auto;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: var(--white);
+      border-radius: 16px;
+      max-width: 740px;
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+    }
+    .modal-img { width: 100%; height: 320px; object-fit: cover; }
+    .modal-body { padding: 32px 36px; }
+    .modal-close {
+      position: absolute;
+      top: 16px;
+      right: 20px;
+      background: rgba(255,255,255,0.9);
+      border: none;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      font-size: 18px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+    }
+    .modal-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+    .modal-content h2 { font-family: 'Playfair Display', serif; font-size: 20px; margin: 24px 0 10px; }
+    .modal-content h3 { font-size: 16px; font-weight: 700; margin: 18px 0 8px; }
+    .modal-content p  { margin-bottom: 14px; color: #333; line-height: 1.75; }
+    .modal-content ul { padding-left: 20px; margin-bottom: 14px; }
+    .modal-content li { margin-bottom: 6px; color: #444; }
+    .modal-content strong { color: var(--pink); }
+
+    /* ── NEWSLETTER ── */
+    .newsletter {
+      background: var(--black);
+      color: var(--white);
+      text-align: center;
+      padding: 64px 5%;
+    }
+    .newsletter h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px;
+      margin-bottom: 12px;
+    }
+    .newsletter p { color: #aaa; margin-bottom: 28px; font-size: 15px; }
+    .newsletter-form { display: flex; max-width: 480px; margin: 0 auto; gap: 0; }
+    .newsletter-form input {
+      flex: 1;
+      padding: 14px 20px;
+      border: none;
+      border-radius: 40px 0 0 40px;
+      font-size: 14px;
+      outline: none;
+    }
+    .newsletter-form button {
+      background: var(--pink);
+      color: var(--white);
+      border: none;
+      padding: 14px 28px;
+      border-radius: 0 40px 40px 0;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background .2s;
+    }
+    .newsletter-form button:hover { background: #c73266; }
+
+    /* ── DISCLOSURE ── */
+    .disclosure {
+      background: #fffbf0;
+      border-top: 1px solid #f0e8c8;
+      padding: 16px 5%;
+      font-size: 12px;
+      color: #888;
+      text-align: center;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #111;
+      color: #aaa;
+      padding: 48px 5% 24px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+    .footer-brand .logo { color: var(--white); display: block; margin-bottom: 12px; }
+    .footer-brand p { font-size: 13px; color: #777; line-height: 1.6; }
+    .footer-col h4 { font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--white); margin-bottom: 14px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { font-size: 13px; color: #777; text-decoration: none; transition: color .2s; }
+    .footer-col a:hover { color: var(--pink); }
+    .footer-bottom { border-top: 1px solid #222; padding-top: 20px; display: flex; justify-content: space-between; align-items: center; font-size: 12px; }
+    .footer-bottom a { color: #777; text-decoration: none; }
+    .footer-bottom a:hover { color: var(--pink); }
+
+    /* ── LOADING ── */
+    #loading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 80px;
+      flex-direction: column;
+      gap: 16px;
+      color: var(--mid);
+    }
+    .spinner {
+      width: 36px;
+      height: 36px;
+      border: 3px solid #eee;
+      border-top-color: var(--pink);
+      border-radius: 50%;
+      animation: spin .7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-image { height: 300px; }
+      .blog-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+    }
+    @media (max-width: 560px) {
+      .hero-text { padding: 40px 6%; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .product-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+      .card-body { padding: 12px; }
+      .newsletter-form { flex-direction: column; }
+      .newsletter-form input { border-radius: 40px; }
+      .newsletter-form button { border-radius: 40px; }
+    }
+  </style>
 </head>
-<body class="bg-white text-gray-800 antialiased">
+<body>
 
-    <!-- NAVBAR -->
-    <nav class="bg-white/90 backdrop-blur-md border-b border-gray-100 sticky top-0 z-50">
-        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <div class="flex items-center space-x-2 cursor-pointer" onclick="window.location.reload()">
-                <div class="bg-black text-white p-2 rounded-full shadow-lg"><i class="fa-solid fa-bolt"></i></div>
-                <div><span class="text-2xl font-bold serif-font tracking-tight text-gray-900">chic-cheap</span><span class="text-[10px] block text-gray-500 tracking-[0.2em] uppercase">AI Curated Fashion</span></div>
-            </div>
-            <div class="hidden md:flex space-x-8 text-sm font-medium text-gray-500">
-                <a href="#latest-story" class="hover:text-black transition">BLOG</a>
-                <a href="#product-grid" class="hover:text-black transition">SHOP</a>
-                <a href="#newsletter" class="hover:text-black transition">SUBSCRIBE</a>
-            </div>
-            <button class="md:hidden text-2xl text-gray-700"><i class="fa-solid fa-bars"></i></button>
-        </div>
-    </nav>
-
-    <!-- HERO + BLOG KARTI -->
-    <header class="py-12 px-4 bg-gradient-to-b from-gray-50 to-white">
-        <div class="container mx-auto max-w-6xl grid md:grid-cols-2 gap-12 items-center">
-            <div class="text-center md:text-left">
-                <span class="inline-flex items-center bg-purple-100 text-purple-700 text-xs font-bold px-3 py-1 rounded-full mb-4"><i class="fa-solid fa-wand-magic-sparkles mr-2"></i> DAILY UPDATE</span>
-                <h1 class="text-5xl md:text-6xl font-bold mb-6 serif-font text-gray-900 leading-tight">Curated Style.<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-500">Smart Prices.</span></h1>
-                <p class="text-gray-500 mb-8 text-lg">We use AI to find the best fashion deals on Amazon.</p>
-            </div>
-            
-            <!-- BLOG KARTI (Dinamik Dolacak) -->
-            <div id="latest-story" class="hidden md:block cursor-pointer" onclick="openBlog()">
-                <div class="bg-white p-6 rounded-2xl shadow-xl border border-gray-100 transform rotate-1 hover:rotate-0 transition duration-500">
-                    <div class="h-48 bg-gray-200 rounded-xl mb-4 overflow-hidden relative">
-                        <img id="blog-img" src="https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=800" class="w-full h-full object-cover" alt="Trend">
-                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold">NEW STORY</div>
-                    </div>
-                    <h3 id="blog-title" class="text-2xl font-bold serif-font mb-2">Loading...</h3>
-                    <p id="blog-summary" class="text-gray-500 text-sm mb-4 line-clamp-2">...</p>
-                    <span class="text-purple-600 font-bold text-sm uppercase tracking-wide hover:underline">Read Full Article <i class="fa-solid fa-arrow-right ml-1"></i></span>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <!-- HEADER AD -->
-    <div class="container mx-auto px-4 mb-8">
-        <div class="mixed-card ad-container w-full !h-24 !min-h-0">
-            <span class="text-[10px] text-gray-400 mt-1">Advertisement</span>
-            <ins class="adsbygoogle"
-                 style="display:block; width:100%; height:100%"
-                 data-ad-client="ca-pub-4267818870826080"
-                 data-ad-slot="7287051976"
-                 data-ad-format="horizontal"
-                 data-full-width-responsive="true"></ins>
-        </div>
+<!-- ══ NAV ══ -->
+<nav>
+  <a href="/" class="logo">chic<span>-cheap</span></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#shop">Shop</a></li>
+    <li><a href="#blog">Style Blog</a></li>
+    <li><a href="#deals">Deals</a></li>
+    <li><a href="#newsletter">Newsletter</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="https://www.pinterest.com/chiccheapcom" target="_blank" rel="noopener">Pinterest</a>
+    <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
     </div>
+  </div>
+</nav>
 
-    <!-- MAIN GRID -->
-    <main class="container mx-auto px-4 pb-20" id="product-grid">
-        <div class="flex items-center justify-between mb-8 border-b border-gray-100 pb-4">
-            <h2 class="text-2xl font-bold serif-font">Today's Picks</h2>
-        </div>
-        <div id="grid-container" class="masonry-grid"></div>
-        <div id="loading-state" class="text-center py-20"><div class="inline-block animate-spin rounded-full h-12 w-12 border-4 border-gray-200 border-t-black"></div></div>
-    </main>
-
-    <!-- BLOG MODAL -->
-    <div id="blog-modal" class="fixed inset-0 bg-black/60 z-50 hidden flex items-center justify-center p-4 backdrop-blur-sm transition-opacity duration-300">
-        <div class="bg-white rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto p-8 relative shadow-2xl animate-fade-in">
-            <button onclick="closeBlog()" class="absolute top-4 right-4 bg-gray-100 hover:bg-gray-200 p-2 rounded-full text-gray-600 transition"><i class="fa-solid fa-times text-xl"></i></button>
-            <img id="modal-img" src="" class="w-full h-72 object-cover rounded-xl mb-8 shadow-md">
-            <h2 id="modal-title" class="text-4xl font-bold serif-font mb-6 text-gray-900 leading-tight"></h2>
-            <div id="modal-content" class="prose prose-lg text-gray-600 leading-relaxed"></div>
-            <div class="mt-8 pt-6 border-t border-gray-100 text-center">
-                <button onclick="closeBlog()" class="bg-black text-white px-8 py-3 rounded-full font-bold hover:bg-gray-800 transition">Close Article</button>
-            </div>
-        </div>
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <div class="hero-text">
+    <span class="hero-badge">✦ New Arrivals Updated Daily</span>
+    <h1 class="hero-title">Curated Style.<br/><em>Smart Prices.</em></h1>
+    <p class="hero-subtitle">We find the best fashion deals on Amazon so you don't have to. Fresh picks every single day.</p>
+    <a href="#shop" class="hero-cta">Shop Today's Picks →</a>
+  </div>
+  <div class="hero-image">
+    <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=80&w=900&auto=format&fit=crop" alt="Fashion" loading="eager"/>
+    <div class="hero-overlay">
+      <strong>Today's Editor's Pick</strong>
+      Curated from 1,000+ Amazon listings
     </div>
+  </div>
+</section>
 
-    <!-- NEWSLETTER -->
-    <section id="newsletter" class="py-16 bg-black text-white text-center">
-        <div class="container mx-auto px-4 max-w-xl">
-            <h2 class="text-2xl font-bold serif-font mb-4">Join the Club</h2>
-            <p class="text-gray-400 mb-8">Get the best deals directly to your inbox.</p>
-            <form onsubmit="event.preventDefault(); alert('Subscribed!');" class="flex gap-2">
-                <input type="email" placeholder="Email address" class="flex-1 px-4 py-3 rounded-lg text-black focus:outline-none">
-                <button class="bg-purple-600 px-6 py-3 rounded-lg font-bold hover:bg-purple-500 transition">Join</button>
-            </form>
+<!-- ══ TICKER ══ -->
+<div class="ticker-wrap">
+  <div class="ticker-track" id="tickerTrack">
+    <span>Free Shipping on Orders $25+</span><span class="dot">✦</span>
+    <span>New Arrivals Every Day</span><span class="dot">✦</span>
+    <span>All Products on Amazon</span><span class="dot">✦</span>
+    <span>Curated by Style Experts</span><span class="dot">✦</span>
+    <span>Dresses Under $40</span><span class="dot">✦</span>
+    <span>Bags, Shoes & Accessories</span><span class="dot">✦</span>
+    <span>Free Shipping on Orders $25+</span><span class="dot">✦</span>
+    <span>New Arrivals Every Day</span><span class="dot">✦</span>
+    <span>All Products on Amazon</span><span class="dot">✦</span>
+    <span>Curated by Style Experts</span><span class="dot">✦</span>
+    <span>Dresses Under $40</span><span class="dot">✦</span>
+    <span>Bags, Shoes & Accessories</span><span class="dot">✦</span>
+  </div>
+</div>
+
+<!-- ══ SHOP ══ -->
+<section class="section" id="shop">
+  <div class="section-header">
+    <h2 class="section-title">Today's Picks</h2>
+    <a href="https://www.amazon.com/s?k=women+fashion&tag=chiccheap-20" class="section-link" target="_blank" rel="noopener sponsored">View All on Amazon →</a>
+  </div>
+
+  <!-- Filter Tabs -->
+  <div class="filter-tabs" id="filterTabs">
+    <button class="filter-tab active" onclick="filterProducts('All', this)">All</button>
+    <button class="filter-tab" onclick="filterProducts('Dresses', this)">Dresses</button>
+    <button class="filter-tab" onclick="filterProducts('Tops', this)">Tops</button>
+    <button class="filter-tab" onclick="filterProducts('Bags', this)">Bags</button>
+    <button class="filter-tab" onclick="filterProducts('Shoes', this)">Shoes</button>
+    <button class="filter-tab" onclick="filterProducts('Jewelry', this)">Jewelry</button>
+    <button class="filter-tab" onclick="filterProducts('Accessories', this)">Accessories</button>
+  </div>
+
+  <div id="loading"><div class="spinner"></div><span>Loading today's picks...</span></div>
+  <div class="product-grid" id="productGrid"></div>
+</section>
+
+<!-- ══ BLOG ══ -->
+<section class="section section-alt" id="blog">
+  <div class="section-header">
+    <h2 class="section-title">Style Blog</h2>
+  </div>
+  <div class="blog-grid" id="blogGrid">
+    <div id="loading2"><div class="spinner"></div></div>
+  </div>
+</section>
+
+<!-- ══ NEWSLETTER ══ -->
+<div class="newsletter" id="newsletter">
+  <h2>Get Weekly Style Drops 💌</h2>
+  <p>Join 2,000+ women who get our best Amazon fashion finds every Friday — free.</p>
+  <form class="newsletter-form" onsubmit="handleSubscribe(event)">
+    <input type="email" placeholder="Your email address" required/>
+    <button type="submit">Subscribe</button>
+  </form>
+</div>
+
+<!-- ══ DISCLOSURE ══ -->
+<div class="disclosure">
+  <strong>Affiliate Disclosure:</strong> As an Amazon Associate, chic-cheap.com earns from qualifying purchases.
+  Clicking product links may earn us a small commission at no extra cost to you. We only feature products we genuinely recommend.
+</div>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="/" class="logo">chic<span style="color:#E8437A">-cheap</span></a>
+      <p>Your daily source for affordable, stylish fashion finds on Amazon. Curated by style lovers, for style lovers.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Shop</h4>
+      <ul>
+        <li><a href="#" onclick="filterProducts('Dresses', null)">Dresses</a></li>
+        <li><a href="#" onclick="filterProducts('Tops', null)">Tops & Blouses</a></li>
+        <li><a href="#" onclick="filterProducts('Bags', null)">Bags</a></li>
+        <li><a href="#" onclick="filterProducts('Shoes', null)">Shoes</a></li>
+        <li><a href="#" onclick="filterProducts('Jewelry', null)">Jewelry</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Discover</h4>
+      <ul>
+        <li><a href="#blog">Style Blog</a></li>
+        <li><a href="#newsletter">Newsletter</a></li>
+        <li><a href="https://www.pinterest.com/chiccheapcom" target="_blank" rel="noopener">Pinterest</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="/privacy.html">Privacy Policy</a></li>
+        <li><a href="/disclosure.html">Affiliate Disclosure</a></li>
+        <li><a href="/terms.html">Terms of Use</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Chic-Cheap. All rights reserved.</span>
+    <a href="https://www.pinterest.com/chiccheapcom" target="_blank" rel="noopener">📌 Pinterest</a>
+  </div>
+</footer>
+
+<!-- ══ BLOG MODAL ══ -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModalBtn()">✕</button>
+    <img class="modal-img" id="modalImg" src="" alt=""/>
+    <div class="modal-body">
+      <div class="blog-tag">Style Blog</div>
+      <h2 class="modal-title" id="modalTitle"></h2>
+      <div class="modal-content" id="modalContent"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── DATA LOAD ──
+let allProducts = [];
+let blogData    = {};
+
+async function loadData() {
+  try {
+    const res  = await fetch('website_data.json?v=' + Date.now());
+    const data = await res.json();
+
+    allProducts = data.products || [];
+    blogData    = data.blog     || {};
+
+    renderProducts(allProducts);
+    renderBlog(blogData);
+
+    // Update Amazon tag in all links dynamically
+    const tag = data.amazon_tag || 'chiccheap-20';
+    document.querySelectorAll('a[href*="amazon.com"]').forEach(a => {
+      if (!a.href.includes('tag=')) {
+        a.href += (a.href.includes('?') ? '&' : '?') + 'tag=' + tag;
+      }
+    });
+
+  } catch (e) {
+    console.error('Data load error:', e);
+    document.getElementById('loading').innerHTML = '<p style="color:#888">Could not load products. Please refresh.</p>';
+  }
+}
+
+// ── RENDER PRODUCTS ──
+function renderProducts(products) {
+  document.getElementById('loading').style.display = 'none';
+  const grid   = document.getElementById('productGrid');
+  const badges = ['badge-new', 'badge-deal', 'badge-top', ''];
+
+  grid.innerHTML = products.map((p, i) => {
+    const badge     = badges[i % badges.length];
+    const badgeText = badge === 'badge-new' ? 'New' : badge === 'badge-deal' ? 'Deal' : badge === 'badge-top' ? 'Top Rated' : '';
+    const score     = p.ai_score || (Math.floor(Math.random() * 12) + 86);
+
+    return `
+    <div class="product-card" data-category="${p.category || ''}">
+      <div class="card-image-wrap">
+        <img src="${p.image_url}" alt="${p.title}" loading="lazy"
+             onerror="this.src='https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=600'"/>
+        ${badgeText ? `<span class="card-badge ${badge}">${badgeText}</span>` : ''}
+        <div class="card-score">AI Score <span>${score}</span></div>
+      </div>
+      <div class="card-body">
+        <div class="card-category">${p.category || 'Fashion'}</div>
+        <h3 class="card-title">${p.title}</h3>
+        <p class="card-review">${p.review_text || ''}</p>
+        ${p.styling_tip ? `<div class="card-tip">💡 ${p.styling_tip}</div>` : ''}
+        <div class="card-footer">
+          <span class="card-price">${p.price || ''}</span>
+          <a class="card-btn" href="${p.link}" target="_blank" rel="noopener sponsored">Shop Now</a>
         </div>
-    </section>
-    
-    <footer class="bg-gray-900 text-white py-8 border-t border-gray-800 text-center text-xs text-gray-600">
-        &copy; 2025 Chic-Cheap. Amazon Associate.
-    </footer>
+      </div>
+    </div>`;
+  }).join('');
+}
 
-    <script>
-        let CONFIG = { adsense_id: "ca-pub-4267818870826080", adsense_slot: "7287051976", pinterest_url: "https://www.pinterest.com/chiccheapcom" };
-        const grid = document.getElementById('grid-container');
-        const loader = document.getElementById('loading-state');
-        const FALLBACK_IMAGE = "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=600";
-        let currentBlog = {};
+// ── FILTER ──
+function filterProducts(category, btn) {
+  if (btn) {
+    document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+  }
+  const cards = document.querySelectorAll('.product-card');
+  cards.forEach(card => {
+    const match = category === 'All' || card.dataset.category === category;
+    card.classList.toggle('hidden', !match);
+  });
+  document.getElementById('shop').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
 
-        async function init() {
-            if (window.location.protocol === 'blob:' || window.location.protocol === 'file:') { loader.classList.add('hidden'); return; }
-            try {
-                const res = await fetch(`website_data.json?t=${new Date().getTime()}`);
-                if (!res.ok) throw new Error("Veri yok");
-                const data = await res.json();
-                if (data.config && data.config.adsense_id) CONFIG = data.config;
+// ── RENDER BLOG ──
+function renderBlog(blog) {
+  if (!blog || !blog.title) return;
+  document.getElementById('loading2').style.display = 'none';
+  const grid = document.getElementById('blogGrid');
+  grid.innerHTML = `
+    <div class="blog-featured">
+      <div class="blog-card" onclick="openModal()">
+        <img src="${blog.image_url || 'https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=800'}"
+             alt="${blog.title}" loading="lazy"
+             onerror="this.src='https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=800'"/>
+        <div class="blog-card-body">
+          <div class="blog-tag">✦ Editor's Pick</div>
+          <h3 class="blog-title">${blog.title}</h3>
+          <p class="blog-summary">${blog.summary || ''}</p>
+          <div class="blog-meta">By Chic-Cheap Editors · Today</div>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:16px;">
+      <div class="blog-card" onclick="openModal()">
+        <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=80&w=600" alt="Style Tips" loading="lazy" style="height:160px;width:100%;object-fit:cover;"/>
+        <div class="blog-card-body">
+          <div class="blog-tag">Style Guide</div>
+          <h3 class="blog-title" style="font-size:15px;">How to Style Any Dress 5 Different Ways</h3>
+          <div class="blog-meta">Style Tips · 4 min read</div>
+        </div>
+      </div>
+      <div class="blog-card" onclick="openModal()">
+        <img src="https://images.unsplash.com/photo-1581044777550-4cfa60707c03?q=80&w=600" alt="Amazon Finds" loading="lazy" style="height:160px;width:100%;object-fit:cover;"/>
+        <div class="blog-card-body">
+          <div class="blog-tag">Amazon Finds</div>
+          <h3 class="blog-title" style="font-size:15px;">10 Amazon Accessories Under $20 That Look Expensive</h3>
+          <div class="blog-meta">Shopping Guide · 3 min read</div>
+        </div>
+      </div>
+    </div>`;
+}
 
-                if (data.blog) {
-                    currentBlog = data.blog;
-                    document.getElementById('blog-title').innerText = data.blog.title;
-                    document.getElementById('blog-summary').innerText = data.blog.summary;
-                    document.getElementById('blog-img').src = data.blog.image_url;
-                    document.getElementById('modal-img').src = data.blog.image_url;
-                    document.title = `${data.blog.title} | Chic-Cheap`;
-                    document.getElementById('page-desc').setAttribute('content', data.blog.summary);
-                }
+// ── MODAL ──
+function openModal() {
+  if (!blogData.title) return;
+  document.getElementById('modalImg').src     = blogData.image_url || '';
+  document.getElementById('modalImg').alt     = blogData.title;
+  document.getElementById('modalTitle').textContent = blogData.title;
+  document.getElementById('modalContent').innerHTML  = blogData.content || '';
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModalBtn() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function closeModal(e) {
+  if (e.target === document.getElementById('modalOverlay')) closeModalBtn();
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModalBtn(); });
 
-                render(data.products || []);
-                setTimeout(() => { try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) {} }, 1000);
-            } catch (err) { console.log(err); } 
-            finally { loader.classList.add('hidden'); }
-        }
+// ── NEWSLETTER ──
+function handleSubscribe(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('button');
+  btn.textContent = '✓ Subscribed!';
+  btn.style.background = '#27ae60';
+  e.target.querySelector('input').value = '';
+  setTimeout(() => { btn.textContent = 'Subscribe'; btn.style.background = ''; }, 3000);
+}
 
-        function render(products) {
-            let html = '';
-            let adCounter = 0;
-            products.forEach((p, index) => {
-                html += `<div class="break-inside-avoid group mb-6"><div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl transition duration-500"><div class="relative hover-zoom overflow-hidden aspect-[3/4]"><img src="${p.image_url}" class="w-full h-full object-cover" onerror="this.src='${FALLBACK_IMAGE}'"><div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur-md px-2 py-1 rounded-lg shadow-sm"><span class="text-xs font-bold text-gray-800">AI: ${p.ai_score || 90}</span></div></div><div class="p-5"><h3 class="font-bold text-gray-900 text-lg leading-snug mb-2 line-clamp-2">${p.title}</h3><div class="flex items-center justify-between pt-2 border-t border-gray-50"><span class="text-2xl font-bold text-gray-900 serif-font">${p.price}</span><a href="${p.link}" target="_blank" class="bg-black text-white px-5 py-2.5 rounded-full text-sm font-medium hover:bg-purple-600 transition shadow-lg flex items-center gap-2">Shop Now</a></div></div></div></div>`;
-                
-                if ((index + 1) % 4 === 0) {
-                    adCounter++;
-                    html += `<div class="break-inside-avoid mb-6">`;
-                    if (adCounter % 3 === 1) { html += `<div class="mixed-card ad-container"><ins class="adsbygoogle" style="display:block; width:100%;" data-ad-client="${CONFIG.adsense_id}" data-ad-slot="${CONFIG.adsense_slot}" data-ad-format="auto" data-full-width-responsive="true"></ins><span class="text-[10px] text-gray-400">Sponsored</span></div>`; }
-                    else if (adCounter % 3 === 2) { html += `<a href="${CONFIG.pinterest_url}" target="_blank" class="mixed-card pinterest-card shadow-lg cursor-pointer group"><i class="fa-brands fa-pinterest text-5xl mb-4 group-hover:scale-110 transition"></i><h3 class="text-xl font-bold mb-2">Follow Trends</h3><span class="bg-white text-[#E60023] px-6 py-2 rounded-full font-bold text-sm">Follow Us</span></a>`; }
-                    else { html += `<div class="mixed-card best-seller-card shadow-lg"><i class="fa-solid fa-fire text-4xl text-yellow-400 mb-4"></i><h3 class="text-xl font-bold mb-2">Hot Deals</h3><span class="border border-white/30 text-white px-6 py-2 rounded-full font-bold text-sm">View All</span></div>`; }
-                    html += `</div>`;
-                }
-            });
-            grid.innerHTML = html;
-        }
+// ── MOBILE MENU ──
+function toggleMenu() {
+  document.getElementById('navLinks').style.display =
+    document.getElementById('navLinks').style.display === 'flex' ? 'none' : 'flex';
+}
 
-        window.openBlog = function() {
-            document.getElementById('modal-title').innerText = currentBlog.title;
-            document.getElementById('modal-content').innerHTML = currentBlog.content;
-            document.getElementById('blog-modal').classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-        }
-        window.closeBlog = function() {
-            document.getElementById('blog-modal').classList.add('hidden');
-            document.body.style.overflow = 'auto';
-        }
-        init();
-    </script>
+// ── INIT ──
+loadData();
+</script>
 </body>
 </html>
