@@ -11,7 +11,7 @@ import random
 import csv
 import xml.etree.ElementTree as ET
 from datetime import datetime
-import google.generativeai as genai
+from google import genai as google_genai
 try:
     from amazon_paapi import AmazonApi
 except ImportError:
@@ -151,21 +151,23 @@ def fetch_amazon_products():
 # ============================================================
 class GeminiContentEngine:
     def __init__(self):
-        self.model = None
+        self.client = None
         if GEMINI_KEY:
             try:
-                genai.configure(api_key=GEMINI_KEY)
-                self.model = genai.GenerativeModel('gemini-1.5-flash')
+                self.client = google_genai.Client(api_key=GEMINI_KEY)
             except Exception as e:
                 print(f"⚠️  Gemini başlatma hatası: {e}")
 
     def _call(self, prompt):
         """Gemini API çağrısı yapar, rate limit'e takılırsa bekler."""
-        if not self.model:
+        if not self.client:
             return None
         for attempt in range(3):
             try:
-                response = self.model.generate_content(prompt)
+                response = self.client.models.generate_content(
+                    model="gemini-2.0-flash",
+                    contents=prompt
+                )
                 return response.text
             except Exception as e:
                 err = str(e)
