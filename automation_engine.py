@@ -155,20 +155,28 @@ class GeminiContentEngine:
         if GEMINI_KEY:
             try:
                 genai.configure(api_key=GEMINI_KEY)
-                self.model = genai.GenerativeModel('gemini-2.0-flash')
+                self.model = genai.GenerativeModel('gemini-1.5-flash')
             except Exception as e:
                 print(f"⚠️  Gemini başlatma hatası: {e}")
 
     def _call(self, prompt):
-        """Gemini API çağrısı yapar."""
+        """Gemini API çağrısı yapar, rate limit'e takılırsa bekler."""
         if not self.model:
             return None
-        try:
-            response = self.model.generate_content(prompt)
-            return response.text
-        except Exception as e:
-            print(f"   Gemini API hatası: {e}")
-            return None
+        for attempt in range(3):
+            try:
+                response = self.model.generate_content(prompt)
+                return response.text
+            except Exception as e:
+                err = str(e)
+                if "429" in err or "quota" in err.lower():
+                    wait = 35 * (attempt + 1)
+                    print(f"   ⏳ Rate limit, {wait}s bekleniyor...")
+                    time.sleep(wait)
+                else:
+                    print(f"   Gemini API hatası: {e}")
+                    return None
+        return None
 
     def enrich_product(self, title, price, category):
         """Ürün için AI açıklama + Pinterest metni üretir."""
@@ -336,7 +344,7 @@ def main():
     for p in products:
         ai_data = ai.enrich_product(p["title"], p["price"], p["category"])
         enriched.append({**p, **ai_data})
-        time.sleep(0.3)
+        time.sleep(4)
 
     # 3. Blog yazısı üret
     print("\n📝 Blog yazısı üretiliyor...")
