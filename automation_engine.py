@@ -13,7 +13,7 @@ from datetime import datetime
 
 # ── BAĞIMLILIKLAR ──────────────────────────────────────────
 try:
-    import google.generativeai as genai
+    from google import genai
     GENAI_AVAILABLE = True
 except ImportError:
     GENAI_AVAILABLE = False
@@ -158,45 +158,57 @@ def fetch_amazon_products():
         print(f"❌ Amazon PAAPI hatası: {e}")
         return None
 
-# ── GEMİNİ AI MOTORU ──────────────────────────────────────
+# ── GEMİNİ AI MOTORU (google-genai SDK) ───────────────────
 class GeminiEngine:
     def __init__(self):
-        self.model = None
-        if GENAI_AVAILABLE and GEMINI_KEY:
-            try:
-                genai.configure(api_key=GEMINI_KEY)
-                # Gemini'nin mevcut ücretsiz modelini dene
-                for model_name in ["gemini-2.0-flash-lite", "gemini-2.0-flash", "gemini-1.5-flash-latest", "gemini-pro"]:
-                    try:
-                        self.model = genai.GenerativeModel(model_name)
-                        # Bağlantıyı test et
-                        test = self.model.generate_content("Say: OK")
-                        if test:
-                            print(f"✅ Gemini bağlandı: {model_name}")
-                            break
-                    except:
-                        self.model = None
-                        continue
-            except Exception as e:
-                print(f"⚠️  Gemini başlatılamadı: {e}")
+        self.client = None
+        self.model  = None
+        if not GENAI_AVAILABLE or not GEMINI_KEY:
+            return
+        try:
+            self.client = genai.Client(api_key=GEMINI_KEY)
+            # Ücretsiz tier modelleri sırayla dene
+            for model_name in [
+                "gemini-2.0-flash-lite",
+                "gemini-2.0-flash",
+                "gemini-1.5-flash",
+            ]:
+                try:
+                    test = self.client.models.generate_content(
+                        model=model_name,
+                        contents="Say: OK"
+                    )
+                    if test and test.text:
+                        self.model = model_name
+                        print(f"✅ Gemini bağlandı: {model_name}")
+                        break
+                except Exception as e:
+                    print(f"   {model_name} denendi → {str(e)[:60]}")
+                    continue
+        except Exception as e:
+            print(f"⚠️  Gemini başlatılamadı: {e}")
 
     def call(self, prompt, max_retries=2):
-        if not self.model:
+        if not self.client or not self.model:
             return None
         for attempt in range(max_retries):
             try:
-                resp = self.model.generate_content(prompt)
+                resp = self.client.models.generate_content(
+                    model=self.model,
+                    contents=prompt
+                )
                 return resp.text
             except Exception as e:
                 err = str(e)
                 if "429" in err or "quota" in err.lower():
-                    print(f"   ⏳ Rate limit ({attempt+1}/{max_retries}), 40s bekleniyor...")
-                    time.sleep(40)
+                    wait = 40 * (attempt + 1)
+                    print(f"   ⏳ Rate limit ({attempt+1}/{max_retries}), {wait}s bekleniyor...")
+                    time.sleep(wait)
                 elif "404" in err or "not found" in err.lower():
-                    print(f"   Model bulunamadı, atlanıyor.")
+                    print(f"   Model bulunamadı.")
                     return None
                 else:
-                    print(f"   Gemini hatası: {err[:100]}")
+                    print(f"   Gemini hatası: {err[:80]}")
                     return None
         return None
 
@@ -294,7 +306,7 @@ def main():
     # Motorları başlat
     gemini   = GeminiEngine()
     template = TemplateEngine()
-    ai_mode  = gemini.model is not None
+    ai_mode  = gemini.client is not None and gemini.model is not None
     print(f"\n🤖 AI Modu: {'Gemini ✅' if ai_mode else 'Şablon (Gemini bağlanamadı)'}")
 
     # 1. Ürünleri çek
