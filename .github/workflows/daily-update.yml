@@ -2,10 +2,8 @@ name: Chic-Cheap Daily Automation
 
 on:
   schedule:
-    # Her gün sabah 07:00 UTC (10:00 Türkiye)
-    - cron: '0 7 * * *'
-  workflow_dispatch:
-    # Manuel çalıştırma butonu (test için)
+    - cron: '0 7 * * *'  # Her gün 07:00 UTC (10:00 Türkiye)
+  workflow_dispatch:      # Manuel çalıştırma butonu
 
 permissions:
   contents: write
@@ -13,7 +11,7 @@ permissions:
 jobs:
   update-site:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 10
 
     steps:
       - name: Checkout repository
@@ -26,22 +24,22 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install google-genai
+          pip install google-generativeai
           pip install python-amazon-paapi || true
           pip install requests
 
       - name: Run automation engine
         env:
-          GEMINI_API_KEY:     ${{ secrets.GEMINI_API_KEY }}
-          AMAZON_ACCESS_KEY:  ${{ secrets.AMAZON_ACCESS_KEY }}
-          AMAZON_SECRET_KEY:  ${{ secrets.AMAZON_SECRET_KEY }}
-          AMAZON_TAG:         ${{ secrets.AMAZON_TAG }}
-          ADSENSE_ID:         ${{ secrets.ADSENSE_ID }}
-          ADSENSE_SLOT:       ${{ secrets.ADSENSE_SLOT }}
-          PINTEREST_URL:      ${{ secrets.PINTEREST_URL }}
+          GEMINI_API_KEY:  ${{ secrets.GEMINI_API_KEY }}
+          AMAZON_ACCESS_KEY: ${{ secrets.AMAZON_ACCESS_KEY }}
+          AMAZON_SECRET_KEY: ${{ secrets.AMAZON_SECRET_KEY }}
+          AMAZON_TAG:        ${{ secrets.AMAZON_TAG }}
+          ADSENSE_ID:        ${{ secrets.ADSENSE_ID }}
+          ADSENSE_SLOT:      ${{ secrets.ADSENSE_SLOT }}
+          PINTEREST_URL:     ${{ secrets.PINTEREST_URL }}
         run: python automation_engine.py
 
-      - name: Commit and push updated files
+      - name: Commit and push updates
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
