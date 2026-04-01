@@ -24,13 +24,11 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install google-genai
           pip install python-amazon-paapi || true
-          pip install requests
 
       - name: Run automation engine
         env:
-          GEMINI_API_KEY:  ${{ secrets.GEMINI_API_KEY }}
+          GROQ_API_KEY:      ${{ secrets.GROQ_API_KEY }}
           AMAZON_ACCESS_KEY: ${{ secrets.AMAZON_ACCESS_KEY }}
           AMAZON_SECRET_KEY: ${{ secrets.AMAZON_SECRET_KEY }}
           AMAZON_TAG:        ${{ secrets.AMAZON_TAG }}
