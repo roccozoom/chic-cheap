@@ -8,7 +8,7 @@ CHIC-CHEAP.COM — Automation Engine v4.0 (Final)
 - Her gün sabah 07:00 UTC otomatik çalışır
 """
 
-import os, json, time, random, csv, xml.etree.ElementTree as ET, urllib.request
+import os, json, time, random, csv, xml.etree.ElementTree as ET
 from datetime import datetime
 
 # ── BAĞIMLILIKLAR ──────────────────────────────────────────
@@ -206,40 +206,36 @@ BLOG_POOL = [
 # ── GROQ AI MOTORU ─────────────────────────────────────────
 class GroqEngine:
     def __init__(self):
-        self.available = bool(GROQ_KEY)
-        if self.available:
-            try:
-                # Bağlantı testi
-                result = self._call("Say: OK", max_tokens=5)
-                if result:
-                    print(f"✅ Groq bağlandı: {GROQ_MODEL}")
-                else:
-                    print("⚠️  Groq test yanıtı boş geldi.")
-                    self.available = False
-            except Exception as e:
-                print(f"⚠️  Groq başlatılamadı: {str(e)[:80]}")
-                self.available = False
+        self.client    = None
+        self.available = False
+        if not GROQ_KEY:
+            print("⚠️  GROQ_API_KEY bulunamadı.")
+            return
+        try:
+            from groq import Groq
+            self.client = Groq(api_key=GROQ_KEY)
+            test = self.client.chat.completions.create(
+                model=GROQ_MODEL,
+                messages=[{"role": "user", "content": "Say: OK"}],
+                max_tokens=5,
+            )
+            if test.choices[0].message.content:
+                self.available = True
+                print(f"✅ Groq bağlandı: {GROQ_MODEL}")
+        except ImportError:
+            print("⚠️  groq paketi yüklü değil.")
+        except Exception as e:
+            print(f"⚠️  Groq başlatılamadı: {str(e)[:80]}")
 
     def _call(self, prompt, max_tokens=500):
-        """Groq API çağrısı — urllib ile, ek paket gerekmez."""
-        payload = json.dumps({
-            "model": GROQ_MODEL,
-            "messages": [{"role": "user", "content": prompt}],
-            "max_tokens": max_tokens,
-            "temperature": 0.7,
-        }).encode("utf-8")
-        req = urllib.request.Request(
-            GROQ_URL,
-            data=payload,
-            headers={
-                "Authorization": f"Bearer {GROQ_KEY}",
-                "Content-Type": "application/json",
-            },
-            method="POST"
+        """Groq API çağrısı — resmi groq kütüphanesi."""
+        resp = self.client.chat.completions.create(
+            model=GROQ_MODEL,
+            messages=[{"role": "user", "content": prompt}],
+            max_tokens=max_tokens,
+            temperature=0.7,
         )
-        with urllib.request.urlopen(req, timeout=30) as resp:
-            data = json.loads(resp.read().decode("utf-8"))
-            return data["choices"][0]["message"]["content"]
+        return resp.choices[0].message.content
 
     def enrich_product(self, title, price, category):
         if not self.available:
