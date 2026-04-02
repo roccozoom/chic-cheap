@@ -381,11 +381,8 @@ def main():
     used_images = set()
     enriched = []
     for p in products:
-        # Benzersiz görsel ata (PAAPI'den gelen ürünlerde zaten var)
-        if not p.get("image_url"):
-            p["image_url"] = get_unique_image(p["category"], used_images)
-        else:
-            used_images.add(p["image_url"])
+        # Benzersiz görsel ata — her zaman yeni bir tane seç
+        p["image_url"] = get_unique_image(p["category"], used_images)
 
         # AI veya şablon içerik
         result = None
