@@ -9,6 +9,8 @@
   <meta property="og:description" content="Amazon fashion finds curated daily. Look expensive for less."/>
   <meta property="og:image" content="https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=1200"/>
   <meta property="og:type" content="website"/>
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4267818870826080" crossorigin="anonymous"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
   <style>
@@ -515,6 +517,22 @@
     .footer-bottom a { color: #777; text-decoration: none; }
     .footer-bottom a:hover { color: var(--pink); }
 
+
+    /* ── ADSENSE ── */
+    .ad-container {
+      text-align: center;
+      padding: 16px 5%;
+      background: var(--white);
+      overflow: hidden;
+    }
+    .ad-container.alt { background: var(--gray); }
+    .ad-label {
+      font-size: 10px;
+      color: #bbb;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
     /* ── LOADING ── */
     #loading {
       display: flex;
@@ -631,6 +649,19 @@
   <div class="product-grid" id="productGrid"></div>
 </section>
 
+
+<!-- ══ AD — After Products ══ -->
+<div class="ad-container">
+  <div class="ad-label">Advertisement</div>
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-4267818870826080"
+       data-ad-slot="auto"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
 <!-- ══ BLOG ══ -->
 <section class="section section-alt" id="blog">
   <div class="section-header">
@@ -640,6 +671,19 @@
     <div id="loading2"><div class="spinner"></div></div>
   </div>
 </section>
+
+
+<!-- ══ AD — After Blog ══ -->
+<div class="ad-container alt">
+  <div class="ad-label">Advertisement</div>
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-4267818870826080"
+       data-ad-slot="auto"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
 
 <!-- ══ NEWSLETTER ══ -->
 <div class="newsletter" id="newsletter">
