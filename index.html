@@ -533,6 +533,27 @@
       text-transform: uppercase;
       margin-bottom: 6px;
     }
+
+    /* ── BLOG ARŞİVİ ── */
+    .archive-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+      margin-top: 12px;
+    }
+    .archive-card {
+      background: var(--white);
+      border: 1px solid #eee;
+      border-radius: var(--radius);
+      padding: 20px;
+      cursor: pointer;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .archive-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+    .archive-date { font-size: 11px; color: var(--mid); margin-bottom: 6px; letter-spacing: .04em; }
+    .archive-title { font-family: "Playfair Display", serif; font-size: 16px; font-weight: 600; line-height: 1.4; margin-bottom: 8px; color: var(--black); }
+    .archive-summary { font-size: 13px; color: var(--mid); line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .archive-read { font-size: 12px; font-weight: 700; color: var(--pink); margin-top: 10px; display: inline-block; }
     /* ── LOADING ── */
     #loading {
       display: flex;
@@ -672,6 +693,18 @@
   </div>
 </section>
 
+
+
+<!-- ══ BLOG ARŞİVİ ══ -->
+<section class="section" id="all-posts">
+  <div class="section-header">
+    <h2 class="section-title">All Style Guides</h2>
+    <span style="font-size:13px;color:var(--mid)">Updated weekly</span>
+  </div>
+  <div class="archive-grid" id="archiveGrid">
+    <div style="color:var(--mid);font-size:14px;padding:20px 0;">Loading articles...</div>
+  </div>
+</section>
 
 <!-- ══ AD — After Blog ══ -->
 <div class="ad-container alt">
@@ -907,6 +940,49 @@ function toggleMenu() {
 
 // ── INIT ──
 loadData();
+
+// ── BLOG ARŞİVİ ──
+async function loadBlogArchive() {
+  try {
+    const res  = await fetch('blog_archive.json?v=' + Date.now());
+    const posts = await res.json();
+    const grid  = document.getElementById('archiveGrid');
+    if (!posts || posts.length === 0) {
+      grid.innerHTML = '<p style="color:var(--mid);font-size:14px;">Check back soon for our latest style guides.</p>';
+      return;
+    }
+    // En yeni önce
+    const sorted = [...posts].reverse();
+    grid.innerHTML = sorted.map(post => `
+      <div class="archive-card" onclick="openArchivePost('${encodeURIComponent(JSON.stringify(post))}')">
+        <div class="archive-date">${post.date || 'Latest'}</div>
+        <div class="archive-title">${post.title}</div>
+        <div class="archive-summary">${post.summary || ''}</div>
+        <span class="archive-read">Read more →</span>
+      </div>
+    `).join('');
+  } catch(e) {
+    document.getElementById('archiveGrid').innerHTML = 
+      '<p style="color:var(--mid);font-size:14px;">Style guides coming soon — check back daily!</p>';
+  }
+}
+
+function openArchivePost(encodedPost) {
+  try {
+    const post = JSON.parse(decodeURIComponent(encodedPost));
+    // Blog modal'ı kullan
+    document.getElementById('modalImg').src = 
+      blogData.image_url || 'https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=800';
+    document.getElementById('modalTitle').textContent = post.title;
+    document.getElementById('modalContent').innerHTML = 
+      `<p>${post.summary}</p><p><em>Full article available in our weekly style drop. <strong>Subscribe below</strong> to get every new guide delivered to your inbox.</em></p>`;
+    document.getElementById('modalOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  } catch(e) {}
+}
+
+loadBlogArchive();
+
 </script>
 </body>
 </html>
