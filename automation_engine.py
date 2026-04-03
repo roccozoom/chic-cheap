@@ -259,8 +259,8 @@ Return ONLY this exact JSON, no extra text, no markdown:
     def generate_blog(self):
         if not self.available:
             return None
-        # Geniş konu havuzu — her hafta farklı konu
-        all_topics = [
+
+        ALL_TOPICS = [
             ("Spring 2026 Fashion Trends You Can Get on Amazon Right Now", "spring 2026 fashion trends amazon"),
             ("Amazon vs Designer: Same Look for a Fraction of the Price", "amazon dupe designer fashion 2026"),
             ("The Best Affordable Jewelry That Actually Lasts", "affordable tarnish-free jewelry amazon"),
@@ -282,48 +282,65 @@ Return ONLY this exact JSON, no extra text, no markdown:
             ("Work From Home Outfits That Actually Look Professional", "work from home outfits professional women"),
             ("Summer Sandals on Amazon: The Ultimate Buying Guide", "summer sandals amazon buying guide 2026"),
         ]
+
         # Arşivdeki konularla çakışmayı önle
-        archive = load_blog_archive()
-        used_titles = {p.get("title","") for p in archive}
-        available = [t for t in all_topics if t[0] not in used_titles]
-        topics = available if available else all_topics
-        topic, keyword = random.choice(topics)
-        prompt = f"""You are a senior fashion editor and SEO expert for chic-cheap.com, an Amazon affiliate fashion site.
+        archive    = load_blog_archive()
+        used       = {p.get("title","") for p in archive}
+        available  = [t for t in ALL_TOPICS if t[0] not in used]
+        topic, keyword = random.choice(available if available else ALL_TOPICS)
+        slug = keyword.replace(" ","-").replace(",","")[:60]
 
-Write a comprehensive, SEO-optimized blog post about: "{topic}"
-Primary keyword to rank for: "{keyword}"
+        # ADIM 1: Önce meta bilgileri al (kısa, JSON-safe)
+        meta_prompt = f"""Fashion SEO editor for chic-cheap.com.
+Topic: "{topic}" | Keyword: "{keyword}"
+Reply with ONLY this JSON (single line, no newlines inside values):
+{{"meta_description":"SEO description max 120 chars with keyword","summary":"One engaging sentence teaser max 25 words."}}"""
 
-REQUIREMENTS:
-- Minimum 700 words of engaging, original content
-- Natural keyword usage (not stuffed) — use keyword in H1, first paragraph, and 2-3 subheadings
-- Include secondary keywords naturally throughout
-- Structure: Hook intro → What/Why → How-To or List → Product recommendations → Conclusion with CTA
-- HTML tags only: h2, h3, p, ul, ol, li, strong, em — NO markdown
-- Conversational but expert tone — like a knowledgeable friend giving advice
-- Include 3-5 specific Amazon product type recommendations (not real ASINs, just product categories)
-- Add a "Pro Tip" or "Editor's Note" callout using <strong> tag
-- End with a clear call-to-action to shop the picks
+        # ADIM 2: İçeriği ayrı al (JSON parse sorunu yok)
+        content_prompt = f"""You are a fashion editor writing for chic-cheap.com.
+Write a 600-word SEO blog post about: "{topic}" (keyword: "{keyword}")
+Use HTML tags: h2, p, ul, li, strong. No markdown, no JSON, no quotes around the whole text.
+Start directly with an h2 tag. Include 3 product recommendations."""
 
-Return ONLY valid JSON, no markdown fences, no extra text:
-{{"title":"{topic}","meta_description":"Compelling SEO meta description max 155 chars, includes keyword naturally","summary":"Two engaging sentences that make readers want to click — include a hook and benefit.","content":"Full HTML article minimum 700 words","image_url":"https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=800","slug":"{keyword.replace(' ','-').replace(',','')}"}}"""
         try:
-            raw = self._call(prompt, max_tokens=1500)
-            if raw:
-                start = raw.find("{")
-                end   = raw.rfind("}") + 1
-                if start >= 0 and end > start:
-                    # Control karakterleri temizle
-                    clean = raw[start:end]
-                    clean = clean.replace("\r", " ").replace("\t", " ")
-                    clean = "".join(ch if ord(ch) >= 32 or ch in "\n" else " " for ch in clean)
-                    data = json.loads(clean)
-                    if not data.get("image_url"):
-                        data["image_url"] = "https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=800"
-                    print(f"   → Groq blog: {data['title'][:55]}...")
-                    return data
+            # Meta bilgileri al
+            meta_raw = self._call(meta_prompt, max_tokens=150)
+            meta = {"meta_description": f"Discover {topic} — affordable fashion finds on Amazon curated by Chic-Cheap editors.",
+                    "summary": f"Our editors found the best picks for {topic.lower()} — all on Amazon and all incredibly affordable."}
+            if meta_raw:
+                try:
+                    m = json.loads(meta_raw.strip())
+                    meta.update(m)
+                except:
+                    pass
+
+            # İçeriği al (düz metin, JSON parse sorunu yok)
+            html_content = self._call(content_prompt, max_tokens=1200)
+            if not html_content:
+                return None
+
+            # HTML temizle
+            html_content = html_content.strip()
+            if html_content.startswith("```"):
+                html_content = html_content.split("```")[1]
+                if html_content.startswith("html"):
+                    html_content = html_content[4:]
+            html_content = html_content.strip()
+
+            data = {
+                "title":            topic,
+                "meta_description": meta["meta_description"],
+                "summary":          meta["summary"],
+                "content":          html_content,
+                "image_url":        "https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=800",
+                "slug":             slug,
+            }
+            print(f"   → Groq blog: {topic[:55]}...")
+            return data
+
         except Exception as e:
             print(f"   Groq blog hatası: {str(e)[:60]}")
-        return None
+            return None
 
 # ── ŞABLON MOTORU (Yedek) ─────────────────────────────────
 class TemplateEngine:
@@ -446,19 +463,8 @@ def generate_sitemap(blog_archive):
 
 # ── GOOGLE PING ───────────────────────────────────────────
 def ping_search_engines():
-    """Arama motorlarına sitemap güncellendiğini bildirir."""
-    sitemap_url = urllib.parse.quote("https://chic-cheap.com/sitemap.xml")
-    engines = [
-        ("Bing", f"https://www.bing.com/ping?sitemap={sitemap_url}"),
-    ]
-    for name, url in engines:
-        try:
-            req = urllib.request.Request(url, headers={"User-Agent": "ChicCheapBot/1.0"})
-            with urllib.request.urlopen(req, timeout=10) as resp:
-                print(f"📡 {name} ping: {resp.status} OK")
-        except Exception as e:
-            print(f"   {name} ping: {str(e)[:50]}")
-    print("💡 Google: Search Console'dan sitemap'i manuel ekle (bir kez yeterli)")
+    """Sitemap güncellemesini loglar — Search Console ile otomatik indekslenir."""
+    print("💡 Sitemap güncellendi → Google Search Console otomatik tarayacak")
 
 # ── ROBOTS.TXT ────────────────────────────────────────────
 def generate_robots():
