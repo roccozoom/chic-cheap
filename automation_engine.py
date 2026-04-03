@@ -260,34 +260,33 @@ Return ONLY this exact JSON, no extra text, no markdown:
         if not self.available:
             return None
         # Geniş konu havuzu — her hafta farklı konu
-    all_topics = [
-        ("Spring 2026 Fashion Trends You Can Get on Amazon Right Now", "spring 2026 fashion trends amazon"),
-        ("Amazon vs Designer: Same Look for a Fraction of the Price", "amazon dupe designer fashion 2026"),
-        ("The Best Affordable Jewelry That Actually Lasts", "affordable tarnish-free jewelry amazon"),
-        ("How to Style a Wrap Dress 6 Different Ways", "how to style wrap dress amazon"),
-        ("10 Amazon Bag Finds Under $50 That Look Luxurious", "affordable luxury bags amazon 2026"),
-        ("The Ultimate Guide to Affordable Summer Dresses 2026", "affordable summer dresses amazon 2026"),
-        ("How to Build a Minimalist Wardrobe on a Budget", "minimalist wardrobe budget amazon"),
-        ("Best Amazon Fashion Finds Under $30 This Week", "amazon fashion finds under 30 dollars"),
-        ("How to Look Expensive on a Shoestring Budget", "look expensive budget fashion tips"),
-        ("10 Timeless Pieces Every Woman Needs in Her Closet", "timeless wardrobe essentials women"),
-        ("The Best White Sneakers on Amazon — Tested and Reviewed", "best white sneakers amazon women 2026"),
-        ("Amazon Handbag Dupes That Look Designer", "amazon designer handbag dupes 2026"),
-        ("How to Style Oversized Blazers 5 Ways", "how to style oversized blazer outfit ideas"),
-        ("The Best Amazon Dresses for Every Body Type", "amazon dresses every body type 2026"),
-        ("Affordable Accessories That Instantly Elevate Any Outfit", "affordable accessories elevate outfit amazon"),
-        ("How to Create the Perfect Capsule Wardrobe for $150", "capsule wardrobe 150 dollars amazon"),
-        ("Best Amazon Shoes Under $50 — Our Editor Picks", "best amazon shoes under 50 dollars 2026"),
-        ("The Quiet Luxury Trend: How to Get the Look for Less", "quiet luxury trend affordable amazon"),
-        ("Work From Home Outfits That Actually Look Professional", "work from home outfits professional women"),
-        ("Summer Sandals on Amazon: The Ultimate Buying Guide", "summer sandals amazon buying guide 2026"),
-    ]
-
-    # Arşivdeki konularla çakışmayı önle
-    archive = load_blog_archive()
-    used_titles = {p.get("title","") for p in archive}
-    available = [t for t in all_topics if t[0] not in used_titles]
-    topics = available if available else all_topics
+        all_topics = [
+            ("Spring 2026 Fashion Trends You Can Get on Amazon Right Now", "spring 2026 fashion trends amazon"),
+            ("Amazon vs Designer: Same Look for a Fraction of the Price", "amazon dupe designer fashion 2026"),
+            ("The Best Affordable Jewelry That Actually Lasts", "affordable tarnish-free jewelry amazon"),
+            ("How to Style a Wrap Dress 6 Different Ways", "how to style wrap dress amazon"),
+            ("10 Amazon Bag Finds Under $50 That Look Luxurious", "affordable luxury bags amazon 2026"),
+            ("The Ultimate Guide to Affordable Summer Dresses 2026", "affordable summer dresses amazon 2026"),
+            ("How to Build a Minimalist Wardrobe on a Budget", "minimalist wardrobe budget amazon"),
+            ("Best Amazon Fashion Finds Under $30 This Week", "amazon fashion finds under 30 dollars"),
+            ("How to Look Expensive on a Shoestring Budget", "look expensive budget fashion tips"),
+            ("10 Timeless Pieces Every Woman Needs in Her Closet", "timeless wardrobe essentials women"),
+            ("The Best White Sneakers on Amazon — Tested and Reviewed", "best white sneakers amazon women 2026"),
+            ("Amazon Handbag Dupes That Look Designer", "amazon designer handbag dupes 2026"),
+            ("How to Style Oversized Blazers 5 Ways", "how to style oversized blazer outfit ideas"),
+            ("The Best Amazon Dresses for Every Body Type", "amazon dresses every body type 2026"),
+            ("Affordable Accessories That Instantly Elevate Any Outfit", "affordable accessories elevate outfit amazon"),
+            ("How to Create the Perfect Capsule Wardrobe for $150", "capsule wardrobe 150 dollars amazon"),
+            ("Best Amazon Shoes Under $50 — Our Editor Picks", "best amazon shoes under 50 dollars 2026"),
+            ("The Quiet Luxury Trend: How to Get the Look for Less", "quiet luxury trend affordable amazon"),
+            ("Work From Home Outfits That Actually Look Professional", "work from home outfits professional women"),
+            ("Summer Sandals on Amazon: The Ultimate Buying Guide", "summer sandals amazon buying guide 2026"),
+        ]
+        # Arşivdeki konularla çakışmayı önle
+        archive = load_blog_archive()
+        used_titles = {p.get("title","") for p in archive}
+        available = [t for t in all_topics if t[0] not in used_titles]
+        topics = available if available else all_topics
         topic, keyword = random.choice(topics)
         prompt = f"""You are a senior fashion editor and SEO expert for chic-cheap.com, an Amazon affiliate fashion site.
 
