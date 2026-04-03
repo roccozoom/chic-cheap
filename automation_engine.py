@@ -8,7 +8,7 @@ CHIC-CHEAP.COM — Automation Engine v4.0 (Final)
 - Her gün sabah 07:00 UTC otomatik çalışır
 """
 
-import os, json, time, random, csv, xml.etree.ElementTree as ET
+import os, json, time, random, csv, xml.etree.ElementTree as ET, urllib.request, urllib.parse
 from datetime import datetime
 
 # ── BAĞIMLILIKLAR ──────────────────────────────────────────
@@ -259,19 +259,54 @@ Return ONLY this exact JSON, no extra text, no markdown:
     def generate_blog(self):
         if not self.available:
             return None
-        topics = [
-            ("Spring 2026 Fashion Trends You Can Get on Amazon Right Now", "spring 2026 fashion trends amazon"),
-            ("Amazon vs Designer: Same Look for a Fraction of the Price", "amazon dupe designer fashion 2026"),
-            ("The Best Affordable Jewelry That Actually Lasts", "affordable tarnish-free jewelry amazon"),
-            ("How to Style a Wrap Dress 6 Different Ways", "how to style wrap dress amazon"),
-            ("10 Amazon Bag Finds Under $50 That Look Luxurious", "affordable luxury bags amazon 2026"),
-        ]
+        # Geniş konu havuzu — her hafta farklı konu
+    all_topics = [
+        ("Spring 2026 Fashion Trends You Can Get on Amazon Right Now", "spring 2026 fashion trends amazon"),
+        ("Amazon vs Designer: Same Look for a Fraction of the Price", "amazon dupe designer fashion 2026"),
+        ("The Best Affordable Jewelry That Actually Lasts", "affordable tarnish-free jewelry amazon"),
+        ("How to Style a Wrap Dress 6 Different Ways", "how to style wrap dress amazon"),
+        ("10 Amazon Bag Finds Under $50 That Look Luxurious", "affordable luxury bags amazon 2026"),
+        ("The Ultimate Guide to Affordable Summer Dresses 2026", "affordable summer dresses amazon 2026"),
+        ("How to Build a Minimalist Wardrobe on a Budget", "minimalist wardrobe budget amazon"),
+        ("Best Amazon Fashion Finds Under $30 This Week", "amazon fashion finds under 30 dollars"),
+        ("How to Look Expensive on a Shoestring Budget", "look expensive budget fashion tips"),
+        ("10 Timeless Pieces Every Woman Needs in Her Closet", "timeless wardrobe essentials women"),
+        ("The Best White Sneakers on Amazon — Tested and Reviewed", "best white sneakers amazon women 2026"),
+        ("Amazon Handbag Dupes That Look Designer", "amazon designer handbag dupes 2026"),
+        ("How to Style Oversized Blazers 5 Ways", "how to style oversized blazer outfit ideas"),
+        ("The Best Amazon Dresses for Every Body Type", "amazon dresses every body type 2026"),
+        ("Affordable Accessories That Instantly Elevate Any Outfit", "affordable accessories elevate outfit amazon"),
+        ("How to Create the Perfect Capsule Wardrobe for $150", "capsule wardrobe 150 dollars amazon"),
+        ("Best Amazon Shoes Under $50 — Our Editor Picks", "best amazon shoes under 50 dollars 2026"),
+        ("The Quiet Luxury Trend: How to Get the Look for Less", "quiet luxury trend affordable amazon"),
+        ("Work From Home Outfits That Actually Look Professional", "work from home outfits professional women"),
+        ("Summer Sandals on Amazon: The Ultimate Buying Guide", "summer sandals amazon buying guide 2026"),
+    ]
+
+    # Arşivdeki konularla çakışmayı önle
+    archive = load_blog_archive()
+    used_titles = {p.get("title","") for p in archive}
+    available = [t for t in all_topics if t[0] not in used_titles]
+    topics = available if available else all_topics
         topic, keyword = random.choice(topics)
-        prompt = f"""You are a senior fashion editor for chic-cheap.com.
-Write an SEO blog post about: "{topic}" (keyword: "{keyword}")
-Requirements: min 500 words, HTML tags (h2, p, ul, li, strong), no markdown.
-Return ONLY this JSON, no extra text:
-{{"title":"{topic}","meta_description":"SEO meta max 155 chars with keyword","summary":"Two engaging teaser sentences for homepage.","content":"<h2>Intro heading</h2><p>Full article HTML here minimum 500 words...</p>","image_url":"https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=800"}}"""
+        prompt = f"""You are a senior fashion editor and SEO expert for chic-cheap.com, an Amazon affiliate fashion site.
+
+Write a comprehensive, SEO-optimized blog post about: "{topic}"
+Primary keyword to rank for: "{keyword}"
+
+REQUIREMENTS:
+- Minimum 700 words of engaging, original content
+- Natural keyword usage (not stuffed) — use keyword in H1, first paragraph, and 2-3 subheadings
+- Include secondary keywords naturally throughout
+- Structure: Hook intro → What/Why → How-To or List → Product recommendations → Conclusion with CTA
+- HTML tags only: h2, h3, p, ul, ol, li, strong, em — NO markdown
+- Conversational but expert tone — like a knowledgeable friend giving advice
+- Include 3-5 specific Amazon product type recommendations (not real ASINs, just product categories)
+- Add a "Pro Tip" or "Editor's Note" callout using <strong> tag
+- End with a clear call-to-action to shop the picks
+
+Return ONLY valid JSON, no markdown fences, no extra text:
+{{"title":"{topic}","meta_description":"Compelling SEO meta description max 155 chars, includes keyword naturally","summary":"Two engaging sentences that make readers want to click — include a hook and benefit.","content":"Full HTML article minimum 700 words","image_url":"https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=800","slug":"{keyword.replace(' ','-').replace(',','')}"}}"""
         try:
             raw = self._call(prompt, max_tokens=1500)
             if raw:
@@ -357,6 +392,79 @@ def create_pinterest_files(products):
     ET.ElementTree(rss).write("pinterest.xml",encoding="utf-8",xml_declaration=True)
     print("📌 Pinterest XML + CSV oluşturuldu.")
 
+
+# ── BLOG ARŞİVİ ───────────────────────────────────────────
+def load_blog_archive():
+    """Daha önce yayınlanan blogları yükler."""
+    try:
+        with open("blog_archive.json", "r", encoding="utf-8") as f:
+            return json.load(f)
+    except:
+        return []
+
+def save_blog_archive(archive):
+    """Blog arşivini kaydeder (max 20 yazı tutar)."""
+    with open("blog_archive.json", "w", encoding="utf-8") as f:
+        json.dump(archive[-20:], f, indent=2, ensure_ascii=False)
+
+# ── SİTEMAP ÜRETİCİ ──────────────────────────────────────
+def generate_sitemap(blog_archive):
+    """SEO için dinamik sitemap.xml üretir."""
+    root = ET.Element("urlset")
+    root.set("xmlns", "http://www.sitemaps.org/schemas/sitemap/0.9")
+
+    # Ana sayfa
+    url = ET.SubElement(root, "url")
+    ET.SubElement(url, "loc").text     = "https://chic-cheap.com/"
+    ET.SubElement(url, "changefreq").text = "daily"
+    ET.SubElement(url, "priority").text   = "1.0"
+    ET.SubElement(url, "lastmod").text    = datetime.now().strftime("%Y-%m-%d")
+
+    # Blog yazıları
+    for i, post in enumerate(reversed(blog_archive[-10:])):
+        url = ET.SubElement(root, "url")
+        slug = post.get("slug", f"blog-post-{i+1}")
+        ET.SubElement(url, "loc").text        = f"https://chic-cheap.com/#{slug}"
+        ET.SubElement(url, "changefreq").text = "weekly"
+        ET.SubElement(url, "priority").text   = "0.8"
+        ET.SubElement(url, "lastmod").text    = post.get("date", datetime.now().strftime("%Y-%m-%d"))
+
+    # Kategori sayfaları
+    for cat, priority in [("dresses","0.7"),("tops","0.7"),("bags","0.7"),("shoes","0.7"),("jewelry","0.6"),("accessories","0.6")]:
+        url = ET.SubElement(root, "url")
+        ET.SubElement(url, "loc").text        = f"https://chic-cheap.com/#{cat}"
+        ET.SubElement(url, "changefreq").text = "daily"
+        ET.SubElement(url, "priority").text   = priority
+
+    tree = ET.ElementTree(root)
+    ET.indent(tree, space="  ")
+    tree.write("sitemap.xml", encoding="utf-8", xml_declaration=True)
+    print("🗺️  sitemap.xml güncellendi.")
+
+# ── GOOGLE PING ───────────────────────────────────────────
+def ping_google():
+    """Google'a sitemap güncellendiğini bildirir."""
+    try:
+        sitemap_url = "https://chic-cheap.com/sitemap.xml"
+        ping_url    = f"https://www.google.com/ping?sitemap={urllib.parse.quote(sitemap_url)}"
+        req = urllib.request.Request(ping_url, headers={"User-Agent": "ChicCheapBot/1.0"})
+        with urllib.request.urlopen(req, timeout=10) as resp:
+            print(f"📡 Google ping: {resp.status} OK")
+    except Exception as e:
+        print(f"   Google ping hatası: {str(e)[:50]}")
+
+# ── ROBOTS.TXT ────────────────────────────────────────────
+def generate_robots():
+    """robots.txt dosyası üretir."""
+    content = """User-agent: *
+Allow: /
+
+Sitemap: https://chic-cheap.com/sitemap.xml
+"""
+    with open("robots.txt", "w") as f:
+        f.write(content)
+    print("🤖 robots.txt güncellendi.")
+
 # ── ANA FONKSİYON ─────────────────────────────────────────
 def main():
     print("="*55)
@@ -415,10 +523,35 @@ def main():
 
     create_pinterest_files(enriched)
 
+    # 5. Blog arşivini güncelle
+    archive = load_blog_archive()
+    if blog:
+        blog_entry = {
+            "title":   blog.get("title",""),
+            "summary": blog.get("summary",""),
+            "slug":    blog.get("slug", blog.get("title","").lower().replace(" ","-")[:50]),
+            "date":    datetime.now().strftime("%Y-%m-%d"),
+        }
+        # Aynı başlıklı yazı yoksa ekle
+        if not any(a.get("title") == blog_entry["title"] for a in archive):
+            archive.append(blog_entry)
+            save_blog_archive(archive)
+            print(f"📚 Blog arşivi güncellendi: {len(archive)} yazı")
+
+    # 6. Sitemap güncelle
+    generate_sitemap(archive)
+
+    # 7. robots.txt güncelle
+    generate_robots()
+
+    # 8. Google'a bildir
+    ping_google()
+
     print("\n✅ TAMAMLANDI!")
     print(f"   → {len(enriched)} ürün işlendi")
     print(f"   → AI: {'Groq' if ai_mode else 'Şablon'}")
-    print(f"   → website_data.json kaydedildi")
+    print(f"   → Blog arşivi: {len(archive)} yazı")
+    print(f"   → website_data.json, sitemap.xml, robots.txt güncellendi")
     print("="*55)
 
 if __name__ == "__main__":
