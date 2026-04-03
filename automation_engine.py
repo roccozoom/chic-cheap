@@ -312,7 +312,11 @@ Return ONLY valid JSON, no markdown fences, no extra text:
                 start = raw.find("{")
                 end   = raw.rfind("}") + 1
                 if start >= 0 and end > start:
-                    data = json.loads(raw[start:end])
+                    # Control karakterleri temizle
+                    clean = raw[start:end]
+                    clean = clean.replace("\r", " ").replace("\t", " ")
+                    clean = "".join(ch if ord(ch) >= 32 or ch in "\n" else " " for ch in clean)
+                    data = json.loads(clean)
                     if not data.get("image_url"):
                         data["image_url"] = "https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=800"
                     print(f"   → Groq blog: {data['title'][:55]}...")
@@ -441,16 +445,20 @@ def generate_sitemap(blog_archive):
     print("🗺️  sitemap.xml güncellendi.")
 
 # ── GOOGLE PING ───────────────────────────────────────────
-def ping_google():
-    """Google'a sitemap güncellendiğini bildirir."""
-    try:
-        sitemap_url = "https://chic-cheap.com/sitemap.xml"
-        ping_url    = f"https://www.google.com/ping?sitemap={urllib.parse.quote(sitemap_url)}"
-        req = urllib.request.Request(ping_url, headers={"User-Agent": "ChicCheapBot/1.0"})
-        with urllib.request.urlopen(req, timeout=10) as resp:
-            print(f"📡 Google ping: {resp.status} OK")
-    except Exception as e:
-        print(f"   Google ping hatası: {str(e)[:50]}")
+def ping_search_engines():
+    """Arama motorlarına sitemap güncellendiğini bildirir."""
+    sitemap_url = urllib.parse.quote("https://chic-cheap.com/sitemap.xml")
+    engines = [
+        ("Bing", f"https://www.bing.com/ping?sitemap={sitemap_url}"),
+    ]
+    for name, url in engines:
+        try:
+            req = urllib.request.Request(url, headers={"User-Agent": "ChicCheapBot/1.0"})
+            with urllib.request.urlopen(req, timeout=10) as resp:
+                print(f"📡 {name} ping: {resp.status} OK")
+        except Exception as e:
+            print(f"   {name} ping: {str(e)[:50]}")
+    print("💡 Google: Search Console'dan sitemap'i manuel ekle (bir kez yeterli)")
 
 # ── ROBOTS.TXT ────────────────────────────────────────────
 def generate_robots():
@@ -544,7 +552,7 @@ def main():
     generate_robots()
 
     # 8. Google'a bildir
-    ping_google()
+    ping_search_engines()
 
     print("\n✅ TAMAMLANDI!")
     print(f"   → {len(enriched)} ürün işlendi")
