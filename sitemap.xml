@@ -4,7 +4,13 @@
     <loc>https://chic-cheap.com/</loc>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
-    <lastmod>2026-04-10</lastmod>
+    <lastmod>2026-04-11</lastmod>
+  </url>
+  <url>
+    <loc>https://chic-cheap.com/#amazon-fashion-finds-under-30-dollars</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-04-11</lastmod>
   </url>
   <url>
     <loc>https://chic-cheap.com/#amazon-designer-handbag-dupes-2026</loc>
@@ -56,12 +62,6 @@
   </url>
   <url>
     <loc>https://chic-cheap.com/#summer-sandals-amazon-buying-guide-2026</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-    <lastmod>2026-04-03</lastmod>
-  </url>
-  <url>
-    <loc>https://chic-cheap.com/#work-outfits-under-$60:-look-polished-without-over</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <lastmod>2026-04-03</lastmod>
