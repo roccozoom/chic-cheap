@@ -21,9 +21,9 @@ export default async function BlogPage() {
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
         {blogs.map((b, idx) => (
           <Link href={`/blog/${b.slug}`} key={b.id} className="group flex flex-col bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-zinc-100">
-            <div className="relative aspect-[4/3] overflow-hidden bg-zinc-100">
-              <Image src={b.imageUrl} alt={b.title} fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
-            </div>
+              <div className="relative w-full aspect-[4/3] overflow-hidden">
+                <Image src={b.imageUrl} alt={b.title} fill className="object-cover transition-transform duration-500 group-hover:scale-105" unoptimized={b.imageUrl.includes('pollinations') || b.imageUrl.includes('loremflickr')} />
+              </div>
             <div className="p-8 flex flex-col flex-1">
               <span className="text-[10px] font-bold tracking-[0.1em] uppercase text-pink-500 mb-3">Style Guide</span>
               <h2 className="font-playfair text-xl font-bold leading-snug mb-4 text-zinc-900 group-hover:text-pink-500 transition-colors">

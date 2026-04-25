@@ -47,7 +47,7 @@ export default async function ShopPage({ searchParams }: { searchParams: Promise
         {products.map((p, idx) => (
           <div key={p.id} className="group flex flex-col bg-white rounded-2xl overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,0.04)] hover:shadow-[0_12px_40px_rgba(0,0,0,0.08)] transition-all duration-300 hover:-translate-y-1 border border-zinc-100">
             <Link href={`/product/${p.id}`} className="relative aspect-[3/4] overflow-hidden bg-zinc-100 block">
-              <Image src={p.imageUrl} alt={p.title} fill className="object-cover transition-transform duration-500 group-hover:scale-105" />
+              <Image src={p.imageUrl} alt={p.title} fill className="object-cover transition-transform duration-500 group-hover:scale-105" unoptimized={p.imageUrl.includes('pollinations') || p.imageUrl.includes('loremflickr') || p.imageUrl.includes('amazon')} />
               <div className="absolute bottom-3 right-3 bg-white/95 backdrop-blur-sm px-2.5 py-1.5 rounded-lg text-[10px] font-bold text-zinc-900 z-10 shadow-sm">
                 Score <span className="text-pink-500">{p.aiScore}</span>
               </div>

@@ -45,7 +45,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
       <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-start">
         {/* Left: Image */}
         <div className="relative aspect-[3/4] md:aspect-auto md:h-[600px] rounded-3xl overflow-hidden bg-zinc-100 shadow-2xl">
-          <Image src={product.imageUrl} alt={product.title} fill className="object-cover" priority />
+          <Image src={product.imageUrl} alt={product.title} fill className="object-cover" priority unoptimized={product.imageUrl.includes('pollinations') || product.imageUrl.includes('loremflickr') || product.imageUrl.includes('amazon')} />
         </div>
 
         {/* Right: Details */}

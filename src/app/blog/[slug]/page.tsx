@@ -37,7 +37,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     <div className="bg-white">
       {/* Hero */}
       <div className="relative h-[50vh] min-h-[400px] w-full bg-zinc-950 flex items-center justify-center">
-        <Image src={blog.imageUrl} alt={blog.title} fill className="object-cover opacity-50" priority />
+        <Image src={blog.imageUrl} alt={blog.title} fill className="object-cover opacity-50" priority unoptimized={blog.imageUrl.includes('pollinations') || blog.imageUrl.includes('loremflickr')} />
         <div className="relative z-10 max-w-4xl mx-auto px-6 text-center text-white">
           <span className="inline-block py-1.5 px-4 rounded-full bg-pink-500/20 text-pink-300 text-[10px] font-bold tracking-widest uppercase mb-6 backdrop-blur-md">
             Style Guide

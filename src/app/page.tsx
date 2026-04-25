@@ -80,7 +80,7 @@ export default async function Home() {
           {featuredProducts.map((p, idx) => (
             <div key={p.id} className="group flex flex-col bg-white rounded-2xl overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,0.04)] hover:shadow-[0_12px_40px_rgba(0,0,0,0.08)] transition-all duration-300 hover:-translate-y-1 border border-zinc-100">
               <div className="relative aspect-[3/4] overflow-hidden bg-zinc-100">
-                <Image src={p.imageUrl} alt={p.title} fill className="object-cover transition-transform duration-500 group-hover:scale-105" />
+                <Image src={p.imageUrl} alt={p.title} fill className="object-cover transition-transform duration-500 group-hover:scale-105" unoptimized={p.imageUrl.includes('pollinations') || p.imageUrl.includes('loremflickr') || p.imageUrl.includes('amazon')} />
                 {idx === 0 && <span className="absolute top-3 left-3 bg-zinc-950 text-white text-[10px] font-bold tracking-widest uppercase px-3 py-1.5 rounded-full z-10">New</span>}
                 {idx === 1 && <span className="absolute top-3 left-3 bg-pink-500 text-white text-[10px] font-bold tracking-widest uppercase px-3 py-1.5 rounded-full z-10">Deal</span>}
                 <div className="absolute bottom-3 right-3 bg-white/95 backdrop-blur-sm px-2.5 py-1.5 rounded-lg text-[10px] font-bold text-zinc-900 z-10 shadow-sm">
@@ -118,7 +118,7 @@ export default async function Home() {
             {featuredBlogs.map((b) => (
               <Link href={`/blog/${b.slug}`} key={b.id} className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col sm:flex-row">
                 <div className="relative w-full sm:w-2/5 aspect-[4/3] sm:aspect-auto overflow-hidden">
-                  <Image src={b.imageUrl} alt={b.title} fill className="object-cover transition-transform duration-500 group-hover:scale-105" />
+                  <Image src={b.imageUrl} alt={b.title} fill className="object-cover transition-transform duration-500 group-hover:scale-105" unoptimized={b.imageUrl.includes('pollinations') || b.imageUrl.includes('loremflickr')} />
                 </div>
                 <div className="p-6 sm:p-8 flex flex-col justify-center sm:w-3/5">
                   <span className="text-[10px] font-bold tracking-[0.1em] uppercase text-pink-500 mb-3">Style Guide</span>
