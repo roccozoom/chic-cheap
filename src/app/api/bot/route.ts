@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
+import { revalidatePath } from "next/cache";
 
 const prisma = new PrismaClient({
   datasourceUrl: process.env.DATABASE_URL || "file:./dev.db"
@@ -57,6 +58,7 @@ export async function POST(req: Request) {
         }
       });
 
+      revalidatePath('/', 'layout');
       return NextResponse.json({ success: true, product });
     }
 
@@ -88,6 +90,7 @@ export async function POST(req: Request) {
         }
       });
 
+      revalidatePath('/', 'layout');
       return NextResponse.json({ success: true, blog });
     }
 
