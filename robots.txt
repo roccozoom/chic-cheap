@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://chic-cheap.com/sitemap.xml
