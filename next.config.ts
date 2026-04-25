@@ -10,6 +10,14 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "m.media-amazon.com",
+      },
+      {
+        protocol: "https",
+        hostname: "image.pollinations.ai",
+      },
+      {
+        protocol: "https",
+        hostname: "loremflickr.com",
       }
     ],
   },

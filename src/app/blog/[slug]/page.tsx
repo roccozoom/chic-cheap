@@ -9,8 +9,9 @@ const prisma = new PrismaClient({
   datasourceUrl: process.env.DATABASE_URL || "file:./dev.db"
 });
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const blog = await prisma.blogPost.findUnique({ where: { slug: params.slug } });
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const blog = await prisma.blogPost.findUnique({ where: { slug } });
   if (!blog) return { title: "Blog Not Found | Chic-Cheap" };
   
   return {
@@ -24,9 +25,10 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-export default async function BlogPostPage({ params }: { params: { slug: string } }) {
+export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
   const blog = await prisma.blogPost.findUnique({
-    where: { slug: params.slug }
+    where: { slug }
   });
 
   if (!blog) notFound();

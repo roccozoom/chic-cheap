@@ -6,8 +6,9 @@ const prisma = new PrismaClient({
   datasourceUrl: process.env.DATABASE_URL || "file:./dev.db"
 });
 
-export default async function ShopPage({ searchParams }: { searchParams: { cat?: string } }) {
-  const categorySlug = searchParams.cat || null;
+export default async function ShopPage({ searchParams }: { searchParams: Promise<{ cat?: string }> }) {
+  const params = await searchParams;
+  const categorySlug = params.cat || null;
 
   const categories = await prisma.category.findMany();
   
