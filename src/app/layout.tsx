@@ -11,6 +11,9 @@ const lato = Lato({ subsets: ["latin"], weight: ["300", "400", "700"], variable:
 export const metadata: Metadata = {
   title: "Chic-Cheap | Curated Style. Smart Prices.",
   description: "Discover affordable fashion finds curated daily. Dresses, bags, shoes, and accessories — chic style at budget-friendly prices.",
+  verification: {
+    google: "H-PqzN3KrM0O4ro2d-UafKktwugGyhub4uC4DltyxPU",
+  },
 };
 
 export default function RootLayout({
