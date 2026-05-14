@@ -43,6 +43,12 @@ export async function POST(req: Request) {
         });
       }
 
+      // Check for duplicate product
+      const existingProduct = await prisma.product.findFirst({ where: { title } });
+      if (existingProduct) {
+        return NextResponse.json({ success: true, skipped: true, message: "Product already exists", product: existingProduct });
+      }
+
       const product = await prisma.product.create({
         data: {
           title,
@@ -59,6 +65,10 @@ export async function POST(req: Request) {
       });
 
       revalidatePath('/', 'layout');
+      
+      // Google Sitemap Ping (non-blocking)
+      fetch('https://www.google.com/ping?sitemap=https://www.chic-cheap.com/sitemap.xml').catch(e => console.error('Sitemap ping error:', e));
+
       return NextResponse.json({ success: true, product });
     }
 
@@ -91,6 +101,10 @@ export async function POST(req: Request) {
       });
 
       revalidatePath('/', 'layout');
+      
+      // Google Sitemap Ping (non-blocking)
+      fetch('https://www.google.com/ping?sitemap=https://www.chic-cheap.com/sitemap.xml').catch(e => console.error('Sitemap ping error:', e));
+
       return NextResponse.json({ success: true, blog });
     }
 

@@ -9,10 +9,24 @@ const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfa
 const lato = Lato({ subsets: ["latin"], weight: ["300", "400", "700"], variable: "--font-lato" });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://chic-cheap.com"),
   title: "Chic-Cheap | Curated Style. Smart Prices.",
   description: "Discover affordable fashion finds curated daily. Dresses, bags, shoes, and accessories — chic style at budget-friendly prices.",
   verification: {
     google: "H-PqzN3KrM0O4ro2d-UafKktwugGyhub4uC4DltyxPU",
+  },
+  openGraph: {
+    title: "Chic-Cheap | Curated Style. Smart Prices.",
+    description: "Discover affordable fashion finds curated daily. Dresses, bags, shoes, and accessories.",
+    url: "https://chic-cheap.com",
+    siteName: "Chic-Cheap",
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Chic-Cheap | Curated Style",
+    description: "Discover affordable fashion finds curated daily.",
   },
 };
 
@@ -30,6 +44,24 @@ export default function RootLayout({
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4267818870826080"
           crossOrigin="anonymous"
           strategy="afterInteractive"
+        />
+        <Script
+          id="schema-org"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              "name": "Chic-Cheap",
+              "url": "https://chic-cheap.com/",
+              "description": "Discover affordable fashion finds curated daily. Dresses, bags, shoes, and accessories.",
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://chic-cheap.com/shop?search={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            }),
+          }}
         />
       </head>
       <body className={`${playfair.variable} ${lato.variable} font-sans antialiased bg-[#FAFAFA] text-zinc-900`}>

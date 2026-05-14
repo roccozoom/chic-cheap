@@ -2,6 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { PrismaClient } from "@prisma/client";
 
+export const dynamic = 'force-dynamic';
+
 const prisma = new PrismaClient({
   datasourceUrl: process.env.DATABASE_URL || "file:./dev.db"
 });
@@ -45,6 +47,7 @@ export default async function Home() {
               fill 
               className="object-cover"
               priority
+              unoptimized
             />
             <div className="absolute bottom-6 left-6 right-6 md:right-auto bg-white/95 backdrop-blur-md p-5 rounded-2xl shadow-xl">
               <strong className="block font-playfair text-lg font-bold text-zinc-900 mb-1">Today's Editor's Pick</strong>
